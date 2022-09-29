@@ -7,8 +7,8 @@ function App() {
   // return <brandList brand={brand} />;
   return (
     <>
-      <h1>Shit</h1>
-      <div>=</div>
+      <h1>This is A list of the brands in the Database</h1>
+      <h1>============================================</h1>
       <brandList />
     </>
   );
