@@ -4,7 +4,7 @@ import React from "react";
 function brandList() {
   return (
     <div>
-      <h1>Hello, 1</h1>
+      <h1>This the list of brands in the db</h1>
     </div>
   );
 }
