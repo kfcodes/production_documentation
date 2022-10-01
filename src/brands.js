@@ -21,7 +21,7 @@ function brandList() {
     <ul>
       {brands.map((brand) => (
         <li key={brand.id}>
-          {brand.name} {brand.price}
+          {brand.logo} {brand.name}
         </li>
       ))}
     </ul>
