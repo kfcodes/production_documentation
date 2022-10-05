@@ -1,30 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // function brandList({ brand }) {
-function brandList() {
-  const [brands, setBrands] = useState([]);
-
-  useEffect(() => {
-    fetch("https://api.example.com/brands")
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setBrands(result);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-  }, []);
+function BrandList() {
+  // const [brands, setBrands] = useState([]);
+  const [brands, setBrands] = useState(["test1", "test2"]);
 
   return (
     <ul>
       {brands.map((brand) => (
-        <li key={brand.id}>
-          {brand.logo} {brand.name}
-        </li>
+        <p> {brand}</p>
       ))}
     </ul>
   );
 }
-export default brandList;
+export default BrandList;
