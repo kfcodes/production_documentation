@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 
+// function brandList({ brand }) {
 function BrandList() {
-  const [list, setList] = useState([]);
+  const [brands, setBrands] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:4040/brands/list")
       .then((res) => res.json())
       .then(
         (result) => {
-          setList(result.data);
+          setBrands(result.data);
         },
         (error) => {
           console.log(error);
@@ -18,9 +19,10 @@ function BrandList() {
 
   return (
     <div className="wrapper">
+      <h1>Brands</h1>
       <ul>
-        {list.map((item) => (
-          <li key={item.id}>{item.name}</li>
+        {brands.map((brand) => (
+          <li key={brand.id}>{brand.name}</li>
         ))}
       </ul>
     </div>
