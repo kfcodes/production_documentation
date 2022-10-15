@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-// function brandList({ brand }) {
 function BrandList() {
   const [brands, setBrands] = useState([]);
 
@@ -21,8 +20,8 @@ function BrandList() {
     <div className="wrapper">
       <h1>Brands</h1>
       <ul>
-        {brands.map((brand) => (
-          <li key={brand.id}>{brand.name}</li>
+        {brands.map((item) => (
+          <li key={item.id}>{item.name}</li>
         ))}
       </ul>
     </div>
