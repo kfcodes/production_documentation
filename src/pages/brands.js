@@ -1,5 +1,7 @@
+// Change what is returned from the component
 import React, { useEffect, useState } from "react";
 
+// function brandList({ brand }) {
 function BrandList() {
   const [brands, setBrands] = useState([]);
 
@@ -20,8 +22,8 @@ function BrandList() {
     <div className="wrapper">
       <h1>Brands</h1>
       <ul>
-        {brands.map((item) => (
-          <li key={item.id}>{item.name}</li>
+        {brands.map((brand) => (
+          <li key={brand.id}>{brand.name}</li>
         ))}
       </ul>
     </div>
