@@ -23,7 +23,9 @@ function BrandList() {
       <ul>
         {brands.map((brand) => (
           <li key={brand.id}>
-            <Link to={`products_from_brand/${brand.prefix}`}>{brand.name}</Link>
+            <Link to="/products_from_brand">
+              {brand.id} - {brand.name}
+            </Link>
           </li>
         ))}
       </ul>
