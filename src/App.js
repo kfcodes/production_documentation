@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import BrandList from "./pages/brands.js";
+import PalletList from "./pages/AllPallets";
 
 // Added the products by brand page to react router
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<BrandList />} />
+        <Route path="/" element={<PalletList />} />
       </Routes>
     </>
   );
