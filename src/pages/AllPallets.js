@@ -42,6 +42,9 @@ function PalletList() {
   return (
     <div className="wrapper">
       <h1>All pallets</h1>
+    <p>
+    {pallets}
+    </p>
     </div>
   );
 }
