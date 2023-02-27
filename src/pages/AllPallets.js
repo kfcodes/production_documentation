@@ -26,6 +26,19 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 function PalletList() {
   const [pallets, setPallets] = useState([]);
 
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/pallets/`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setPallets(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
+
   return (
     <div className="wrapper">
       <h1>All pallets</h1>
@@ -34,3 +47,4 @@ function PalletList() {
 }
 
 export default PalletList;
+
