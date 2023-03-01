@@ -89,10 +89,48 @@ export default function PalletList() {
                     style={{ paddingBottom: 0, paddingTop: 0 }}
                     colSpan={6}
                   >
+                    <Collapse in={open} timeout="auto" unmountOnExit>
+                      <Box sx={{ margin: 1 }}>
+                        <Table size="small" aria-label="purchases">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>PRODUCT DESCRIPTION</TableCell>
+                              <TableCell align="right">LOT</TableCell>
+                              <TableCell align="right">BBE</TableCell>
+                              <TableCell align="right">Quantity</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {palletItems.map((item) => (
+                              <>
+                                {pallet.pallet_id ===
+                                  item.pallet_item_pallet_id && (
+                                  <TableRow key={item.pallet_item_pallet_id}>
+                                    <TableCell component="th" scope="row">
+                                      {item.product_description}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                      {item.lot}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                      {item.bbe}
+                                    </TableCell>
+                                    <TableCell align="right">
+                                      {item.quantity}
+                                    </TableCell>
+                                  </TableRow>
+                                )}
+                              </>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </Box>
+                    </Collapse>
                   </TableCell>
                 </TableRow>
               </>
             ))}
+
           </TableBody>
         </Table>
       </TableContainer>
