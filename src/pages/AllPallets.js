@@ -23,7 +23,7 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-function PalletList() {
+export default function PalletList() {
   const [pallets, setPallets] = useState([]);
 
   useEffect(() => {
@@ -85,6 +85,3 @@ function PalletList() {
     </div>
   );
 }
-
-export default PalletList;
-
