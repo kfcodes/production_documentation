@@ -42,9 +42,46 @@ function PalletList() {
   return (
     <div className="wrapper">
       <h1>All pallets</h1>
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Pallet Id</TableCell>
+              <TableCell align="center">Pallet Type</TableCell>
+              <TableCell align="center">Pallet Weight (kg)</TableCell>
+              <TableCell align="center">Pallet Height (cm)</TableCell>
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>
             {pallets.map((pallet) => (
-              <p> pallet.pallet_id </p> 
+              <>
+                <TableRow
+                  sx={{ "& > *": { borderBottom: "unset" } }}
+                  key={pallet.pallet_id}
+                >
+                  <TableCell />
+                  <TableCell component="th" scope="row">
+                    {pallet.pallet_id}
+                  </TableCell>
+                  <TableCell align="center">
+                    {pallet.pallet_type_letter}
+                  </TableCell>
+                  <TableCell align="center">{pallet.weight} kg</TableCell>
+                  <TableCell align="center">{pallet.height} cm</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    style={{ paddingBottom: 0, paddingTop: 0 }}
+                    colSpan={6}
+                  >
+                  </TableCell>
+                </TableRow>
+              </>
             ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }
