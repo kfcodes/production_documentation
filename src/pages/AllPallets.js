@@ -25,6 +25,20 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 export default function PalletList() {
   const [pallets, setPallets] = useState([]);
+  const [palletItems, setPalletItems] = useState([]);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/pallet_items/`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setPalletItems(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/pallets/`)
