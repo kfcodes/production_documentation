@@ -26,6 +26,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 export default function PalletList() {
   const [pallets, setPallets] = useState([]);
   const [palletItems, setPalletItems] = useState([]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/pallet_items/`)
@@ -64,7 +65,16 @@ export default function PalletList() {
               <TableCell align="center">Pallet Type</TableCell>
               <TableCell align="center">Pallet Weight (kg)</TableCell>
               <TableCell align="center">Pallet Height (cm)</TableCell>
-              <TableCell />
+              <TableCell>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    color="secondary"
+                    href={`/pallet/${pallet.pallet_id}/pallet_item/`}
+                  >
+                    Change pallet Details
+                  </Button>
+              </TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
