@@ -57,6 +57,7 @@ export default function PalletList() {
   return (
     <div className="wrapper">
       <h1>All pallets</h1>
+      <CreateNewPallet />
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
