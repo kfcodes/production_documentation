@@ -54,6 +54,7 @@ export default function PalletList() {
       );
   }, []);
 
+
   return (
     <div className="wrapper">
       <h1>All pallets</h1>
@@ -62,20 +63,20 @@ export default function PalletList() {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell>
+                <IconButton
+                  aria-label="expand row"
+                  size="small"
+                  onClick={() => setOpen(!open)}
+                >
+                  {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                </IconButton>
+              </TableCell>
               <TableCell>Pallet Id</TableCell>
               <TableCell align="center">Pallet Type</TableCell>
               <TableCell align="center">Pallet Weight (kg)</TableCell>
               <TableCell align="center">Pallet Height (cm)</TableCell>
-              <TableCell>
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    color="secondary"
-                    href={`/pallet/${pallet.pallet_id}/pallet_item/`}
-                  >
-                    Change pallet Details
-                  </Button>
-              </TableCell />
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -94,6 +95,14 @@ export default function PalletList() {
                   </TableCell>
                   <TableCell align="center">{pallet.weight} kg</TableCell>
                   <TableCell align="center">{pallet.height} cm</TableCell>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    color="secondary"
+                    href={`/pallet/${pallet.pallet_id}/pallet_item/`}
+                  >
+                    Change pallet Details
+                  </Button>
                 </TableRow>
                 <TableRow>
                   <TableCell
@@ -141,7 +150,6 @@ export default function PalletList() {
                 </TableRow>
               </>
             ))}
-
           </TableBody>
         </Table>
       </TableContainer>
