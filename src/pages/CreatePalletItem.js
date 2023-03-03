@@ -25,12 +25,12 @@ import Typography from "@mui/material/Typography";
 
 export default function CreatePallet() {
   const palletId = useOutletContext();
+  const [palletItems, setPalletItems] = useState([]);
 
 
   return (
     <>
             <h1>Products on the pallet</h1>
-    <p>{palletId}</p>
     </>
   );
 }
