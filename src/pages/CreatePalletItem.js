@@ -27,6 +27,21 @@ export default function CreatePallet() {
   const palletId = useOutletContext();
   const [palletItems, setPalletItems] = useState([]);
 
+  const createNewPalletItem = (pallet) => {
+    let palletItemData = {
+      pallet_item_pallet_id: pallet,
+    };
+    fetch(`${process.env.REACT_APP_API_URL}/pallet_item/${pallet}`, {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(palletItemData),
+    }).then((result) => {
+      setPalletItems(result);
+    });
+  };
 
   return (
     <>
