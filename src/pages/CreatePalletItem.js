@@ -50,6 +50,16 @@ export default function CreatePallet() {
     console.log(palletItems);
   };
 
+  const getPalletProducts = () => {
+    fetch(`${process.env.REACT_APP_API_URL}/pallet_items/${palletId}`)
+      .then((response) => response.json())
+      .then((result) => {
+        setPalletItems(result);
+        console.log("The state should be updated");
+        // console.log(result)
+      });
+  };
+
   return (
     <>
             <h1>Products on the pallet</h1>
