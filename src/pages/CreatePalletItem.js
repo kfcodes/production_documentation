@@ -46,6 +46,11 @@ export default function CreatePallet() {
   return (
     <>
             <h1>Products on the pallet</h1>
+        {palletItems.map((product) => (
+          <>
+          <p> {product}</p>
+          </>
+        ))}
     </>
   );
 }
