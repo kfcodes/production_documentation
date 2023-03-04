@@ -26,6 +26,7 @@ import Typography from "@mui/material/Typography";
 export default function CreatePallet() {
   const palletId = useOutletContext();
   const [palletItems, setPalletItems] = useState([]);
+  const [newPalletItems, setNewPalletItems] = useState([]);
 
   const createNewPalletItem = (pallet) => {
     let palletItemData = {
@@ -39,7 +40,7 @@ export default function CreatePallet() {
       },
       body: JSON.stringify(palletItemData),
     }).then((result) => {
-      setPalletItems(result);
+      setNewPalletItems(result);
     });
   };
 
