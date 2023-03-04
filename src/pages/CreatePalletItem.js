@@ -44,6 +44,12 @@ export default function CreatePallet() {
     });
   };
 
+  // .then(
+  const printState = () => {
+    console.log("These are the pallet items");
+    console.log(palletItems);
+  };
+
   return (
     <>
             <h1>Products on the pallet</h1>
