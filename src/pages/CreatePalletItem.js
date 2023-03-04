@@ -62,12 +62,20 @@ export default function CreatePallet() {
 
   return (
     <>
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+    <div>
+        <Grid container padding={1} spacing={1} justifyContent="center">
+          <Grid item xs={12}>
             <h1>Products on the pallet</h1>
+          </Grid>
+        </Grid>
+    </div>
         {palletItems.map((product) => (
           <>
           <p> {product}</p>
           </>
         ))}
+      </Box>
     </>
   );
 }
