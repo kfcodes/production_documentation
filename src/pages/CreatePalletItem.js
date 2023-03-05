@@ -83,6 +83,32 @@ export default function CreatePallet() {
     fetchData();
   }, [newPalletItems]);
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    let palletItemData = {
+      pallet_item_pallet_id: palletId[0],
+      item_id: event.target.item_id.value,
+      pallet_item_product_id: event.target.product_id.value,
+      quantity: event.target.quantity.value,
+      lot: event.target.lot.value,
+      bbe: event.target.bbe.value,
+      batch: event.target.batch.value,
+    };
+    console.log(palletItemData);
+    fetch(
+      `${process.env.REACT_APP_API_URL}/pallet_item/${palletItemData.item_id}`,
+      {
+        method: "put",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(palletItemData),
+      }
+    ).then((result) => {
+      setNewPalletItems(result);
+    });
+  };
 
   return (
     <>
@@ -227,6 +253,18 @@ export default function CreatePallet() {
             </Container>
           </>
         ))}
+        <Grid container padding={10} spacing={10} justifyContent="center">
+          <Grid xs={12}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                createNewPalletItem(palletId);
+              }}
+            >
+              ADD PRODUCT TO PALLET
+            </Button>
+          </Grid>
+        </Grid>
       </Box>
     </>
   );
