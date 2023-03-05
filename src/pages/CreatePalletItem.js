@@ -60,6 +60,30 @@ export default function CreatePallet() {
       });
   };
 
+  const deletePalletItem = (item_id) => {
+    fetch(`${process.env.REACT_APP_API_URL}/pallet_item/${item_id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then((result) => {
+      setNewPalletItems(result);
+    });
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/pallet_items/${palletId}`
+      );
+      const result = await response.json();
+      setPalletItems(result);
+      console.log("The state should be updated");
+    };
+    fetchData();
+  }, [newPalletItems]);
+
+
   return (
     <>
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
@@ -175,6 +199,18 @@ export default function CreatePallet() {
                       spacing={1}
                       justifyContent="center"
                     >
+                      <Grid xs={5}>
+                        <Button
+                          variant="contained"
+                          color="error"
+                          size="small"
+                          onClick={() => {
+                            deletePalletItem(product.item_id);
+                          }}
+                        >
+                          DELETE
+                        </Button>
+                      </Grid>
                     </Grid>
                   </form>
                 </CardContent>
