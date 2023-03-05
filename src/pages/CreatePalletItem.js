@@ -211,6 +211,15 @@ export default function CreatePallet() {
                           DELETE
                         </Button>
                       </Grid>
+                      <Grid xs={6}>
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          color="secondary"
+                        >
+                          SAVE
+                        </Button>
+                      </Grid>
                     </Grid>
                   </form>
                 </CardContent>
