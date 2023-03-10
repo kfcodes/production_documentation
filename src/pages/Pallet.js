@@ -21,10 +21,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
 export default function SinglePallet() {
+  const palletId = useParams();
+  const pId = palletId["palletid"];
 
   return (
       <div>
-    <h2>Pallet Data</h2>
+    <h2>{pId}</h2>
       </div>
   );
 }
