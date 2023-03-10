@@ -26,7 +26,21 @@ export default function SinglePallet() {
 
   return (
       <div>
-    <h2>{pId}</h2>
+        <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+          <div>
+            <Grid container padding={2} spacing={2} justifyContent="center">
+              <Grid item xs={8} sOffset={3}>
+                <TextField
+                  fullWidth
+                  disabled
+                  value={pId}
+                  id="outlined-adornment-amount"
+                  label="pallet_id"
+                />
+              </Grid>
+              </Grid>
+          </div>
+        </Box>
       </div>
   );
 }
