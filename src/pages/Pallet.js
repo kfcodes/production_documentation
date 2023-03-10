@@ -82,6 +82,56 @@ export default function SinglePallet() {
                 </Select>
               </Grid>
               </Grid>
+            <Grid container padding={2} spacing={2} justifyContent="center">
+              <Grid item sm={4}>
+                <TextField
+                  fullWidth
+                  label="Empty Pallet Weight"
+                  id="outlined-end-adornment"
+                  type="number"
+                  value={emptyweight}
+                  onChange={(e) => setEmptyweight(e.target.value)}
+                  inputProps={{ style: { textAlign: "center" } }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end"> kg</InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item sm={4}>
+                <TextField
+                  label="Full Pallet Weight"
+                  id="outlined-end-adornment"
+                  type="number"
+                  value={weight}
+                  onChange={(e) => setWeight(e.target.value)}
+                  fullWidth
+                  inputProps={{ style: { textAlign: "center" } }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end"> kg</InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item sm={4}>
+                <TextField
+                  label="Pallet Height"
+                  id="outlined-end-adornment"
+                  type="number"
+                  value={height}
+                  onChange={(e) => setHeight(e.target.value)}
+                  fullWidth
+                  inputProps={{ style: { textAlign: "center" } }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end"> cm</InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              </Grid>
           </div>
         </Box>
       </div>
