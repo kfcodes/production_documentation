@@ -1,4 +1,7 @@
-import React from "react";
+// import { useForm } from "react-hook-form";
+import { Outlet, useNavigate, redirect } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+// import { useForm } from "react-hook-form";
 import PrintLabeLButton from "./print_pallet_label_button";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -21,7 +24,7 @@ export default function SinglePallet() {
 
   return (
       <div>
-    <H1>Single Pallet Data</H1>
+    <h2>Pallet Data</h2>
       </div>
   );
 }
