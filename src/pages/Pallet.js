@@ -21,8 +21,35 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
 export default function SinglePallet() {
+
+  const [pallet, setPallet] = useState({});
+  const [pallet_id, setPallet_id] = useState(0);
+  const [palletType, setPalletType] = useState(0);
+  const [emptyweight, setEmptyweight] = useState(0);
+  const [weight, setWeight] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [packing_list, setPacking_list] = useState(0);
   const palletId = useParams();
   const pId = palletId["palletid"];
+
+  // Get the details for the pallet
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/pallet/${pId}`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setPallet_id(result[0].pallet_id);
+          setPalletType(result[0].pallet_type);
+          setEmptyweight(result[0].empty_weight);
+          setWeight(result[0].weight);
+          setHeight(result[0].height);
+          setPacking_list(result[0].packing_list);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
 
   return (
       <div>
@@ -38,6 +65,8 @@ export default function SinglePallet() {
                   label="pallet_id"
                 />
               </Grid>
+              </Grid>
+            <Grid container padding={2} spacing={2} justifyContent="center">
               </Grid>
           </div>
         </Box>
