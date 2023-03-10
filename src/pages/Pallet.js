@@ -67,6 +67,20 @@ export default function SinglePallet() {
               </Grid>
               </Grid>
             <Grid container padding={2} spacing={2} justifyContent="center">
+              <Grid item sm={6}>
+                <Select
+                  fullWidth
+                  labelId="demo-simple-select-label"
+                  label="Pallet Size"
+                  id="demo-simple-select"
+                  value={palletType}
+                  onChange={(e) => setPalletType(e.target.value)}
+                >
+                  <MenuItem value={1}>Standard Big Pallet</MenuItem>
+                  <MenuItem value={2}>Small Pallet</MenuItem>
+                  <MenuItem value={3}>Euro Pallet</MenuItem>
+                </Select>
+              </Grid>
               </Grid>
           </div>
         </Box>
