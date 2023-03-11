@@ -52,6 +52,7 @@ export default function SinglePallet() {
   }, []);
 
   return (
+    <>
       <div>
         <Box sx={{ display: "flex", flexWrap: "wrap" }}>
           <div>
@@ -132,8 +133,22 @@ export default function SinglePallet() {
                 />
               </Grid>
               </Grid>
+            <Grid container padding={2} spacing={2} justifyContent="center">
+              <Grid item xs={3}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => {
+                    onSubmit();
+                  }}
+                >
+    SAVE DATA
+                </Button>
+              </Grid>
+            </Grid>
           </div>
         </Box>
       </div>
+    </>
   );
 }
