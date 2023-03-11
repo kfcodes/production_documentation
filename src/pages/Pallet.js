@@ -149,6 +149,7 @@ export default function SinglePallet() {
                 </Button>
               </Grid>
             </Grid>
+            <Outlet context={[pId]} />
           </div>
         </Box>
       </div>
