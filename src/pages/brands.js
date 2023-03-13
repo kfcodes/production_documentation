@@ -5,7 +5,7 @@ function BrandList() {
   const [brands, setBrands] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4040/brands/")
+    fetch(`${process.env.REACT_APP_API_URL}/brands/`)
       .then((res) => res.json())
       .then(
         (result) => {
