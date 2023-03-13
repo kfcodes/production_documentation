@@ -1,7 +1,7 @@
 // import { useForm } from "react-hook-form";
 import { Outlet, useNavigate, redirect } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-// import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import PrintLabeLButton from "./print_pallet_label_button";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -21,7 +21,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
 export default function SinglePallet() {
-
+  // const { register, handleSubmit, setValue } = useForm();
   const [pallet, setPallet] = useState({});
   const [pallet_id, setPallet_id] = useState(0);
   const [palletType, setPalletType] = useState(0);
@@ -32,7 +32,6 @@ export default function SinglePallet() {
   const palletId = useParams();
   const pId = palletId["palletid"];
 
-  // Get the details for the pallet
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/pallet/${pId}`)
       .then((res) => res.json())
@@ -50,6 +49,26 @@ export default function SinglePallet() {
         }
       );
   }, []);
+
+  const onSubmit = () => {
+    let palletData = {
+      pallet_type: palletType,
+      empty_weight: emptyweight,
+      weight: weight,
+      height: height,
+      packing_list: packing_list,
+    };
+    console.log(palletData);
+    fetch(`${process.env.REACT_APP_API_URL}/pallet/${pallet_id}`, {
+      method: "put",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(palletData),
+    }).then((res) => res.json());
+  };
 
   return (
     <>
