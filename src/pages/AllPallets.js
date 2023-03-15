@@ -35,6 +35,19 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
+const style = {
+  width: "100%",
+  border: "none",
+  bgcolor: "#04AA6D",
+  color: "white",
+  padding: "14px 28px",
+  FontFace: "26px",
+  cursor: "pointer",
+  display: "flex",
+};
+
+const ITEM_HEIGHT = 48;
+
 function PalletList() {
   const [pallets, setPallets] = useState([]);
   const [palletItems, setPalletItems] = useState([]);
@@ -121,6 +134,7 @@ function PalletList() {
                       size="large"
                       color="warning"
                       variant="contained"
+                      xs={style}
                     >
                       PALLETS
                     </Button>
