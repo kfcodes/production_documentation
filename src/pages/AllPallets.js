@@ -140,6 +140,27 @@ function PalletList() {
           </Grid>
         </Grid>
         <Container>
+        <Grid container padding={2} spacing={3} justifyContent="center">
+          <Grid item alignItems="center">
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={4}
+            divider={<Divider orientation="vertical" flexItem />}
+          >
+            <Button
+              href="/all_pallets"
+              size="small"
+              color="success"
+              variant="contained"
+            >
+              ALL PALLETS
+            </Button>
+            <CreateNewPallet />
+          </Stack>
+          </Grid>
+        </Grid>
         </Container>
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
