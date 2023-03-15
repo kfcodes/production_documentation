@@ -46,6 +46,23 @@ const style = {
   display: "flex",
 };
 
+const options = [
+  "None",
+  "Atria",
+  "Callisto",
+  "Dione",
+  "Ganymede",
+  "Hangouts Call",
+  "Luna",
+  "Oberon",
+  "Phobos",
+  "Pyxis",
+  "Sedna",
+  "Titania",
+  "Triton",
+  "Umbriel",
+];
+
 const ITEM_HEIGHT = 48;
 
 function PalletList() {
@@ -113,6 +130,13 @@ function PalletList() {
   //     </div>
   //   );
   // }
+
+  const navItems = [
+    { title: "PALLETS", key: "pallets", title: "PRODUCTION", key: "mps" },
+  ];
+  // <Button  fullWidth size="large" color="secondary" variant="text">
+  // <Link to={`/`} xs={6} sx={style}>
+
   return (
     <>
       <Box component="span" sx={{ p: 2, border: "1px dashed grey" }}>
