@@ -22,6 +22,10 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function CreatePallet() {
   const palletId = useOutletContext();
@@ -41,6 +45,7 @@ export default function CreatePallet() {
       body: JSON.stringify(palletItemData),
     }).then((result) => {
       setNewPalletItems(result);
+      // getPalletProducts())
     });
   };
 
@@ -71,7 +76,31 @@ export default function CreatePallet() {
       setNewPalletItems(result);
     });
   };
+  //   }).then((response) => {
+  //     console.log(response);
+  //   });
+  // };
+
+  // fetch(`${process.env.REACT_APP_API_URL}/pallet_items/${palletId}`)
+  //   .then((res) => res.json())
+  //   .then(
+  //     (result) => {
+  //       setPalletItems(result);
+  //       console.log("These are the pallet items");
+  //       console.log(result);
+  // },
+  // (error) => {
+  //   console.log(error);
+  // }
+
   useEffect(() => {
+    console.log("The UseEffect Is being called");
+    //       getPalletProducts();
+    // fetch(`
+    // ${process.env.REACT_APP_API_URL}/pallet_items/${palletId}`
+    // )
+    //   .then(response => response.json())
+    //   .then(result => {
     const fetchData = async () => {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/pallet_items/${palletId}`
@@ -81,9 +110,28 @@ export default function CreatePallet() {
       console.log("The state should be updated");
     };
     fetchData();
+    // });
+    // }, []);
+    // }, [palletItems]);
   }, [newPalletItems]);
+  // }, [props.id]);
+  // console.log(result)
+  //   })
+  // },
+  //     (error) => {
+  //       console.log(error);
+  // });
+  // }, [palletItems]);
+  // }, []);
 
+  // item_id: event.target[0].value,
+  // pallet_item_product_id: event.target[1].value,
+  // lot: event.target[2].value,
   const onSubmit = (event) => {
+    // console.log("This is the event");
+    // console.log("This is the item ID");
+    // console.log(event);
+    // console.log(event.target.item_id);
     event.preventDefault();
     let palletItemData = {
       pallet_item_pallet_id: palletId[0],
@@ -94,6 +142,7 @@ export default function CreatePallet() {
       bbe: event.target.bbe.value,
       batch: event.target.batch.value,
     };
+    // console.log("This is the pallet Item Data");
     console.log(palletItemData);
     fetch(
       `${process.env.REACT_APP_API_URL}/pallet_item/${palletItemData.item_id}`,
@@ -110,16 +159,166 @@ export default function CreatePallet() {
     });
   };
 
+  // );
+  // .then((response) => {
+  //     console.log(response);
+  //   });
+  // };
+
+  // console.log("These are the pallet items");
+  // console.log(palletItems.length);
+  // console.log(palletItems);
+  // <h1>DETAILS FOR THE PRODUCTS ON THE PALLET {palletId}</h1>
+  // <ul>
+  //   {palletItems.map((product) => (
+  //     <li key={product.item_id}>
+  //       <>
+  //         <form onSubmit={onSubmit}>
+  //           <label>
+  //             <input type="hidden" value={product.pallet_item_pallet_id} />
+  //           </label>
+  //           <label>
+  //             Product ID
+  //             <br />
+  //             <input type="text" value={product.pallet_item_product_id} />
+  //           </label>
+  //           <br />
+  //           <label>
+  //             Lot
+  //             <br />
+  //             <input type="text" value={product.lot} />
+  //           </label>
+  //           <br />
+  //           <label>
+  //             BBE
+  //             <br />
+  //             <input type="text" value={product.bbe} />
+  //           </label>
+  //           <br />
+  //           <label>
+  //             Batch
+  //             <br />
+  //             <input type="text" value={product.batch} />
+  //           </label>
+  //           <br />
+  //           <label>
+  //             Quantity
+  //             <br />
+  //             <input type="number" value={product.quantity} />
+  //           </label>
+  //           <label>
+  //             <input type="hidden" value={product.item_id} />
+  //           </label>
+  //           <button type="submit">Submit</button>
+  //         </form>
+  //         <button onClick={() => deletePalletItem(product.item_id)}>
+  //           Delete Pallet Item
+  //         </button>
+  //       </>
+  //     </li>
+  //   ))}
+  // </ul>
+  // <button onClick={() =>
+  // createNewPalletItem(palletId)
+  // }>
+  //   Create New Pallet Item
+  // </button>
+
+  // The Buttons for removing the details
+  //         <Button variant="contained"
+  // onClick={() => {
+  //               deletePalletItem(product.item_id);
+  // }}
+  //   >
+  //         Submit Product Information
+  //       </Button>
+  //         <Button variant="contained"
+  // onClick={() => {
+  //               deletePalletItem(product.item_id);
+  // }}
+  //   >
+  //         Delete Product
+  //       </Button>
+  // <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+  //
+  //
+  //
+
+  //   <input type="hidden" value={product.item_id} />
+  //   <TextField
+  //     label="Product ID"
+  //     id="outlined-end-adornment"
+  //     type="text"
+  //     value={product.pallet_item_product_id}
+  //     sx={{ m: 1, width: "25ch" }}
+  //   />
+  //   <TextField
+  //     label="LOT"
+  //     id="outlined-end-adornment"
+  //     type="text"
+  //     value={product.lot}
+  //     sx={{ m: 1, width: "25ch" }}
+  //   />
+  //   <TextField
+  //     label="BBE"
+  //     id="outlined-end-adornment"
+  //     type="text"
+  //     value={product.bbe}
+  //     sx={{ m: 1, width: "25ch" }}
+  //   />
+  //   <TextField
+  //     label="Batch"
+  //     id="outlined-end-adornment"
+  //     type="text"
+  //     value={product.batch}
+  //     sx={{ m: 1, width: "25ch" }}
+  //   />
+  //   <TextField
+  //     label="Quantity"
+  //     id="outlined-end-adornment"
+  //     type="number"
+  //     value={product.quantity}
+  //     sx={{ m: 1, width: "25ch" }}
+  //   />
+  //
+  //   <Button
+  // type="submit"
+  // variant="contained"
+  // >
+  // Save Product Details
+  //   </Button>
+
+  // <label>
+  //   <input type="hidden" value={product.item_id} />
+  // </label>
+  //
+  // <TextField
+  //     label="Quantity"
+  //     type="number"
+  //     value={product.quantity}
+  //     sx={{ m: 1, width: "25ch" }}
+  // />
+  // sx={{ m: 1, width: "25ch" }}
+  // <input
+  //   id="item_id"
+  //   name="item_id"
+  //   type="hidden"
+  //   value={product.item_id}
+  // />
   return (
     <>
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+      <Container>
     <div>
         <Grid container padding={1} spacing={1} justifyContent="center">
-          <Grid item xs={12}>
-            <h1>Products on the pallet</h1>
+          <Grid item >
+            <h1>PALLET ITEMS</h1>
           </Grid>
         </Grid>
     </div>
+      </Container>
+      </Box >
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
         {palletItems.map((product) => (
           <>
             <Container>
@@ -138,6 +337,7 @@ export default function CreatePallet() {
                       spacing={1}
                       justifyContent="center"
                     >
+    {product.product_description != null && 
                       <Grid item xs={12}>
                         <TextField
                           fullWidth
@@ -149,6 +349,7 @@ export default function CreatePallet() {
                           inputProps={{ style: { textAlign: "center" } }}
                         />
                       </Grid>
+    }  
                     </Grid>
                     <Grid
                       container
@@ -225,7 +426,16 @@ export default function CreatePallet() {
                       spacing={1}
                       justifyContent="center"
                     >
-                      <Grid xs={5}>
+          <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Delete Button</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+                      <Grid xs={6}>
                         <Button
                           variant="contained"
                           color="error"
@@ -237,11 +447,14 @@ export default function CreatePallet() {
                           DELETE
                         </Button>
                       </Grid>
-                      <Grid xs={6}>
-                        <Button
+        </AccordionDetails>
+      </Accordion>
+                      <Grid xs={4}> <Button
                           type="submit"
                           variant="contained"
                           color="secondary"
+                          size="large"
+          sx={{ marginLeft: "auto" }}
                         >
                           SAVE
                         </Button>
@@ -253,10 +466,14 @@ export default function CreatePallet() {
             </Container>
           </>
         ))}
+      </Box>
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+      <Container>
         <Grid container padding={10} spacing={10} justifyContent="center">
-          <Grid xs={12}>
+          <Grid>
             <Button
               variant="contained"
+              size="large"
               onClick={() => {
                 createNewPalletItem(palletId);
               }}
@@ -265,6 +482,7 @@ export default function CreatePallet() {
             </Button>
           </Grid>
         </Grid>
+    </Container>
       </Box>
     </>
   );
