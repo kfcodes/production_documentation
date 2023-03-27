@@ -10,6 +10,7 @@ import FilledInput from "@mui/material/FilledInput";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
+import Container from "@mui/material/Container";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
@@ -19,6 +20,34 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Divider from "@mui/material/Divider";
+import Stack from "@mui/material/Stack";
+
+const printPalletLabel = (id) => {
+  console.log(id);
+  fetch(`${process.env.REACT_APP_API_URL}/label/${id}`, {
+    method: "get",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    console.log(response);
+  });
+};
+
+const style = {
+  width: "100%",
+  border: "none",
+  bgcolor: "#04AA6D",
+  color: "white",
+  padding: "14px 28px",
+  FontFace: "26px",
+  cursor: "pointer",
+  display: "flex",
+};
 
 export default function SinglePallet() {
   // const { register, handleSubmit, setValue } = useForm();
@@ -32,6 +61,7 @@ export default function SinglePallet() {
   const palletId = useParams();
   const pId = palletId["palletid"];
 
+  // Get the details for the pallet
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/pallet/${pId}`)
       .then((res) => res.json())
@@ -50,6 +80,61 @@ export default function SinglePallet() {
       );
   }, []);
 
+  // useEffect(() => {
+  //   // console.log(pallet);
+  //   console.log(empty_weight);
+  //   // setValue({"empty_weight": 0});
+  // }, []);
+  // useEffect(() => {
+  //   fetch(`${process.env.REACT_APP_API_URL}/pallet/`, {
+  //     method: "post",
+  //     mode: "cors",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(),
+  //   }).then((res) => res.json()).then(
+  //       (result) => {
+  //         console.log(result["LAST_INSERT_ID()"]);
+  //         setPalletID(result["LAST_INSERT_ID()"]);
+  //       },
+  //       (error) => {
+  //         console.log(error);
+  //       }
+  //     );
+  // }, []);
+  // (result) => {
+  //   let r = result.json();
+  //   let id = r["LAST_INSERT_ID"];
+  //   setPalletID(id);
+  //   console.log(r);
+  //   console.log(id);
+  //   console.log(palletId);
+  //   },
+  //   (error) => {
+  //     console.log(error);
+  //   }
+  // );
+  //
+  // console.log(pallet.empty_weight);
+  // console.log(event.target[0].value);
+  // console.log(event.target[1].value);
+  // console.log(event.target[2].value);
+  // console.log(event.target[3].value);
+  // console.log(event.target[4].value);
+  // console.log(palletType);
+
+  // Update the details for the pallet
+  // const onSubmit = (event) => {
+  //   event.preventDefault();
+  //   let palletData = {
+  //     pallet_type: event.target[0].value,
+  //     empty_weight: event.target[1].value,
+  //     weight: event.target[2].value,
+  //     height: event.target[3].value,
+  //     packing_list: event.target[4].value,
+  //   };
   const onSubmit = () => {
     let palletData = {
       pallet_type: palletType,
@@ -69,11 +154,106 @@ export default function SinglePallet() {
       body: JSON.stringify(palletData),
     }).then((res) => res.json());
   };
+  // .then(navigate("/"));
+  // console.log("The pallet data function was rendered");
+  // <div>
+  //       <button onClick={() => printPalletLabel(pId)}>
+  //     Print Pallet Label
+  //       </button>
+  // </div>
 
+  // Older Code
+
+  // <h1>Pallet ID: {pId} </h1>
+  // <form onSubmit={onSubmit}>
+  //   <label>
+  //     Pallet Type
+  //     <br />
+  //     <select>
+  //       <option value="1">Big</option>
+  //       <option value="2">Small</option>
+  //       <option value="3">Euro</option>
+  //     </select>
+  //   </label>
+  //   <br />
+  //   <label>
+  //     Empty Pallet Weight (kg)
+  //     <br />
+  //     <input
+  //       type="number"
+  //       value={emptyweight}
+  //       onChange={(e) => setEmptyweight(e.target.value)}
+  //     />
+  //   </label>
+  //   <br />
+  //   <label>
+  //     Full Pallet Weight (kg)
+  //     <br />
+  //     <input
+  //       type="number"
+  //       value={weight}
+  //       onChange={(e) => setWeight(e.target.value)}
+  //     />
+  //   </label>
+  //   <br />
+  //   <label>
+  //     Pallet Height (cm)
+  //     <br />
+  //     <input
+  //       type="number"
+  //       value={height}
+  //       onChange={(e) => setHeight(e.target.value)}
+  //     />
+  //   </label>
+  //   <br />
+  //   <label>
+  //     Packing list
+  //     <br />
+  //     <input
+  //       type="number"
+  //       value={packing_list}
+  //       onChange={(e) => setPacking_list(e.target.value)}
+  //     />
+  //   </label>
+  //   <br />
+  //   <button type="submit">Submit</button>
+  // </form>
   return (
     <>
-      <div>
-        <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+      <Box component="span" sx={{ p: 2, border: "1px dashed grey" }}>
+        <Grid container padding={2} spacing={1} justifyContent="center">
+          <Grid item alignItems="center">
+        <AppBar position="absolute" component="nav" color="primary">
+          <Toolbar>
+            <Container>
+              <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                spacing={4}
+                divider={<Divider orientation="vertical" flexItem />}
+              >
+                <Button href="/" fullWidth size="large" color="warning" variant="contained" xs={style}>
+                  PALLETS
+                </Button>
+                <Button href="/mps/" fullWidth size="large" color="warning" variant="contained">
+                  PRODUCTION
+                </Button>
+              </Stack>
+            </Container>
+          </Toolbar>
+        </AppBar>
+          </Grid>
+        </Grid>
+
+      </Box>
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+      <Container>
+        <Grid container padding={1} spacing={1} justifyContent="center">
+          <Grid item >
+            <h1>PALLET {pallet_id} DATA</h1>
+          </Grid>
+        </Grid>
           <div>
             <Grid container padding={2} spacing={2} justifyContent="center">
               <Grid item xs={8} sOffset={3}>
@@ -153,9 +333,11 @@ export default function SinglePallet() {
               </Grid>
               </Grid>
             <Grid container padding={2} spacing={2} justifyContent="center">
+    {weight != 0 && emptyweight != 0 && height != 0 &&
               <Grid item xs={3}>
                 <PrintLabeLButton id={pId} />
               </Grid>
+    }
               <Grid item xs={3}>
                 <Button
                   variant="contained"
@@ -170,8 +352,8 @@ export default function SinglePallet() {
             </Grid>
             <Outlet context={[pId]} />
           </div>
-        </Box>
-      </div>
+      </Container>
+      </Box >
     </>
   );
 }
