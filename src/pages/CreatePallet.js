@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Button from '@mui/material/Button';
 
 export default function CreateNewPallet() {
   const [palletId, setPalletID] = useState("");
@@ -22,9 +23,12 @@ export default function CreateNewPallet() {
 
   return (
     <>
-    <button>
-    Create New Pallet
-    </button>
+      <Button 
+    variant="contained"
+                  size="large"
+                  color="success"
+    >Create New Pallet
+    </Button>
     </>
   );
 }
