@@ -4,11 +4,18 @@ export default function CreateNewPallet() {
   const [palletId, setPalletID] = useState("");
 
   function createPallet() {
-    console.log("Created the pallet")
+    fetch(`${process.env.REACT_APP_API_URL}/pallet`, {
+      method: "post",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then(
         (result) => {
-          setPalletID(result);
+          setPalletID(result["LAST_INSERT_ID()"]);
         }
       );
   }
