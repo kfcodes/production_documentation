@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 export default function CreateNewPallet() {
   const [palletId, setPalletID] = useState("");
 
-  function createPallet() {
+  function createPallet1() {
     fetch(`${process.env.REACT_APP_API_URL}/pallet`, {
       method: "post",
       mode: "cors",
@@ -27,6 +27,7 @@ export default function CreateNewPallet() {
     variant="contained"
                   size="large"
                   color="success"
+    onClick={createPallet1}
     >Create New Pallet
     </Button>
     </>
