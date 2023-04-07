@@ -8,6 +8,7 @@ export default function CreateNewPallet() {
   const navigate = useNavigate();
 
   function navigate1(p) {
+    console.log(p);
   navigate(`/pallet/${p}/pallet_item/`);
   }
           
@@ -23,6 +24,8 @@ export default function CreateNewPallet() {
       .then((res) => res.json())
       .then(
         (result) => {
+          console.log("The returned ID is");
+          console.log(result["LAST_INSERT_ID()"]);
           setPalletID(result["LAST_INSERT_ID()"]);
           navigate1(result["LAST_INSERT_ID()"]);
         }
