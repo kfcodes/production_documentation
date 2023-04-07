@@ -34,6 +34,9 @@ import Container from "@mui/material/Container";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+// import XLSX from "xlsx";
+import * as XLSX from 'xlsx/xlsx.mjs'
+
 
 const style = {
   width: "100%",
@@ -68,10 +71,11 @@ const ITEM_HEIGHT = 48;
 function PalletList() {
   const [pallets, setPallets] = useState([]);
   const [palletItems, setPalletItems] = useState([]);
+ const [fullPalletData, setFullPalletData] = useState([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/pallets/`)
+    fetch(`${process.env.REACT_APP_API_URL}/all_pallets/`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -95,6 +99,32 @@ function PalletList() {
         }
       );
   }, []);
+
+// const getPalletData = () => {
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/pallet_data/`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setFullPalletData(result);
+          console.log(fullPalletData);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
+
+  
+  const handleOnExport = () => {
+    // getPalletData();
+var wb =XLSX.utils.book_new(),
+      ws = XLSX.utils.json_to_sheet(fullPalletData);
+    XLSX.utils.book_append_sheet(wb, ws, "Test Sheet");
+    XLSX.writeFile(wb, "testExcelFile.xlsx");
+    // XLSX.writeFile(wb, "test.txt", {bookType: 'txt'});
+  };
+
 
   // </Link>
 
@@ -136,6 +166,10 @@ function PalletList() {
   ];
   // <Button  fullWidth size="large" color="secondary" variant="text">
   // <Link to={`/`} xs={6} sx={style}>
+  //
+  //
+
+  // console.log(fullPalletData);
 
   return (
     <>
@@ -188,12 +222,12 @@ function PalletList() {
             divider={<Divider orientation="vertical" flexItem />}
           >
             <Button
-              href="/all_pallets"
-              size="small"
-              color="success"
+                    onClick={() => handleOnExport()}
+              size="large"
+              color="primary"
               variant="contained"
             >
-              ALL PALLETS
+            EXPORT PACKING LIST
             </Button>
             <CreateNewPallet />
           </Stack>
