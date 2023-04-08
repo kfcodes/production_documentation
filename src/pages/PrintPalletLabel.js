@@ -4,9 +4,9 @@ export default function PrintLabeLButton() {
 
   return (
     <div className="wrapper">
-    <h1>
-    Print Label Button
-    </h1>
+          <button>
+    Press Me
+      </button>
     </div>
   );
 
