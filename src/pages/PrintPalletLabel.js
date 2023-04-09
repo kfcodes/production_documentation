@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default function PrintLabeLButton() {
+export default function PrintLabeLButton(id) {
+
+const pallet_id = id["id"];
+console.log(pallet_id);
 
   return (
     <div className="wrapper">
