@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Button from '@mui/material/Button';
 
 export default function PrintLabeLButton(id) {
 
@@ -12,9 +14,13 @@ const printPalletLabel = (pallet_id) => {
 
   return (
     <div className="wrapper">
-          <button>
-    Press Me
-      </button>
+          <Button 
+                  variant="contained"
+                  size="small"
+                  color="secondary"
+    >
+    PRINT LABEL
+      </Button>
     </div>
   );
 
