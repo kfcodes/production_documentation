@@ -28,6 +28,9 @@ const printPalletLabel = (pallet_id) => {
                   variant="contained"
                   size="small"
                   color="secondary"
+  onClick={() => {
+        printPalletLabel(pallet_id)
+  }}
     >
     PRINT LABEL
       </Button>
