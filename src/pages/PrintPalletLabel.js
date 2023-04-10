@@ -10,6 +10,16 @@ const pallet_id = id["id"];
 const printPalletLabel = (pallet_id) => {
   console.log("The Pallet id to be printed");
   console.log(pallet_id);
+    fetch(`${process.env.REACT_APP_API_URL}/label/${pallet_id}`, {
+      method: "get",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
+      console.log(response);
+    });
   };
 
   return (
