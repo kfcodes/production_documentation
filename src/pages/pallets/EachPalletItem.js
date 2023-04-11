@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function IndividualPalletItem(product) {
+  const [itemId, setItemId] = useState(0);
+setItemId(product.product.item_id);
 
-  console.log(product);
   
   return (
     <div>
-    <h1>This component will display the details for each product</h1>
+    {itemId}
     </div>
   );
 }
