@@ -38,71 +38,98 @@ setQuantity(product.product.quantity);
   //     },
   //     body: JSON.stringify(palletItemData),
   //     This is where the component ends
+  //
+  //
+  //
+  //
+      //   fetch(`${process.env.REACT_APP_API_URL}/pallet/${pallet_id}`, {
+      //     method: "put",
+      //     mode: "cors",
+      //     headers: {
+      //       Accept: "application/json",
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(palletData),
+      //   })
+      // .then((res) => res.json())
+      // .then((json) => console.log(json));
+  //
+  //
+  //
+  //   There is the end of the component herer
+  //   
+  //   }).then((response) => {
+  //     console.log(response);
+  //   });
+  // };
 
+    // console.log("Product Details");
+    // console.log(product);
+    // console.log("These are the individual product details");
     console.log(palletId);
     console.log(itemId);
     console.log(itemId);
     console.log(lot);
     console.log(bbe);
     console.log(batch);
-  return (
-    <>
-      <form onSubmit={onSubmit}>
-        <label>
-          <input type="hidden" value={palletId} />
-        </label>
-        <label>
-          Product ID
-          <br />
-          <input
-            type="text"
-            value={productId}
-            onChange={(e) => setProductId(e.target.value)}
-          />
-        a</label>
-        <br />
-        <label>
-          Lot
-          <br />
-          <input
-            type="text"
-            value={lot}
-            onChange={(e) => setLot(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          BBE
-          <br />
-          <input
-            type="text"
-            value={bbe}
-            onChange={(e) => setBbe(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Batch
-          <br />
-          <input
-            type="text"
-            value={batch}
-            onChange={(e) => setBatch(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Quantity
-          <br />
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-          />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-    </>
+  // return (
+  //   <>
+  //     <form onSubmit={onSubmit}>
+  //       <label>
+  //         <input type="hidden" value={palletId} />
+  //       </label>
+  //       <label>
+  //         Product ID
+  //         <br />
+  //         <input
+  //           type="text"
+  //           value={productId}
+  //           onChange={(e) => setProductId(e.target.value)}
+  //         />
+  //       a</label>
+  //       <br />
+  //       <label>
+  //         Lot
+  //         <br />
+  //         <input
+  //           type="text"
+  //           value={lot}
+  //           onChange={(e) => setLot(e.target.value)}
+  //         />
+  //       </label>
+  //       <br />
+  //       <label>
+  //         BBE
+  //         <br />
+  //         <input
+  //           type="text"
+  //           value={bbe}
+  //           onChange={(e) => setBbe(e.target.value)}
+  //         />
+  //       </label>
+  //       <br />
+  //       <label>
+  //         Batch
+  //         <br />
+  //         <input
+  //           type="text"
+  //           value={batch}
+  //           onChange={(e) => setBatch(e.target.value)}
+  //         />
+  //       </label>
+  //       <br />
+  //       <label>
+  //         Quantity
+  //         <br />
+  //         <input
+  //           type="number"
+  //           value={quantity}
+  //           onChange={(e) => setQuantity(e.target.value)}
+  //         />
+  //       </label>
+  //       <button type="submit">Submit</button>
+  //     </form>
+  //   </>
   
   // return (
   //   <div>
