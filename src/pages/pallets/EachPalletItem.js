@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function IndividualPalletItem() {
+export default function IndividualPalletItem(product) {
+
+  console.log(product);
   
   return (
     <div>
