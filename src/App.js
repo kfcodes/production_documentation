@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import PalletList from "./pages/AllPallets";
-import CreatePalletItem from "./pages/CreatePalletItem";
-import SinglePallet from "./pages/Pallet";
+import PalletList from "./pages/pallets/AllPallets";
+import CreatePalletItem from "./pages/pallets/CreatePalletItem";
+import SinglePallet from "./pages/pallets/Pallet";
 
 function App() {
   return (
