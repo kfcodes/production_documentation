@@ -35,9 +35,9 @@ import Container from "@mui/material/Container";
 function Mps() {
   const [mps, setMps] = useState([]);
   const [update, setUpdate] = useState("");
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
 
   const setMpsData = () => {
     fetch(`${process.env.REACT_APP_API_URL}/mps`)
@@ -67,10 +67,22 @@ function Mps() {
     //   );
   }, [update]);
 
-  const Eol2 = (id) => () => {
-const Eol2 = () => {
+  const printBoxLabel = (id) => {
+    fetch(`${process.env.REACT_APP_API_URL}/box_label/${id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      console.log(response);
+    });
+  };
 
-<Eol po={p.po_quantity} productId={p.id} />
+  const Eol2 = (id) => () => {
+    // const Eol2 = () => {
+
+    // <Eol po={p.po_quantity} productId={p.id} />
     console.log(id);
   };
 
