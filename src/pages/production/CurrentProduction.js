@@ -33,6 +33,29 @@ import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 
 function Mps() {
+  const [mps, setMps] = useState([]);
+  const [update, setUpdate] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/mps`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setMps(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, [update]);
+
+  const navItems = [
+    { title: "Pallets", key: "" },
+    { title: "Full Production Schedule ", key: "full_mps" },
+  ];
 
   return (
     <>
@@ -75,6 +98,11 @@ function Mps() {
           </Grid>
         </Grid>
         </Container>
+                  {mps.map((p) => (
+                    <>
+                        <p align="center">{p.id}</p>
+                    </>
+                  ))}
           </Box>
     </>
   );
