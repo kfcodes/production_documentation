@@ -39,8 +39,9 @@ function Mps() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  useEffect(() => {
+  const setMpsData = () => {
     fetch(`${process.env.REACT_APP_API_URL}/mps`)
+      // fetch(`${process.env.REACT_APP_API_URL}/mps2`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -50,11 +51,26 @@ function Mps() {
           console.log(error);
         }
       );
+  };
+
+  useEffect(() => {
+    setMpsData();
+    // fetch(`${process.env.REACT_APP_API_URL}/mps`)
+    //   .then((res) => res.json())
+    //   .then(
+    //     (result) => {
+    //       setMps(result);
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
   }, [update]);
 
   const Eol2 = (id) => () => {
-  const Eol2 = () => {
-  <Eol po={p.po_quantity} productId={p.id} />
+const Eol2 = () => {
+
+<Eol po={p.po_quantity} productId={p.id} />
     console.log(id);
   };
 
@@ -73,17 +89,17 @@ function Mps() {
   //   </li>
   // ))}
 
-  onClick={() => createEOL(p.eol_id)}>
-  <Eol po={p.po} poQuantity={p.po_quantity} productId={p.id} />
-  <TableCell align="right">EOL LOT</TableCell>
-  <TableCell align="left">EOL BBE</TableCell>
-  <TableCell align="right">PL LOT</TableCell>
-  <TableCell align="left">PL BBE</TableCell>
-      <TableCell align="right">{p.pl_lot}</TableCell>
-      <TableCell align="left">{p.pl_bbe}</TableCell>
-      <TableCell align="right">{p.lot}</TableCell>
-      <TableCell align="left">{p.bbe}</TableCell>
-  <Eol eolId={p.eol_id} po={p.po} productId={p.id} />
+  // onClick={() => createEOL(p.eol_id)}>
+  // <Eol po={p.po} poQuantity={p.po_quantity} productId={p.id} />
+  // <TableCell align="right">EOL LOT</TableCell>
+  // <TableCell align="left">EOL BBE</TableCell>
+  // <TableCell align="right">PL LOT</TableCell>
+  // <TableCell align="left">PL BBE</TableCell>
+  //     <TableCell align="right">{p.pl_lot}</TableCell>
+  //     <TableCell align="left">{p.pl_bbe}</TableCell>
+  //     <TableCell align="right">{p.lot}</TableCell>
+  //     <TableCell align="left">{p.bbe}</TableCell>
+  // <Eol eolId={p.eol_id} po={p.po} productId={p.id} />
 
   // <TableCell align="right">End of Line Sheets</TableCell>
   // <TableCell align="right">{p.eol_total}</TableCell>
