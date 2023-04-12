@@ -32,6 +32,17 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 
+const style = {
+  width: "100%",
+  border: "none",
+  bgcolor: "#04AA6D",
+  color: "white",
+  padding: "14px 28px",
+  FontFace: "26px",
+  cursor: "pointer",
+  display: "flex",
+};
+
 function Mps() {
   const [mps, setMps] = useState([]);
   const [update, setUpdate] = useState("");
@@ -135,7 +146,7 @@ function Mps() {
                 spacing={4}
                 divider={<Divider orientation="vertical" flexItem />}
               >
-                <Button href="/" fullWidth size="large" color="warning" variant="contained" >
+                <Button href="/" fullWidth size="large" color="warning" variant="contained" xs={style}>
                   PALLETS
                 </Button>
                 <Button href="/mps/" fullWidth size="large" color="warning" variant="contained">
