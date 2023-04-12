@@ -98,11 +98,37 @@ function Mps() {
           </Grid>
         </Grid>
         </Container>
+            <TableContainer component={Paper}>
+              <Table aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="center">ID</TableCell>
+                    <TableCell align="left">Description</TableCell>
+                    <TableCell align="right">Schedule</TableCell>
+                    <TableCell align="left">Order</TableCell>
+                    <TableCell align="center">Packing List</TableCell>
+                    <TableCell align="right">LOT</TableCell>
+                    <TableCell align="left">BBE</TableCell>
+                    <TableCell />
+                  </TableRow>
+                </TableHead>
+                <TableBody>
                   {mps.map((p) => (
                     <>
-                        <p align="center">{p.id}</p>
+                      <TableRow key={p.mps_id} onClick={Eol2(p.eol_id)}>
+                        <TableCell align="center">{p.id}</TableCell>
+                        <TableCell align="left">{p.description}</TableCell>
+                        <TableCell align="right">{p.mps_quantity}</TableCell>
+                        <TableCell align="left">{p.po_quantity}</TableCell>
+                        <TableCell align="center">{p.pallet_total}</TableCell>
+                        <TableCell align="right">{p.pl_lot}</TableCell>
+                        <TableCell align="left">{p.pl_bbe}</TableCell>
+                      </TableRow>
                     </>
                   ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Box>
     </>
   );
