@@ -36,7 +36,6 @@ function Mps() {
 
   return (
     <>
-
       <Box component="span" sx={{ p: 2, border: "1px dashed grey" }}>
         <Grid container padding={2} spacing={1} justifyContent="center">
           <Grid item alignItems="center">
@@ -77,7 +76,6 @@ function Mps() {
         </Grid>
         </Container>
           </Box>
-
     </>
   );
 }
