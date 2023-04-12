@@ -52,6 +52,41 @@ function Mps() {
       );
   }, [update]);
 
+  const Eol2 = (id) => () => {
+  const Eol2 = () => {
+  <Eol po={p.po_quantity} productId={p.id} />
+    console.log(id);
+  };
+
+  // {mps.map((p) => (
+  //   <li key={p.mps_id}>
+  //   <br />
+  //   {p.eol_id}
+  //   <br />
+  //   {p.description}
+  //   <br />
+  //   mps={p.mps_quantity} po={p.po_quantity} eol={p.eol_total} pallets={p.pallet_total}
+  //   <br />
+  //       <button onClick={() => printBoxLabel(p.eol_id)}>
+  //   Print Box Label
+  //       </button>
+  //   </li>
+  // ))}
+
+  onClick={() => createEOL(p.eol_id)}>
+  <Eol po={p.po} poQuantity={p.po_quantity} productId={p.id} />
+  <TableCell align="right">EOL LOT</TableCell>
+  <TableCell align="left">EOL BBE</TableCell>
+  <TableCell align="right">PL LOT</TableCell>
+  <TableCell align="left">PL BBE</TableCell>
+      <TableCell align="right">{p.pl_lot}</TableCell>
+      <TableCell align="left">{p.pl_bbe}</TableCell>
+      <TableCell align="right">{p.lot}</TableCell>
+      <TableCell align="left">{p.bbe}</TableCell>
+  <Eol eolId={p.eol_id} po={p.po} productId={p.id} />
+
+  // <TableCell align="right">End of Line Sheets</TableCell>
+  // <TableCell align="right">{p.eol_total}</TableCell>
   const navItems = [
     { title: "Pallets", key: "" },
     { title: "Full Production Schedule ", key: "full_mps" },
@@ -94,6 +129,14 @@ function Mps() {
             spacing={4}
             divider={<Divider orientation="vertical" flexItem />}
           >
+            <Button
+              href="/full_mps"
+              size="small"
+              color="success"
+              variant="contained"
+            >
+    Full Production Schedule
+            </Button>
           </Stack>
           </Grid>
         </Grid>
