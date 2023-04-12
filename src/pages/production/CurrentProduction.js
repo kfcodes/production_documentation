@@ -107,6 +107,23 @@ function Mps() {
     </>
   );
 }
-
+// <TableCell align="right">{p.lot}</TableCell>
+// <TableCell align="left">{p.bbe}</TableCell>
+// <ButtonGroup
+//   orientation="vertical"
+//   variant="outlined"
+//   size="small"
+//   aria-label="vertical outlined button group"
+// >
+//   {p.eol_id ? (
+//     <Eol eolId={p.eol_id} setUpdate={setUpdate}/>
+//   ) : (
+//     <CreateEol
+//       productId={p.id}
+//       po={p.po}
+//       setUpdate={setUpdate}
+//     />
+//   )}
+// </ButtonGroup>
 
 export default Mps;
