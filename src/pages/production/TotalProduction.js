@@ -47,6 +47,19 @@ function FullMps() {
   const [mps, setMps] = useState([]);
   const [update, setUpdate] = useState("");
 
+  const setMpsData = () => {
+    fetch(`${process.env.REACT_APP_API_URL}/full_mps/`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setMps(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  };
+
   useEffect(() => {
     setMpsData();
   }, [update]);
