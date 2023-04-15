@@ -1,4 +1,6 @@
 import React from "react";
+import "./UploadPDFLables.css";
+
 
 export default function UploadPdfLabel() {
 
