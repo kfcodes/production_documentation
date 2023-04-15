@@ -31,7 +31,12 @@ export default function CreateNewPallet() {
         }
       );
   }
+  // .then((json) => console.log(json["LAST_INSERT_ID()"]))
+  // .then(setPalletID(json["LAST_INSERT_ID()"]));
+  // .then(redirect(`${process.env.REACT_APP_API_URL}/brands/`));
 
+  // <h1>DETAILS FOR Pallet {pallet.pallet_id}</h1>
+  // There needs to be an if else if the pallet exists or not
   return (
     <>
       <Button 
