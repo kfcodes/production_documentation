@@ -24,8 +24,8 @@ export default function UploadPdfLabel() {
           <p>Drag and drop your file here or</p>
           <button className="upload-button">Upload a file</button>
         </div> 
-      </label>
-    </form>
-  );
+</label>
+      { dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div> }
+    </form>  );
 
 };
