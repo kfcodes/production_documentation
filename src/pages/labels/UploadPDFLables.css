@@ -34,3 +34,7 @@
 .upload-button:hover {
   text-decoration-line: underline;
 }
+
+#label-file-upload.drag-active {
+  background-color: #ffffff;
+}
