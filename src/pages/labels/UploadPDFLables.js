@@ -1,5 +1,8 @@
+import React from 'react';
+import './UploadPDFLables.css';
+
 // drag drop file component
-function DragDropFile() {
+export default function DragDropFile() {
   // drag state
   const [dragActive, setDragActive] = React.useState(false);
   // ref
