@@ -36,11 +36,71 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 function PalletList() {
+
   return (
     <>
-    <h1>
-    This component shows the most recent pallets being produced
-    </h1>
+      <Box component="span" sx={{ p: 2, border: "1px dashed grey" }}>
+        <Grid container padding={2} spacing={1} justifyContent="center">
+          <Grid item alignItems="center">
+            <AppBar position="absolute" component="nav" color="primary">
+              <Toolbar>
+                <Container>
+                  <Stack
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={4}
+                    divider={<Divider orientation="vertical" flexItem />}
+                  >
+                    <Button
+                      href="/"
+                      fullWidth
+                      size="large"
+                      color="warning"
+                      variant="contained"
+                      xs={style}
+                    >
+                      PALLETS
+                    </Button>
+                    <Button
+                      href="/mps/"
+                      fullWidth
+                      size="large"
+                      color="warning"
+                      variant="contained"
+                    >
+                      PRODUCTION
+                    </Button>
+                  </Stack>
+                </Container>
+              </Toolbar>
+            </AppBar>
+          </Grid>
+        </Grid>
+        <Container>
+        <Grid container padding={2} spacing={3} justifyContent="center">
+          <Grid item alignItems="center">
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={4}
+            divider={<Divider orientation="vertical" flexItem />}
+          >
+            <Button
+              href="/all_pallets"
+              size="small"
+              color="success"
+              variant="contained"
+            >
+              ALL PALLETS
+            </Button>
+            <CreateNewPallet />
+          </Stack>
+          </Grid>
+        </Grid>
+        </Container>
+      </Box>
     </>
   );
 }
