@@ -1,7 +1,7 @@
 // import { useForm } from "react-hook-form";
 import { useOutletContext } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import IndividualPalletItem from "./each_pallet_item";
+import IndividualPalletItem from "./EachPalletItem";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
