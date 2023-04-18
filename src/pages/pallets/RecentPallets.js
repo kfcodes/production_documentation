@@ -36,6 +36,35 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 function PalletList() {
+  const [pallets, setPallets] = useState([]);
+  const [palletItems, setPalletItems] = useState([]);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/pallets/`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setPallets(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/pallet_items/`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setPalletItems(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
 
   return (
     <>
