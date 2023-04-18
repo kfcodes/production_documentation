@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+
 import './UploadPDFLables.css';
 
 // drag drop file component
@@ -7,6 +8,9 @@ export default function DragDropFile() {
   const [dragActive, setDragActive] = React.useState(false);
   // ref
   const inputRef = React.useRef(null);
+
+   const [pdf, setPdf] = useState([]);
+  
   
   // handle drag events
   const handleDrag = function(e) {
@@ -37,12 +41,8 @@ export default function DragDropFile() {
     }
   };
   
-// triggers the input when the button is clicked
-  const onButtonClick = () => {
-    inputRef.current.click();
-  };
-  
   return (
+    <>
     <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
       <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} />
       <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : "" }>
