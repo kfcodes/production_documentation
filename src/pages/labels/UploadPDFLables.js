@@ -29,6 +29,9 @@ export default function DragDropFile() {
     e.stopPropagation();
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+    setPdf(e.dataTransfer.files);
+    console.log("Console logging from the handledrop function");
+    console.log(e.dataTransfer.files);
       // handleFiles(e.dataTransfer.files);
     }
   };
