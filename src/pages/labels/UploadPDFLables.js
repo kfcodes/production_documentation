@@ -53,5 +53,7 @@ export default function DragDropFile() {
       </label>
       { dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div> }
     </form>
+          <button className="uploadFile" onClick={createPallet1}>Upload to server</button>
+    </>
   );
 };
