@@ -66,6 +66,47 @@ function PalletList() {
       );
   }, []);
 
+  // </Link>
+
+  //       <CardContent> <Typography gutterBottom variant="h5" component="div">
+  //
+  //                 {pallet.pallet_id} - ({pallet.pallet_type_letter}) Weight:
+  //                 {pallet.weight} Height: {pallet.height}
+  //         </Typography>
+  //         <Typography variant="body2" color="text.secondary">
+  //               {palletItems.map((item) => (
+  //                 <>
+  //                   {pallet.pallet_id == item.pallet_item_pallet_id && (
+  //                     <ListItem key={item.pallet_item_pallet_id}>
+  //                       <p>
+  //                         {item.product_description} Lot: {item.lot} BBE:
+  //                         {item.bbe} Batch: {item.batch} QTY: {item.quantity}
+  //                       </p>
+  //                     </ListItem>
+  //                   )}
+  //                 </>
+  //               ))}
+  //         </Typography>
+  //       </CardContent>
+  //       <CardActions>
+  //         <Button size="small">Share</Button>
+  //         <Button size="small">Learn More</Button>
+  //       </CardActions>
+  //     </Card>
+  //           </ListItem>
+  //         ))}
+  //
+  //       </List>
+  //     </div>
+  //   );
+  // }
+
+  const navItems = [
+    { title: "PALLETS", key: "pallets", title: "PRODUCTION", key: "mps" },
+  ];
+  // <Button  fullWidth size="large" color="secondary" variant="text">
+  // <Link to={`/`} xs={6} sx={style}>
+
   return (
     <>
       <Box component="span" sx={{ p: 2, border: "1px dashed grey" }}>
@@ -129,6 +170,100 @@ function PalletList() {
           </Grid>
         </Grid>
         </Container>
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <IconButton
+                    aria-label="expand row"
+                    size="small"
+                    onClick={() => setOpen(!open)}
+                  >
+                    {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                  </IconButton>
+                </TableCell>
+                <TableCell>Pallet Id</TableCell>
+                <TableCell align="center">Pallet Type</TableCell>
+                <TableCell align="center">Pallet Weight (kg)</TableCell>
+                <TableCell align="center">Pallet Height (cm)</TableCell>
+                <TableCell />
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {pallets.map((pallet) => (
+                <>
+                  <TableRow
+                    sx={{ "& > *": { borderBottom: "unset" } }}
+                    key={pallet.pallet_id}
+                  >
+                    <TableCell />
+                    <TableCell component="th" scope="row">
+                      {pallet.pallet_id}
+                    </TableCell>
+                    <TableCell align="center">
+                      {pallet.pallet_type_letter}
+                    </TableCell>
+                    <TableCell align="center">{pallet.weight} kg</TableCell>
+                    <TableCell align="center">{pallet.height} cm</TableCell>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      color="secondary"
+                      href={`/pallet/${pallet.pallet_id}/pallet_item/`}
+                    >
+                      Change pallet Details
+                    </Button>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell
+                      style={{ paddingBottom: 0, paddingTop: 0 }}
+                      colSpan={6}
+                    >
+                      <Collapse in={open} timeout="auto" unmountOnExit>
+                        <Box sx={{ margin: 1 }}>
+                          <Table size="small" aria-label="purchases">
+                            <TableHead>
+                              <TableRow>
+                                <TableCell>PRODUCT DESCRIPTION</TableCell>
+                                <TableCell align="right">LOT</TableCell>
+                                <TableCell align="right">BBE</TableCell>
+                                <TableCell align="right">Quantity</TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {palletItems.map((item) => (
+                                <>
+                                  {pallet.pallet_id ===
+                                    item.pallet_item_pallet_id && (
+                                    <TableRow key={item.pallet_item_pallet_id}>
+                                      <TableCell component="th" scope="row">
+                                        {item.product_description}
+                                      </TableCell>
+                                      <TableCell align="right">
+                                        {item.lot}
+                                      </TableCell>
+                                      <TableCell align="right">
+                                        {item.bbe}
+                                      </TableCell>
+                                      <TableCell align="right">
+                                        {item.quantity}
+                                      </TableCell>
+                                    </TableRow>
+                                  )}
+                                </>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </Box>
+                      </Collapse>
+                    </TableCell>
+                  </TableRow>
+                </>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Box>
     </>
   );
