@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import './UploadPDFLables.css';
 
-// drag drop file component
 export default function DragDropFile() {
-  // drag state
   const [dragActive, setDragActive] = React.useState(false);
-  // ref
   const inputRef = React.useRef(null);
 
    const [pdf, setPdf] = useState([]);
@@ -28,7 +25,6 @@ export default function DragDropFile() {
       );
   }
   
-  // handle drag events
   const handleDrag = function(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -39,7 +35,6 @@ export default function DragDropFile() {
     }
   };
   
-  // triggers when file is dropped
   const handleDrop = function(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -48,20 +43,16 @@ export default function DragDropFile() {
     setPdf(e.dataTransfer.files);
     console.log("Console logging from the handledrop function");
     console.log(e.dataTransfer.files);
-      // handleFiles(e.dataTransfer.files);
     }
   };
   
-  // triggers when file is selected with click
   const handleChange = function(e) {
     e.preventDefault();
     if (e.target.files && e.target.files[0]) {
-      // handleFiles(e.target.files);
     }
   };
 
 
-// triggers the input when the button is clicked
   const onButtonClick = () => {
     setPdf(inputRef.current.click());
     console.log("Console logging from the onButtonClick function");
