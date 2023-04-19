@@ -59,6 +59,15 @@ export default function DragDropFile() {
       // handleFiles(e.target.files);
     }
   };
+
+
+// triggers the input when the button is clicked
+  const onButtonClick = () => {
+    setPdf(inputRef.current.click());
+    console.log("Console logging from the onButtonClick function");
+    console.log(inputRef.current.click());
+    console.log(pdf);
+  };
   
   return (
     <>
