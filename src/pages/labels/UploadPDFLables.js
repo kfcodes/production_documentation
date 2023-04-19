@@ -8,25 +8,26 @@ export default function DragDropFile() {
   const inputRef = React.useRef(null);
 
   const UploadPdfFile = async (e) => {
+    console.log(file);
     const formData = new FormData();
     formData.append("file", file);
-    console.log("The file being uploaded is");
-    console.log(file);
-    // fetch(`${process.env.REACT_APP_API_URL}/upload_pdf`, {
-    //   method: "post",
-    //   mode: "cors",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // })
-    // .then((res) => res.json())
-    // .then(
-    //   (result) => {
-    //     console.log(result);
-    //   }
-    // );
+    // console.log("The file being uploaded is");
+    // console.log(file);
+    fetch(`${process.env.REACT_APP_API_URL}/upload_pdf`, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+      },
+      body: FormData
+    })
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        console.log(result);
+      }
+    );
   };
+        // 'Content-Type': 'multipart/form-data'
 
   const handleDrag = function (e) {
     e.preventDefault();
