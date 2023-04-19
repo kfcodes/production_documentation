@@ -81,6 +81,11 @@ export default function DragDropFile() {
 
   return (
     <>
+    {file != null ?
+      <p>
+      {file.name}
+      </p>
+    :
       <form
         id="form-file-upload"
         onDragEnter={handleDrag}
@@ -115,9 +120,12 @@ export default function DragDropFile() {
           ></div>
         )}
       </form>
+    }
+
       <button className="uploadFile" onClick={UploadPdfFile}>
         Upload to server
       </button>
+
       <button className="showFile" onClick={ShowFile}>
         Show File
       </button>
