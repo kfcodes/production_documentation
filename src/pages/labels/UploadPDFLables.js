@@ -1,28 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import './UploadPDFLables.css';
 
 export default function DragDropFile() {
+const [file, setFile] = useState();
   const [dragActive, setDragActive] = React.useState(false);
-  const inputRef = React.useRef(null);
-
-   const [pdf, setPdf] = useState([]);
+ const inputRef = React.useRef(null);
   
-  function createPallet1() {
-    fetch(`${process.env.REACT_APP_API_URL}/upload_pdf`, {
-      method: "post",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
-      },
-    })
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-        }
-      );
+  const UploadPdfFile = async (e) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    console.log("The file being uploaded is");
+    console.log(file);
+    // fetch(`${process.env.REACT_APP_API_URL}/upload_pdf`, {
+    //   method: "post",
+    //   mode: "cors",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // })
+      // .then((res) => res.json())
+      // .then(
+      //   (result) => {
+      //     console.log(result);
+      //   }
+      // );
+
   }
   
   const handleDrag = function(e) {
@@ -40,30 +44,46 @@ export default function DragDropFile() {
     e.stopPropagation();
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-    setPdf(e.dataTransfer.files);
-    console.log("Console logging from the handledrop function");
+    console.log("The File being Dropped is:");
     console.log(e.dataTransfer.files);
+    setFile(e.dataTransfer.files);
     }
   };
   
   const handleChange = function(e) {
     e.preventDefault();
     if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleSave = function(e) {
+  // const onButtonClick = function(e) {
+    e.preventDefault();
+    if (e.target.files && e.target.files[0]) {
+      console.log(e.target.files[0])
+      setFile(e.target.files[0])
     }
   };
 
 
-  const onButtonClick = () => {
-    setPdf(inputRef.current.click());
-    console.log("Console logging from the onButtonClick function");
+  const onButtonClick = function(e) {
+    // inputRef.current.click();
     console.log(inputRef.current.click());
-    console.log(pdf);
+    // console.log(inputRef.current.click());
+    // e.preventDefault();
+    // setFile(e.target.files[0]);
+    // console.log(file);
+  };
+
+  const ShowFile = function(e) {
+    console.log(file);
   };
   
   return (
     <>
     <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
-      <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} />
+      <input ref={inputRef} type="file" id="input-file-upload" multiple={false} onChange={handleChange} />
       <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : "" }>
         <div>
           <p>Drag and drop your file here or</p>
@@ -72,7 +92,8 @@ export default function DragDropFile() {
       </label>
       { dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div> }
     </form>
-          <button className="uploadFile" onClick={createPallet1}>Upload to server</button>
+          <button className="uploadFile" onClick={UploadPdfFile}>Upload to server</button>
+          <button className="showFile" onClick={ShowFile}>Show File</button>
     </>
   );
 };
