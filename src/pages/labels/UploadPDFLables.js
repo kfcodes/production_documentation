@@ -11,6 +11,22 @@ export default function DragDropFile() {
 
    const [pdf, setPdf] = useState([]);
   
+  function createPallet1() {
+    fetch(`${process.env.REACT_APP_API_URL}/upload_pdf`, {
+      method: "post",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+        }
+      );
+  }
   
   // handle drag events
   const handleDrag = function(e) {
