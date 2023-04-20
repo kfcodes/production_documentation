@@ -37,8 +37,8 @@ export default function DragDropFile() {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
-        setPrinted(result);
+        console.log(result.message);
+        setPrinted(result.message);
       });
   };
 
@@ -99,69 +99,80 @@ export default function DragDropFile() {
 
   return (
     <>
-      {uploaded != null ? (
+      {printed != null ? (
         <>
-          <h1>To Print {file.name} Click the button below</h1>{" "}
-          <button className="printFile" onClick={printFile}>
-            PRINT THE LABELS
-          </button>
-        </>
-      ) : (
-      {uploaded != null ? (
-        <>
-          <h1>To Print {file.name} Click the button below</h1>{" "}
-          <button className="printFile" onClick={printFile}>
-            PRINT THE LABELS
-          </button>
+          {" "}
+          <h1>{printed}</h1>{" "}
         </>
       ) : (
         <>
-          {file != null ? (
+          {uploaded != null ? (
             <>
-              <h1> To Upload {file.name} click the button below</h1>{" "}
-              <button className="uploadFile" onClick={UploadPdfFile}>
-                UPLOAD FILE
-              </button>
+              {" "}
+              <h1>To Print {file.name} Click the button below</h1>{" "}
+              <button className="printFile" onClick={printFile}>
+                {" "}
+                PRINT THE LABELS{" "}
+              </button>{" "}
             </>
           ) : (
             <>
-              <form
-                id="form-file-upload"
-                onDragEnter={handleDrag}
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <input
-                  ref={inputRef}
-                  type="file"
-                  id="input-file-upload"
-                  multiple={false}
-                  onChange={handleChange}
-                />{" "}
-                <label
-                  id="label-file-upload"
-                  htmlFor="input-file-upload"
-                  className={dragActive ? "drag-active" : ""}
-                >
+              {" "}
+              {file != null ? (
+                <>
                   {" "}
-                  <div>
+                  <h1> To Upload {file.name} click the button below</h1>{" "}
+                  <button className="uploadFile" onClick={UploadPdfFile}>
                     {" "}
-                    <p>Drag and drop your PDF Label A5 file here or</p>{" "}
-                    <button className="upload-button" onClick={onButtonClick}>
-                      {" "}
-                      Upload a file{" "}
-                    </button>{" "}
-                  </div>{" "}
-                </label>{" "}
-                {dragActive && (
-                  <div
-                    id="drag-file-element"
+                    UPLOAD FILE{" "}
+                  </button>{" "}
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <form
+                    id="form-file-upload"
                     onDragEnter={handleDrag}
-                    onDragLeave={handleDrag}
-                    onDragOver={handleDrag}
-                    onDrop={handleDrop}
-                  ></div>
-                )}{" "}
-              </form>
+                    onSubmit={(e) => e.preventDefault()}
+                  >
+                    {" "}
+                    <input
+                      ref={inputRef}
+                      type="file"
+                      id="input-file-upload"
+                      multiple={false}
+                      onChange={handleChange}
+                    />{" "}
+                    <label
+                      id="label-file-upload"
+                      htmlFor="input-file-upload"
+                      className={dragActive ? "drag-active" : ""}
+                    >
+                      {" "}
+                      <div>
+                        {" "}
+                        <p>Drag and drop your PDF Label A5 file here or</p>{" "}
+                        <button
+                          className="upload-button"
+                          onClick={onButtonClick}
+                        >
+                          {" "}
+                          Upload a file{" "}
+                        </button>{" "}
+                      </div>{" "}
+                    </label>{" "}
+                    {dragActive && (
+                      <div
+                        id="drag-file-element"
+                        onDragEnter={handleDrag}
+                        onDragLeave={handleDrag}
+                        onDragOver={handleDrag}
+                        onDrop={handleDrop}
+                      ></div>
+                    )}{" "}
+                  </form>{" "}
+                </>
+              )}
             </>
           )}
         </>
