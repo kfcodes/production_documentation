@@ -16,37 +16,33 @@ export default function DragDropFile() {
       // headers: {
       //   'Content-Type': 'multipart/form-data'
       // },
-      body: formData
-    //     console.log(file.name);
-    // fetch(`${process.env.REACT_APP_API_URL}/upload_pdf`, {
-    // method: "POST",
-    //   body: file
+      body: formData,
+      //     console.log(file.name);
+      // fetch(`${process.env.REACT_APP_API_URL}/upload_pdf`, {
+      // method: "POST",
+      //   body: file
     })
-    .then((res) => res.json())
-    .then((result) => {
+      .then((res) => res.json())
+      .then((result) => {
         // console.log(uploaded);
-      setUploaded(result);
-      }
-    );
+        setUploaded(result);
+      });
   };
-        // 'Content-Type': 'multipart/form-data'
+  // 'Content-Type': 'multipart/form-data'
 
   const printFile = async () => {
     console.log(`${process.env.REACT_APP_API_URL}/print_pdf/${file.name}`);
     fetch(`${process.env.REACT_APP_API_URL}/print_pdf/${file.name}`, {
-      method: "POST"
+      method: "POST",
     })
       .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-        }
-      );
+      .then((result) => {
+        console.log(result);
+      });
   };
 
-    // console.log(`${process.env.REACT_APP_API_URL}/print_pdf/${file.name}`);
+  // console.log(`${process.env.REACT_APP_API_URL}/print_pdf/${file.name}`);
   // };
-
 
   const handleDrag = function (e) {
     e.preventDefault();
@@ -97,19 +93,82 @@ export default function DragDropFile() {
 
   const ShowFile = function (e) {
     console.log(file);
-        console.log(uploaded);
+    console.log(uploaded);
   };
 
   return (
     <>
-    {uploaded != null ? <> <h1>Uploaded</h1> <button className="printFile" onClick={printFile}>Print The File</button> <button className="showFile" onClick={ShowFile}> Show File </button> </>
-:<>
-    {file != null ? <> <h1> {file.name} </h1> <button className="uploadFile" onClick={UploadPdfFile}> Upload to server </button> <button className="showFile" onClick={ShowFile}> Show File </button> </>
-
-      : <><form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()} > <input ref={inputRef} type="file" id="input-file-upload" multiple={false} onChange={handleChange} /> <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""} > <div> <p>Drag and drop your file here or</p> <button className="upload-button" onClick={onButtonClick}> Upload a file </button> </div> </label> {dragActive && ( <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop} ></div>)} </form></>
-    }
-      </>
-    }
+      {uploaded != null ? (
+        <>
+          {" "}
+          <h1>Uploaded</h1>{" "}
+          <button className="printFile" onClick={printFile}>
+            Print The File
+          </button>{" "}
+          <button className="showFile" onClick={ShowFile}>
+            {" "}
+            Show File{" "}
+          </button>{" "}
+        </>
+      ) : (
+        <>
+          {file != null ? (
+            <>
+              {" "}
+              <h1> {file.name} </h1>{" "}
+              <button className="uploadFile" onClick={UploadPdfFile}>
+                {" "}
+                Upload to server{" "}
+              </button>{" "}
+              <button className="showFile" onClick={ShowFile}>
+                {" "}
+                Show File{" "}
+              </button>{" "}
+            </>
+          ) : (
+            <>
+              <form
+                id="form-file-upload"
+                onDragEnter={handleDrag}
+                onSubmit={(e) => e.preventDefault()}
+              >
+                {" "}
+                <input
+                  ref={inputRef}
+                  type="file"
+                  id="input-file-upload"
+                  multiple={false}
+                  onChange={handleChange}
+                />{" "}
+                <label
+                  id="label-file-upload"
+                  htmlFor="input-file-upload"
+                  className={dragActive ? "drag-active" : ""}
+                >
+                  {" "}
+                  <div>
+                    {" "}
+                    <p>Drag and drop your file here or</p>{" "}
+                    <button className="upload-button" onClick={onButtonClick}>
+                      {" "}
+                      Upload a file{" "}
+                    </button>{" "}
+                  </div>{" "}
+                </label>{" "}
+                {dragActive && (
+                  <div
+                    id="drag-file-element"
+                    onDragEnter={handleDrag}
+                    onDragLeave={handleDrag}
+                    onDragOver={handleDrag}
+                    onDrop={handleDrop}
+                  ></div>
+                )}{" "}
+              </form>
+            </>
+          )}
+        </>
+      )}
     </>
   );
 }
