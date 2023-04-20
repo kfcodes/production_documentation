@@ -7,6 +7,7 @@ export default function DragDropFile() {
   const [dragActive, setDragActive] = React.useState(false);
   const inputRef = React.useRef(null);
   const [uploaded, setUploaded] = useState();
+  const [printed, setPrinted] = useState();
 
   const UploadPdfFile = async () => {
     const formData = new FormData();
@@ -31,13 +32,13 @@ export default function DragDropFile() {
   // 'Content-Type': 'multipart/form-data'
 
   const printFile = async () => {
-    console.log(`${process.env.REACT_APP_API_URL}/print_pdf/${file.name}`);
     fetch(`${process.env.REACT_APP_API_URL}/print_pdf/${file.name}`, {
       method: "POST",
     })
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
+        setPrinted(result);
       });
   };
 
@@ -100,30 +101,27 @@ export default function DragDropFile() {
     <>
       {uploaded != null ? (
         <>
-          {" "}
-          <h1>Uploaded</h1>{" "}
+          <h1>To Print {file.name} Click the button below</h1>{" "}
           <button className="printFile" onClick={printFile}>
-            Print The File
-          </button>{" "}
-          <button className="showFile" onClick={ShowFile}>
-            {" "}
-            Show File{" "}
-          </button>{" "}
+            PRINT THE LABELS
+          </button>
+        </>
+      ) : (
+      {uploaded != null ? (
+        <>
+          <h1>To Print {file.name} Click the button below</h1>{" "}
+          <button className="printFile" onClick={printFile}>
+            PRINT THE LABELS
+          </button>
         </>
       ) : (
         <>
           {file != null ? (
             <>
-              {" "}
-              <h1> {file.name} </h1>{" "}
+              <h1> To Upload {file.name} click the button below</h1>{" "}
               <button className="uploadFile" onClick={UploadPdfFile}>
-                {" "}
-                Upload to server{" "}
-              </button>{" "}
-              <button className="showFile" onClick={ShowFile}>
-                {" "}
-                Show File{" "}
-              </button>{" "}
+                UPLOAD FILE
+              </button>
             </>
           ) : (
             <>
@@ -132,7 +130,6 @@ export default function DragDropFile() {
                 onDragEnter={handleDrag}
                 onSubmit={(e) => e.preventDefault()}
               >
-                {" "}
                 <input
                   ref={inputRef}
                   type="file"
@@ -148,7 +145,7 @@ export default function DragDropFile() {
                   {" "}
                   <div>
                     {" "}
-                    <p>Drag and drop your file here or</p>{" "}
+                    <p>Drag and drop your PDF Label A5 file here or</p>{" "}
                     <button className="upload-button" onClick={onButtonClick}>
                       {" "}
                       Upload a file{" "}
