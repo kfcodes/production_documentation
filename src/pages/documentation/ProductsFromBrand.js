@@ -20,8 +20,9 @@ function ProductList() {
   }, []);
 
   return (
-    <div>
+    <div className="wrapper">
       <h1>Products from Brand</h1>
+      <h2>{brandid}</h2>
     </div>
   );
 }
