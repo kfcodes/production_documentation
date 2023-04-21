@@ -19,9 +19,6 @@ function ProductList() {
       );
   }, []);
 
-  console.log(brandid);
-  console.log(products);
-
   return (
     <div>
       <h1>Products from Brand</h1>
