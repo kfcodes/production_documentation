@@ -23,6 +23,13 @@ function ProductList() {
     <div className="wrapper">
       <h1>Products from Brand</h1>
       <h2>{brandid}</h2>
+      <ul>
+        {products.map((product) => (
+          <li key={product.product_id}>
+            <Link to={`/product/${product.product_id}/bom/${product.product_id}/`}> {product.product_description}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
