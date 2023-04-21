@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import CreateNewPallet from "./create_pallet";
+import CreateNewPallet from "./CreatePallet";
 import List from "@mui/material/List";
 import Grid from "@mui/material/Unstable_Grid2";
 import ListItem from "@mui/material/ListItem";
