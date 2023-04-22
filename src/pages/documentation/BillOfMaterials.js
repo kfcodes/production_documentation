@@ -1,16 +1,9 @@
-
 import React, { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function Singlebom() {
   const [bom, setBom] = useState([]);
   let { productid } = useParams();
-  // const url = process.env.REACT_APP_API_URL;
-  // const url = "http://localhost:4040"
-  // console.log(url);
-    // fetch(`http://localhost:4040/bom/${productid}`)
-    // fetch(`${url}/bom/${productid}`)
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/bom/${productid}`)
@@ -19,7 +12,6 @@ function Singlebom() {
         (result) => {
           setBom(result);
           console.log(result);
-          // console.log(`${process.env.REACT_APP_API_URL}/bom/${productid}`);
         },
         (error) => {
           console.log(error);
@@ -35,6 +27,9 @@ function Singlebom() {
         {bom.map((component) => (
           <li key={component.component_id}>
             <h3>{component.product_description}</h3>
+            <p>sage code - {component.component_id} </p> 
+                <p> quantity - {component.quantity} </p>
+                <p> stock - {component.stock}</p>
           </li>
         ))}
       </ul>
