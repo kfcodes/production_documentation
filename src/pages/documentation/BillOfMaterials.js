@@ -1,4 +1,6 @@
+
 import React, { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 function Singlebom() {
@@ -25,11 +27,17 @@ function Singlebom() {
       );
   }, []);
 
-          console.log(bom);
-
   return (
     <div className="wrapper">
       <h1>Product Components</h1>
+      <h2>{bom.product_description}</h2>
+      <ul>
+        {bom.map((component) => (
+          <li key={component.component_id}>
+            <h3>{component.product_description}</h3>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
