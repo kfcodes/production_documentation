@@ -44,7 +44,19 @@ export default function DumpSqlData() {
   return (
     <>
       <Container maxWidth="sm">
+        <Box>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Enter The most recent pallet ID
+          </Typography>
           <Grid container spacing={2}>
+            <Grid item xs={6} md={8}>
+              <TextField
+                label="Pallet ID"
+                type="number"
+                value={palletId}
+                onChange={(e) => setPalletId(e.target.value)}
+              />
+            </Grid>
             <Grid item xs={6} md={8}>
               <Container maxWidth="sm">
                 <Button
@@ -60,6 +72,7 @@ export default function DumpSqlData() {
               </Container>
             </Grid>
           </Grid>
+        </Box>
       </Container>
     </>
   );
