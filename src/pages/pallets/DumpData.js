@@ -21,10 +21,72 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
+// const style = {
+//   position: "absolute",
+//   top: "50%",
+//   left: "50%",
+//   transform: "translate(-50%, -50%)",
+//   width: 400,
+//   bgcolor: "background.paper",
+//   border: "2px solid #000",
+//   boxShadow: 24,
+//   p: 4,
+// };
 
+// const printPalletLabel = (id) => {
+//   console.log(id);
+//   fetch(`${process.env.REACT_APP_API_URL}/label/${id}`, {
+//     method: "get",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//   }).then((response) => {
+//     console.log(response);
+//   });
+// };
+//
+// const printBoxLabel = (id) => {
+//   fetch(`${process.env.REACT_APP_API_URL}/box_label/${id}`, {
+//     method: "GET",
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//   }).then((response) => {
+//     console.log(response);
+//   });
+// };
+
+// export default function PrintBoxLabel(props) {
 export default function DumpSqlData() {
+  // const [eolId] = useState(props.eolId);
+  // const [batch, setBatch] = useState("");
+  // const [quantity, setQuantity] = useState(0);
   const [palletId, setPalletId] = useState(0);
 
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
+
+  // Get the EOL details and add them to the state
+  // useEffect(() => {
+  //   fetch(`${process.env.REACT_APP_API_URL}/eol/${eolId}`)
+  //     .then((res) => res.json())
+  //     .then(
+  //       (result) => {
+  //         console.log(result);
+  //         setProductId(result[0].product_id);
+  //         setPo(result[0].po);
+  //         setLot(result[0].lot);
+  //         setBbe(result[0].bbe);
+  //         setQuantity(result[0].quantity);
+  //       },
+  //       (error) => {
+  //         console.log(error);
+  //       }
+  //     );
+  // }, []);
 
   const onSubmit = () => {
     //   let pallet = {
