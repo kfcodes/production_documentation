@@ -23,7 +23,24 @@ import Modal from "@mui/material/Modal";
 
 
 export default function DumpSqlData() {
+  const [palletId, setPalletId] = useState(0);
 
+
+  const onSubmit = () => {
+    //   let pallet = {
+    // palletId: palletId,
+    //   };
+    // console.log(label);
+    fetch(`${process.env.REACT_APP_API_URL}/dump/${palletId}`, {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      // body: JSON.stringify(pallet),
+    });
+    // handleClose();
+  };
   return (
     <>
                 <button > Dump Data </button>
