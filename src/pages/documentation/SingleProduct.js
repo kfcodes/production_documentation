@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function SingleProduct() {
+  let { productid } = useParams();
 
 
   return (
     <div className="wrapper">
-      <h1>Single Product Component</h1>
+      <h1>{productid}</h1>
     </div>
   );
 }
