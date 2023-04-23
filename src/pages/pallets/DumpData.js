@@ -43,7 +43,16 @@ export default function DumpSqlData() {
   };
   return (
     <>
-                <button > Dump Data </button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="Large"
+                  onClick={() => {
+                    onSubmit();
+                  }}
+                >
+    Dump Data
+                </Button>
     </>
   );
 }
