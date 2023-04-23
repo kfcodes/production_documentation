@@ -43,6 +43,10 @@ export default function DumpSqlData() {
   };
   return (
     <>
+      <Container maxWidth="sm">
+          <Grid container spacing={2}>
+            <Grid item xs={6} md={8}>
+              <Container maxWidth="sm">
                 <Button
                   variant="contained"
                   color="primary"
@@ -51,8 +55,12 @@ export default function DumpSqlData() {
                     onSubmit();
                   }}
                 >
-    Dump Data
+                  DUMP THE SQL DATA
                 </Button>
+              </Container>
+            </Grid>
+          </Grid>
+      </Container>
     </>
   );
 }
