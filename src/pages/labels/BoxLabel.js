@@ -1,3 +1,4 @@
+// import { useForm } from "react-hook-form";
 import { Outlet, useNavigate, redirect } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -26,7 +27,7 @@ export default function Eol(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [productCode, setProductCode] = useState("ProductCode");
+  const [productCode, setProductCode] = useState("PBN5000");
   const [customerPO, setCustomerPO] = useState("This is the Customer PO");
   const [lot, setLot] = useState("");
   const [bbe, setBbe] = useState("");
@@ -156,12 +157,14 @@ export default function Eol(props) {
                     color="primary"
                     size="Large"
                     onClick={() => {
+                      // onSubmit();
                       console.log("pressed the button");
                     }}
                   >
                     Save End of Line Sheet Details
                   </Button>
-                  <Button >
+                  <Button 
+        onClick={() => printBoxLabel(eolId)}>
     Print Box Label
                   </Button>
                 </Container>
@@ -173,3 +176,5 @@ export default function Eol(props) {
     </>
   );
 }
+// <PrintLabeLButton id={pId} />
+// <Outlet context={[pId]} />
