@@ -25,12 +25,33 @@ import setMpsData from "./mps";
 
 
 export default function CreateEol(props) {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  // function navigate1(p) {
+  //   console.log(p);
+  // navigate(`/pallet/${p}/pallet_item/`);
+  // }
+
 
   return (
     <>
-    <h1>
-    Create Finished product data
-    </h1>
+      <Button onClick={handleOpen}>create EOL Data</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Container maxWidth="sm">
+          <Box >
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Enter End of Line Data
+            </Typography>
+          </Box>
+        </Container>
+      </Modal>
     </>
   );
 }
