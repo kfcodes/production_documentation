@@ -1,3 +1,4 @@
+
 // import { useForm } from "react-hook-form";
 import { Outlet, useNavigate, redirect } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -21,6 +22,19 @@ import { __esModule } from "quagga";
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+
+const printPalletLabel = (id) => {
+  console.log(id);
+  fetch(`${process.env.REACT_APP_API_URL}/label/${id}`, {
+    method: "get",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    console.log(response);
+  });
+};
 
 export default function Eol(props) {
   // const { register, handleSubmit, setValue } = useForm();
