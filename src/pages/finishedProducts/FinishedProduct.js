@@ -23,8 +23,24 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import setMpsData from "./mps";
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function CreateEol(props) {
+  const [productId] = useState(props.productId);
+  const [po] = useState(props.po);
+  const [lot, setLot] = useState("");
+  const [bbe, setBbe] = useState("");
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -45,10 +61,60 @@ export default function CreateEol(props) {
         aria-describedby="modal-modal-description"
       >
         <Container maxWidth="sm">
-          <Box >
+          <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Enter End of Line Data
             </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={6} md={8}>
+                <TextField
+                  disabled
+                  label="PRODUCT CODE"
+                  type="text"
+                  value={productId}
+                  sx={{ m: 1, width: "25ch" }}
+                />
+              </Grid>
+
+              <Grid item xs={6} md={8}>
+                <TextField
+                  disabled
+                  label="CUSTOMER PO"
+                  type="text"
+                  value={po}
+                  sx={{ m: 1, width: "25ch" }}
+                />
+              </Grid>
+              <Grid item xs={6} md={8}>
+                <TextField
+                  label="LOT"
+                  type="text"
+                  value={lot}
+                  onChange={(e) => setLot(e.target.value)}
+                  sx={{ m: 1, width: "25ch" }}
+                />
+              </Grid>
+              <Grid item xs={6} md={8}>
+                <TextField
+                  label="BBE"
+                  type="text"
+                  value={bbe}
+                  onChange={(e) => setBbe(e.target.value)}
+                  sx={{ m: 1, width: "25ch" }}
+                />
+              </Grid>
+              <Grid item xs={6} md={8}>
+                <Container maxWidth="sm">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="Large"
+                  >
+                    Save End of Line Sheet Details
+                  </Button>
+                </Container>
+              </Grid>
+            </Grid>
           </Box>
         </Container>
       </Modal>
