@@ -36,6 +36,18 @@ const printPalletLabel = (id) => {
   });
 };
 
+const printBoxLabel = (id) => {
+    fetch(`${process.env.REACT_APP_API_URL}/box_label/${id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      console.log(response);
+    });
+  };
+
 export default function Eol(props) {
   // const { register, handleSubmit, setValue } = useForm();
   const [open, setOpen] = React.useState(false);
