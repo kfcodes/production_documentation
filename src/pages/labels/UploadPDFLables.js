@@ -63,14 +63,10 @@ console.log(formData.getAll("files[]"))
 
   const handleChange = function (e) {
     e.preventDefault();
-    if (e.target.files && e.target.files[0]) {
-      setFiles([...files, ...e.dataTransfer.files]);
+    if (e.target.files ) {
+      const newFiles = Array.from(e.target.files)
+      setFiles([...files, ...newFiles]);
     }
-  };
-
-  const onButtonClick = function () {
-    setFiles([...files, inputRef.current.click()]);
-    // console.log(file);
   };
 
   const showFile = function (e) {
@@ -109,11 +105,7 @@ console.log(formData.getAll("files[]"))
             {" "}
             <div>
               {" "}
-              <p>Drag and drop your PDF Label A5 file here or</p>{" "}
-              <button className="upload-button" onClick={onButtonClick}>
-                {" "}
-                Upload a file{" "}
-              </button>{" "}
+              <p>DRAG AND DROP FILES OR CLICK TO SELECT FILES</p>{" "}
             </div>{" "}
           </label>{" "}
           {dragActive && (
