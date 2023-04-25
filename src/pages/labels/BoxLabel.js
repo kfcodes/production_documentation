@@ -1,5 +1,3 @@
-
-// import { useForm } from "react-hook-form";
 import { Outlet, useNavigate, redirect } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -22,6 +20,18 @@ import { __esModule } from "quagga";
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const printPalletLabel = (id) => {
   console.log(id);
@@ -129,7 +139,7 @@ export default function Eol(props) {
         aria-describedby="modal-modal-description"
       >
         <Container maxWidth="sm">
-        <Box >
+        <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
           Enter End of Line Data
           </Typography>
