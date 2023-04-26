@@ -50,6 +50,54 @@ export default function CreateEol(props) {
   // navigate(`/pallet/${p}/pallet_item/`);
   // }
 
+  const createEolData = () => {
+    let eol = {
+      eol_po: po,
+      eol_product_id: productId,
+      eol_lot: lot,
+      eol_bbe: bbe,
+    };
+    // console.log("This is the eol object data");
+    // console.log(eol);
+    fetch(`${process.env.REACT_APP_API_URL}/eol`, {
+      method: "post",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(eol),
+    });
+    // .then((res) => res.json())
+    // console.log("Calling setUpdate function");
+    props.setUpdate(`${productId}${lot}${bbe}`);
+    // .then(
+    // (result) => {
+    // navigate1(result["LAST_INSERT_ID()"]);
+    // navigate(`mps/`)
+    // console.log(result);
+    // console.log("Calling set MPS data");
+    // // console.log(eol);
+    // setMpsData();
+    //     console.log("The returned ID is");
+    //     console.log(result["LAST_INSERT_ID()"]);
+    //     setPalletID(result["LAST_INSERT_ID()"]);
+    //     navigate1(result["LAST_INSERT_ID()"]);
+    // }
+    // );
+    // console.log("Calling handleClose Function");
+    handleClose();
+  };
+  //   fetch(`${process.env.REACT_APP_API_URL}/pallet/${pallet_id}`, {
+  //     method: "put",
+  //     mode: "cors",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(palletData),
+  //   }).then((res) => res.json());
+  // };
 
   return (
     <>
@@ -109,6 +157,9 @@ export default function CreateEol(props) {
                     variant="contained"
                     color="primary"
                     size="Large"
+                    onClick={() => {
+                      createEolData();
+                    }}
                   >
                     Save End of Line Sheet Details
                   </Button>
