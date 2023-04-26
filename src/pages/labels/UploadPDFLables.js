@@ -13,33 +13,29 @@ export default function DragDropFile() {
   const UploadPdfFile = async () => {
     const formData = new FormData();
     files.forEach((file) => 
-    formData.append("files[]", file))
-    setUploaded(files);
-    // fetch(`${process.env.REACT_APP_API_URL}/upload_pdf`, {
-    //   method: "POST",
-    //   // headers: {
-    //   //   'Content-Type': 'multipart/form-data'
-    //   // },
-    //   body: formData,
-    // })
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     setUploaded(result);
-    //   });
-  };
+    formData.append("files", file))
+    console.log(formData.getAll('files'));
+    fetch(`${process.env.REACT_APP_API_URL}/upload_pdf`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        // console.log(typeof(result))
+        // console.log(result)
+        setUploaded(result)
+        result.map((file) => console.log(file));
+  })};
 
-  const printFile = async () => {
-    files.forEach((file) => 
-    console.log(`${file.name} was printed`));
-    setPrinted("THE FOLLOWING FILES HAVE BEEN SENT TO THE PRINTER");
-    // fetch(`${process.env.REACT_APP_API_URL}/print_pdf/${file.name}`, {
-    //   method: "POST",
-    // })
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     console.log(result.message);
-    //     setPrinted(result.message);
-    //   });
+  function printFile(filepath) {
+    fetch(`${process.env.REACT_APP_API_URL}/print_pdf/${filepath}`, {
+      method: "POST",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result.message);
+        // setPrinted(result.message);
+      });
   };
 
   const handleDrag = function (e) {
@@ -56,6 +52,7 @@ export default function DragDropFile() {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
+    // console.log(e.dataTransfer.files[0]);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       setFiles([...files, ...e.dataTransfer.files]);
     }
@@ -69,18 +66,25 @@ export default function DragDropFile() {
     }
   };
 
-  const showFile = function (e) {
-    // console.log(file);
-    console.log(files);
-    // console.log(uploaded);
-  };
-
+    // <div  key={file.size}>
   const listItems = files.map((file) =>
-    <>
+    <div  key={file.size+file.name}>
     <hr />
-    <h3>{file.name}</h3>
-    </>
+    <h3>
+    {file.name}</h3>
+    </div>
   );
+
+  // const uploadedListItems = uploaded.map((file) =>
+  //   <div  key={file.size}>
+  //   <hr />
+  //   <h3>
+  //   {file.name}</h3>
+  //   </div>
+  // );
+
+  // const uploadedListItems = uploaded.forEach((file) =>
+ // const listItems2 = 
 
   return (
     <>
@@ -99,11 +103,17 @@ export default function DragDropFile() {
       <>
             {uploaded ? (
               <>
-          <h1>SEND THE FOLLING FILES TO THE PRINTER</h1>
-              {listItems}
+          <h1>CLICK FILE NAME TO SEND IT TO THE PRINTER</h1>
+              {uploaded.map((file) =>
+    <div  key={file.size+file.name}>
+    <hr />
+    <h3 onClick={() => printFile(file.name)}>
+    {file.name}
+    </h3>
+    </div>
+  )}
               <hr />
-              <br />
-              <button className="printFile" onClick={printFile}> PRINT THE LABELS{" "} </button>{" "} </>
+              {" "} </>
             ) : (
               <>
           <h1>UPLOAD THE FOLLOWING FILES TO THE SERVER</h1>
@@ -118,40 +128,8 @@ export default function DragDropFile() {
       </>
   );
 }
+              // {uploadedListItems}
 
 
-// {file != null ? (
-//
-      // <>
-      //   {printed != null ? (
-      //     <>
-      //       {" "}
-      //       <h1>{printed}</h1>{" "}
-      //     </>
-      //   ) : (
-      //     <>
-      //       {uploaded != null ? (
-      //         <>
-      //           {" "}
-      //           <h1>To Print {file.name} Click the button below</h1>{" "}
-      //           <button className="printFile" onClick={printFile}>
-      //             {" "}
-      //             PRINT THE LABELS{" "}
-      //           </button>{" "}
-      //         </>
-      //       ) : (
-      //         <>
-      //           {" "}
-      //           <>
-      //             {" "}
-      //             <h1> To Upload {file.name} click the button below</h1>{" "}
-      //             <button className="uploadFile" onClick={UploadPdfFile}>
-      //               {" "}
-      //               UPLOAD FILE{" "}
-      //             </button>{" "}
-      //           </>
-      //         </>
-      //       )}
-      //     </>
-      //   )}
-      // </>
+              // <br />
+              // <button className="printFile" onClick={printFile}> PRINT THE LABELS{" "} </button>
