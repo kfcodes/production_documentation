@@ -28,6 +28,7 @@ export default function DragDropFile() {
   })};
 
   function printFile(filepath) {
+    console.log(uploaded);
     fetch(`${process.env.REACT_APP_API_URL}/print_pdf/${filepath}`, {
       method: "POST",
     })
@@ -75,6 +76,16 @@ export default function DragDropFile() {
     </div>
   );
 
+
+  function printItem(file) {
+      // printFile(file.name) 
+     let uploads = uploaded.pop(file); 
+     uploaded.pop(file); 
+    console.log(uploads)
+      // setUploaded(...uploads);
+      setUploaded(uploaded);
+}
+
   // const uploadedListItems = uploaded.map((file) =>
   //   <div  key={file.size}>
   //   <hr />
@@ -107,7 +118,7 @@ export default function DragDropFile() {
               {uploaded.map((file) =>
     <div  key={file.size+file.name}>
     <hr />
-    <h3 onClick={() => printFile(file.name)}>
+    <h3 onClick={() => printItem(file)}>
     {file.name}
     </h3>
     </div>
