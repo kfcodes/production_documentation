@@ -76,6 +76,8 @@ function PalletList() {
       .then(
         (result) => {
           setPallets(result);
+    console.log("The returned is type:")
+    console.log(typeof(result))
         },
         (error) => {
           console.log(error);
