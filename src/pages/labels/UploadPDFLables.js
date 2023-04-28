@@ -1,4 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Unstable_Grid2";
 
 import "./UploadPDFLables.css";
 
@@ -77,13 +80,18 @@ export default function DragDropFile() {
   );
 
 
-  function printItem(file) {
+  function printItem(filename) {
       // printFile(file.name) 
-     let uploads = uploaded.pop(file); 
-     uploaded.pop(file); 
-    console.log(uploads)
+     // let uploads = uploaded.splice(file); 
+     // uploaded.splice(file); 
+    // console.log(uploads)
       // setUploaded(...uploads);
-      setUploaded(uploaded);
+      // setUploaded(uploaded.splice(file));
+      setUploaded( oldValues => {
+return oldValues.filter(file => file.name !== filename)
+      })
+    console.log(` ${filename} sent to printer`)
+    alert(` ${filename} sent to printer`)
 }
 
   // const uploadedListItems = uploaded.map((file) =>
@@ -99,6 +107,17 @@ export default function DragDropFile() {
 
   return (
     <>
+    <Box
+      sx={{
+        width: 300,
+        height: 300,
+        backgroundColor: 'primary.dark',
+        '&:hover': {
+          backgroundColor: 'primary.main',
+          opacity: [0.9, 0.8, 0.7],
+        },
+      }}
+    />
       <>
         {" "}
         <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()} > {" "} <input ref={inputRef} type="file" id="input-file-upload" multiple={true} onChange={handleChange} />{" "} <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""} > {" "} <div> {" "} <p>DRAG AND DROP FILES OR CLICK TO SELECT FILES</p>{" "} </div>{" "} </label>{" "} {dragActive && ( <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop} ></div>)} </form> </>
@@ -118,9 +137,14 @@ export default function DragDropFile() {
               {uploaded.map((file) =>
     <div  key={file.size+file.name}>
     <hr />
-    <h3 onClick={() => printItem(file)}>
+    <Button  
+                      size="large"
+                      color="primary"
+                      variant="contained"
+                onClick={() => printItem(file.name)}>
+
     {file.name}
-    </h3>
+    </Button>
     </div>
   )}
               <hr />
@@ -139,8 +163,3 @@ export default function DragDropFile() {
       </>
   );
 }
-              // {uploadedListItems}
-
-
-              // <br />
-              // <button className="printFile" onClick={printFile}> PRINT THE LABELS{" "} </button>
