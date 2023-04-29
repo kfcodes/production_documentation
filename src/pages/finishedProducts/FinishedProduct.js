@@ -1,5 +1,5 @@
 // import { useForm } from "react-hook-form";
-import { Outlet, useNavigate, redirect, Navigate } from "react-router-dom";
+import { Outlet, useNavigate, redirect } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PrintLabeLButton from "./print_pallet_label_button";
@@ -21,7 +21,8 @@ import { __esModule } from "quagga";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import setMpsData from "./mps";
+import PrintBoxLabel from "./box_label";
+
 
 const style = {
   position: "absolute",
@@ -35,140 +36,164 @@ const style = {
   p: 4,
 };
 
-export default function CreateEol(props) {
-  const [productId] = useState(props.productId);
-  const [po] = useState(props.po);
+const printPalletLabel = (id) => {
+  console.log(id);
+  fetch(`${process.env.REACT_APP_API_URL}/label/${id}`, {
+    method: "get",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    console.log(response);
+  });
+};
+
+const printBoxLabel = (id) => {
+  fetch(`${process.env.REACT_APP_API_URL}/box_label/${id}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    console.log(response);
+  });
+};
+
+export default function Eol(props) {
+
+  const [eolId] = useState(props.eolId);
+  const [productId, setProductId] = useState("");
+  const [po, setPo] = useState("");
   const [lot, setLot] = useState("");
   const [bbe, setBbe] = useState("");
+  const [quantity, setQuantity] = useState(0);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  // function navigate1(p) {
-  //   console.log(p);
-  // navigate(`/pallet/${p}/pallet_item/`);
-  // }
+  // Get the EOL details and add them to the state
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/eol/${eolId}`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          setProductId(result[0].eol_product_id);
+          setPo(result[0].eol_po);
+          setLot(result[0].eol_lot);
+          setBbe(result[0].eol_bbe);
+          setQuantity(result[0].eol_quantity);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }, []);
 
-  const createEolData = () => {
+  const onSubmit = (id) => {
     let eol = {
-      eol_po: po,
-      eol_product_id: productId,
-      eol_lot: lot,
-      eol_bbe: bbe,
+  product_id: productId,
+  po: po,
+  lot: lot,
+  bbe: bbe,
+  quantity: quantity,
     };
-    // console.log("This is the eol object data");
-    // console.log(eol);
-    fetch(`${process.env.REACT_APP_API_URL}/eol`, {
-      method: "post",
+    fetch(`${process.env.REACT_APP_API_URL}/eol/${id}`, {
+      method: "put",
       mode: "cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(eol),
-    });
-    // .then((res) => res.json())
-    // console.log("Calling setUpdate function");
+    })
+      // .then((res) => res.json());
     props.setUpdate(`${productId}${lot}${bbe}`);
-    // .then(
-    // (result) => {
-    // navigate1(result["LAST_INSERT_ID()"]);
-    // navigate(`mps/`)
-    // console.log(result);
-    // console.log("Calling set MPS data");
-    // // console.log(eol);
-    // setMpsData();
-    //     console.log("The returned ID is");
-    //     console.log(result["LAST_INSERT_ID()"]);
-    //     setPalletID(result["LAST_INSERT_ID()"]);
-    //     navigate1(result["LAST_INSERT_ID()"]);
-    // }
-    // );
-    // console.log("Calling handleClose Function");
     handleClose();
   };
-  //   fetch(`${process.env.REACT_APP_API_URL}/pallet/${pallet_id}`, {
-  //     method: "put",
-  //     mode: "cors",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(palletData),
-  //   }).then((res) => res.json());
-  // };
 
-  return (
-    <>
-      <Button onClick={handleOpen}>create EOL Data</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Container maxWidth="sm">
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Enter End of Line Data
-            </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={6} md={8}>
-                <TextField
-                  disabled
-                  label="PRODUCT CODE"
-                  type="text"
-                  value={productId}
-                  sx={{ m: 1, width: "25ch" }}
-                />
-              </Grid>
+    return (
+      <>
+        <Button onClick={handleOpen}>End Of line Data</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Container maxWidth="sm">
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Enter End of Line Data
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={6} md={8}>
+                  <TextField
+                    disabled
+                    label="PRODUCT CODE"
+                    type="text"
+                    value={productId}
+                  />
+                </Grid>
 
-              <Grid item xs={6} md={8}>
-                <TextField
-                  disabled
-                  label="CUSTOMER PO"
-                  type="text"
-                  value={po}
-                  sx={{ m: 1, width: "25ch" }}
-                />
+                <Grid item xs={6} md={8}>
+                  <TextField
+                    disabled
+                    label="INTERNAL PO CODE"
+                    type="text"
+                    value={po}
+                  />
+                </Grid>
+                <Grid item xs={6} md={8}>
+                  <TextField
+                    label="LOT"
+                    type="text"
+                    value={lot}
+                    onChange={(e) => setLot(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={6} md={8}>
+                  <TextField
+                    label="BBE"
+                    type="text"
+                    value={bbe}
+                    onChange={(e) => setBbe(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={6} md={8}>
+                  <TextField
+                    label="Total Quantity Produced"
+                    type="number"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={6} md={8}>
+                  <Container maxWidth="sm">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="Large"
+                      onClick={() => {
+                        onSubmit(eolId);
+                      }}
+                    >
+      Update the EOL Data
+                    </Button>
+      <br />
+      <PrintBoxLabel eolId={eolId} />
+                  </Container>
+                </Grid>
               </Grid>
-              <Grid item xs={6} md={8}>
-                <TextField
-                  label="LOT"
-                  type="text"
-                  value={lot}
-                  onChange={(e) => setLot(e.target.value)}
-                  sx={{ m: 1, width: "25ch" }}
-                />
-              </Grid>
-              <Grid item xs={6} md={8}>
-                <TextField
-                  label="BBE"
-                  type="text"
-                  value={bbe}
-                  onChange={(e) => setBbe(e.target.value)}
-                  sx={{ m: 1, width: "25ch" }}
-                />
-              </Grid>
-              <Grid item xs={6} md={8}>
-                <Container maxWidth="sm">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="Large"
-                    onClick={() => {
-                      createEolData();
-                    }}
-                  >
-                    Save End of Line Sheet Details
-                  </Button>
-                </Container>
-              </Grid>
-            </Grid>
-          </Box>
-        </Container>
-      </Modal>
-    </>
-  );
-}
+            </Box>
+          </Container>
+        </Modal>
+      </>
+    );
+  }
+                    // <Button onClick={() => printBoxLabel(eolId)}>
+                    //   Print Box Label
+                    // </Button>
