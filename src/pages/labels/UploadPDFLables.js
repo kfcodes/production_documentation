@@ -122,11 +122,10 @@ export default function DragDropFile() {
       <>
             {uploaded ? (
               <>
-          <h1>CLICK FILE NAME TO SEND IT TO THE PRINTER IN THAT ORDER</h1>
+          <h1>CLICK FILE NAME TO SEND IT TO THE PRINTER</h1>
               {uploaded.map((file) =>
     <div  key={file.size+file.name}>
     <hr />
-    <Box>
     <Container>
     <Button  
                       size="large"
@@ -137,7 +136,6 @@ export default function DragDropFile() {
     {file.name}
     </Button>
     </Container>
-    </Box>
     </div>
   )}
               <hr />
