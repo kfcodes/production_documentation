@@ -1,9 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
 import Button from "@mui/material/Button";
 
 export default function CreateNewPallet() {
-  const [palletId, setPalletID] = useState("");
   const navigate = useNavigate();
 
   function navigate1(palletid) {
@@ -21,7 +19,6 @@ export default function CreateNewPallet() {
     })
       .then((res) => res.json())
       .then((result) => {
-        setPalletID(result["LAST_INSERT_ID()"]);
         navigate1(result["LAST_INSERT_ID()"]);
       });
   }
