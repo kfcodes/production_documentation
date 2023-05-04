@@ -1,18 +1,16 @@
-import { Outlet, useNavigate, redirect, Navigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import Button from '@mui/material/Button';
-
+import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import Button from "@mui/material/Button";
 
 export default function CreateNewPallet() {
   const [palletId, setPalletID] = useState("");
   const navigate = useNavigate();
 
-  function navigate1(p) {
-    console.log(p);
-  navigate(`/pallet/${p}/pallet_item/`);
+  function navigate1(palletid) {
+    navigate(`/pallet/${palletid}/pallet_item/`);
   }
-          
-  function createPallet1() {
+
+  function createPallet() {
     fetch(`${process.env.REACT_APP_API_URL}/pallet`, {
       method: "post",
       mode: "cors",
@@ -22,30 +20,22 @@ export default function CreateNewPallet() {
       },
     })
       .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log("The returned ID is");
-          console.log(result["LAST_INSERT_ID()"]);
-          setPalletID(result["LAST_INSERT_ID()"]);
-          navigate1(result["LAST_INSERT_ID()"]);
-        }
-      );
+      .then((result) => {
+        setPalletID(result["LAST_INSERT_ID()"]);
+        navigate1(result["LAST_INSERT_ID()"]);
+      });
   }
-  // .then((json) => console.log(json["LAST_INSERT_ID()"]))
-  // .then(setPalletID(json["LAST_INSERT_ID()"]));
-  // .then(redirect(`${process.env.REACT_APP_API_URL}/brands/`));
 
-  // <h1>DETAILS FOR Pallet {pallet.pallet_id}</h1>
-  // There needs to be an if else if the pallet exists or not
   return (
     <>
-      <Button 
-    variant="contained"
-                  size="large"
-                  color="success"
-    onClick={createPallet1}
-    >Create New Pallet
-    </Button>
+      <Button
+        variant="contained"
+        size="large"
+        color="success"
+        onClick={createPallet}
+      >
+        Create New Pallet
+      </Button>
     </>
   );
 }
