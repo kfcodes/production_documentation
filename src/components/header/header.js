@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import CreateNewPallet from "./CreatePallet";
+import React from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -51,29 +50,6 @@ function Header() {
             </AppBar>
           </Grid>
         </Grid>
-        <Container>
-        <Grid container padding={2} spacing={3} justifyContent="center">
-          <Grid item alignItems="center">
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            spacing={4}
-            divider={<Divider orientation="vertical" flexItem />}
-          >
-            <Button
-                    onClick={() => handleOnExport()}
-              size="large"
-              color="primary"
-              variant="contained"
-            >
-            EXPORT PACKING LIST
-            </Button>
-            <CreateNewPallet />
-          </Stack>
-          </Grid>
-        </Grid>
-        </Container>
       </Box>
     </>
   );
