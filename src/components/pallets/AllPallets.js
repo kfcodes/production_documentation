@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import CreateNewPallet from "./CreatePallet";
-import List from "@mui/material/List";
 import Grid from "@mui/material/Unstable_Grid2";
-import ListItem from "@mui/material/ListItem";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -17,56 +9,17 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import Badge from "@mui/material/Badge";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-// import XLSX from "xlsx";
 import * as XLSX from 'xlsx/xlsx.mjs'
+import Header from "../header/Header.js";
 
-
-const style = {
-  width: "100%",
-  border: "none",
-  bgcolor: "#04AA6D",
-  color: "white",
-  padding: "14px 28px",
-  FontFace: "26px",
-  cursor: "pointer",
-  display: "flex",
-};
-
-const options = [
-  "None",
-  "Atria",
-  "Callisto",
-  "Dione",
-  "Ganymede",
-  "Hangouts Call",
-  "Luna",
-  "Oberon",
-  "Phobos",
-  "Pyxis",
-  "Sedna",
-  "Titania",
-  "Triton",
-  "Umbriel",
-];
-
-const ITEM_HEIGHT = 48;
 
 function PalletList() {
   const [pallets, setPallets] = useState([]);
@@ -100,7 +53,6 @@ function PalletList() {
       );
   }, []);
 
-// const getPalletData = () => {
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/pallet_data/`)
       .then((res) => res.json())
@@ -117,100 +69,16 @@ function PalletList() {
 
   
   const handleOnExport = () => {
-    // getPalletData();
 var wb =XLSX.utils.book_new(),
       ws = XLSX.utils.json_to_sheet(fullPalletData);
     XLSX.utils.book_append_sheet(wb, ws, "Test Sheet");
     XLSX.writeFile(wb, "testExcelFile.xlsx");
-    // XLSX.writeFile(wb, "test.txt", {bookType: 'txt'});
   };
-
-
-  // </Link>
-
-  //       <CardContent> <Typography gutterBottom variant="h5" component="div">
-  //
-  //                 {pallet.pallet_id} - ({pallet.pallet_type_letter}) Weight:
-  //                 {pallet.weight} Height: {pallet.height}
-  //         </Typography>
-  //         <Typography variant="body2" color="text.secondary">
-  //               {palletItems.map((item) => (
-  //                 <>
-  //                   {pallet.pallet_id == item.pallet_item_pallet_id && (
-  //                     <ListItem key={item.pallet_item_pallet_id}>
-  //                       <p>
-  //                         {item.product_description} Lot: {item.lot} BBE:
-  //                         {item.bbe} Batch: {item.batch} QTY: {item.quantity}
-  //                       </p>
-  //                     </ListItem>
-  //                   )}
-  //                 </>
-  //               ))}
-  //         </Typography>
-  //       </CardContent>
-  //       <CardActions>
-  //         <Button size="small">Share</Button>
-  //         <Button size="small">Learn More</Button>
-  //       </CardActions>
-  //     </Card>
-  //           </ListItem>
-  //         ))}
-  //
-  //       </List>
-  //     </div>
-  //   );
-  // }
-
-  const navItems = [
-    { title: "PALLETS", key: "pallets", title: "PRODUCTION", key: "mps" },
-  ];
-  // <Button  fullWidth size="large" color="secondary" variant="text">
-  // <Link to={`/`} xs={6} sx={style}>
-  //
-  //
-
-  // console.log(fullPalletData);
 
   return (
     <>
       <Box component="span" sx={{ p: 2, border: "1px dashed grey" }}>
-        <Grid container padding={2} spacing={1} justifyContent="center">
-          <Grid item alignItems="center">
-            <AppBar position="absolute" component="nav" color="primary">
-              <Toolbar>
-                <Container>
-                  <Stack
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={4}
-                    divider={<Divider orientation="vertical" flexItem />}
-                  >
-                    <Button
-                      href="/"
-                      fullWidth
-                      size="large"
-                      color="warning"
-                      variant="contained"
-                      xs={style}
-                    >
-                      PALLETS
-                    </Button>
-                    <Button
-                      href="/mps/"
-                      fullWidth
-                      size="large"
-                      color="warning"
-                      variant="contained"
-                    >
-                      PRODUCTION
-                    </Button>
-                  </Stack>
-                </Container>
-              </Toolbar>
-            </AppBar>
-          </Grid>
-        </Grid>
+        <Header />
         <Container>
         <Grid container padding={2} spacing={3} justifyContent="center">
           <Grid item alignItems="center">
