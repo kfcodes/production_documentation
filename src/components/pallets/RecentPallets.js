@@ -13,43 +13,11 @@ import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import Header from "../header/Header.js";
-
-const style = {
-  width: "100%",
-  border: "none",
-  bgcolor: "#04AA6D",
-  color: "white",
-  padding: "14px 28px",
-  FontFace: "26px",
-  cursor: "pointer",
-  display: "flex",
-};
-
-const options = [
-  "None",
-  "Atria",
-  "Callisto",
-  "Dione",
-  "Ganymede",
-  "Hangouts Call",
-  "Luna",
-  "Oberon",
-  "Phobos",
-  "Pyxis",
-  "Sedna",
-  "Titania",
-  "Triton",
-  "Umbriel",
-];
-
-const ITEM_HEIGHT = 48;
 
 function PalletList() {
   const [pallets, setPallets] = useState([]);
