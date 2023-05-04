@@ -1,26 +1,12 @@
-// import { useForm } from "react-hook-form";
 import { useOutletContext } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import IndividualPalletItem from "./EachPalletItem";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Input from "@mui/material/Input";
-import FilledInput from "@mui/material/FilledInput";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Grid from "@mui/material/Unstable_Grid2";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -45,24 +31,7 @@ export default function CreatePallet() {
       body: JSON.stringify(palletItemData),
     }).then((result) => {
       setNewPalletItems(result);
-      // getPalletProducts())
     });
-  };
-
-  // .then(
-  const printState = () => {
-    console.log("These are the pallet items");
-    console.log(palletItems);
-  };
-
-  const getPalletProducts = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/pallet_items/${palletId}`)
-      .then((response) => response.json())
-      .then((result) => {
-        setPalletItems(result);
-        console.log("The state should be updated");
-        // console.log(result)
-      });
   };
 
   const deletePalletItem = (item_id) => {
@@ -76,31 +45,8 @@ export default function CreatePallet() {
       setNewPalletItems(result);
     });
   };
-  //   }).then((response) => {
-  //     console.log(response);
-  //   });
-  // };
-
-  // fetch(`${process.env.REACT_APP_API_URL}/pallet_items/${palletId}`)
-  //   .then((res) => res.json())
-  //   .then(
-  //     (result) => {
-  //       setPalletItems(result);
-  //       console.log("These are the pallet items");
-  //       console.log(result);
-  // },
-  // (error) => {
-  //   console.log(error);
-  // }
 
   useEffect(() => {
-    console.log("The UseEffect Is being called");
-    //       getPalletProducts();
-    // fetch(`
-    // ${process.env.REACT_APP_API_URL}/pallet_items/${palletId}`
-    // )
-    //   .then(response => response.json())
-    //   .then(result => {
     const fetchData = async () => {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/pallet_items/${palletId}`
@@ -110,28 +56,9 @@ export default function CreatePallet() {
       console.log("The state should be updated");
     };
     fetchData();
-    // });
-    // }, []);
-    // }, [palletItems]);
   }, [newPalletItems]);
-  // }, [props.id]);
-  // console.log(result)
-  //   })
-  // },
-  //     (error) => {
-  //       console.log(error);
-  // });
-  // }, [palletItems]);
-  // }, []);
 
-  // item_id: event.target[0].value,
-  // pallet_item_product_id: event.target[1].value,
-  // lot: event.target[2].value,
   const onSubmit = (event) => {
-    // console.log("This is the event");
-    // console.log("This is the item ID");
-    // console.log(event);
-    // console.log(event.target.item_id);
     event.preventDefault();
     let palletItemData = {
       pallet_item_pallet_id: palletId[0],
@@ -142,7 +69,6 @@ export default function CreatePallet() {
       bbe: event.target.bbe.value,
       batch: event.target.batch.value,
     };
-    // console.log("This is the pallet Item Data");
     console.log(palletItemData);
     fetch(
       `${process.env.REACT_APP_API_URL}/pallet_item/${palletItemData.item_id}`,
@@ -159,152 +85,6 @@ export default function CreatePallet() {
     });
   };
 
-  // );
-  // .then((response) => {
-  //     console.log(response);
-  //   });
-  // };
-
-  // console.log("These are the pallet items");
-  // console.log(palletItems.length);
-  // console.log(palletItems);
-  // <h1>DETAILS FOR THE PRODUCTS ON THE PALLET {palletId}</h1>
-  // <ul>
-  //   {palletItems.map((product) => (
-  //     <li key={product.item_id}>
-  //       <>
-  //         <form onSubmit={onSubmit}>
-  //           <label>
-  //             <input type="hidden" value={product.pallet_item_pallet_id} />
-  //           </label>
-  //           <label>
-  //             Product ID
-  //             <br />
-  //             <input type="text" value={product.pallet_item_product_id} />
-  //           </label>
-  //           <br />
-  //           <label>
-  //             Lot
-  //             <br />
-  //             <input type="text" value={product.lot} />
-  //           </label>
-  //           <br />
-  //           <label>
-  //             BBE
-  //             <br />
-  //             <input type="text" value={product.bbe} />
-  //           </label>
-  //           <br />
-  //           <label>
-  //             Batch
-  //             <br />
-  //             <input type="text" value={product.batch} />
-  //           </label>
-  //           <br />
-  //           <label>
-  //             Quantity
-  //             <br />
-  //             <input type="number" value={product.quantity} />
-  //           </label>
-  //           <label>
-  //             <input type="hidden" value={product.item_id} />
-  //           </label>
-  //           <button type="submit">Submit</button>
-  //         </form>
-  //         <button onClick={() => deletePalletItem(product.item_id)}>
-  //           Delete Pallet Item
-  //         </button>
-  //       </>
-  //     </li>
-  //   ))}
-  // </ul>
-  // <button onClick={() =>
-  // createNewPalletItem(palletId)
-  // }>
-  //   Create New Pallet Item
-  // </button>
-
-  // The Buttons for removing the details
-  //         <Button variant="contained"
-  // onClick={() => {
-  //               deletePalletItem(product.item_id);
-  // }}
-  //   >
-  //         Submit Product Information
-  //       </Button>
-  //         <Button variant="contained"
-  // onClick={() => {
-  //               deletePalletItem(product.item_id);
-  // }}
-  //   >
-  //         Delete Product
-  //       </Button>
-  // <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-  //
-  //
-  //
-
-  //   <input type="hidden" value={product.item_id} />
-  //   <TextField
-  //     label="Product ID"
-  //     id="outlined-end-adornment"
-  //     type="text"
-  //     value={product.pallet_item_product_id}
-  //     sx={{ m: 1, width: "25ch" }}
-  //   />
-  //   <TextField
-  //     label="LOT"
-  //     id="outlined-end-adornment"
-  //     type="text"
-  //     value={product.lot}
-  //     sx={{ m: 1, width: "25ch" }}
-  //   />
-  //   <TextField
-  //     label="BBE"
-  //     id="outlined-end-adornment"
-  //     type="text"
-  //     value={product.bbe}
-  //     sx={{ m: 1, width: "25ch" }}
-  //   />
-  //   <TextField
-  //     label="Batch"
-  //     id="outlined-end-adornment"
-  //     type="text"
-  //     value={product.batch}
-  //     sx={{ m: 1, width: "25ch" }}
-  //   />
-  //   <TextField
-  //     label="Quantity"
-  //     id="outlined-end-adornment"
-  //     type="number"
-  //     value={product.quantity}
-  //     sx={{ m: 1, width: "25ch" }}
-  //   />
-  //
-  //   <Button
-  // type="submit"
-  // variant="contained"
-  // >
-  // Save Product Details
-  //   </Button>
-
-  // <label>
-  //   <input type="hidden" value={product.item_id} />
-  // </label>
-  //
-  // <TextField
-  //     label="Quantity"
-  //     type="number"
-  //     value={product.quantity}
-  //     sx={{ m: 1, width: "25ch" }}
-  // />
-  // sx={{ m: 1, width: "25ch" }}
-  // <input
-  //   id="item_id"
-  //   name="item_id"
-  //   type="hidden"
-  //   value={product.item_id}
-  // />
   return (
     <>
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
