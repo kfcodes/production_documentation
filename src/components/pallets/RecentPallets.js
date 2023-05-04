@@ -19,6 +19,7 @@ import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
+import Header from "../header/Header.js";
 
 const style = {
   width: "100%",
@@ -87,43 +88,7 @@ function PalletList() {
   return (
     <>
       <Box component="span" sx={{ p: 2, border: "1px dashed grey" }}>
-        <Grid container padding={2} spacing={1} justifyContent="center">
-          <Grid item alignItems="center">
-            <AppBar position="absolute" component="nav" color="primary">
-              <Toolbar>
-                <Container>
-                  <Stack
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={4}
-                    divider={<Divider orientation="vertical" flexItem />}
-                  >
-                    <Button
-                      href="/"
-                      fullWidth
-                      size="large"
-                      color="warning"
-                      variant="contained"
-                      xs={style}
-                    >
-                      PALLETS
-                    </Button>
-                    <Button
-                      href="/mps/"
-                      fullWidth
-                      size="large"
-                      color="warning"
-                      variant="contained"
-                    >
-                      PRODUCTION
-                    </Button>
-                  </Stack>
-                </Container>
-              </Toolbar>
-            </AppBar>
-          </Grid>
-        </Grid>
+        <Header />
         <Container>
         <Grid container padding={2} spacing={3} justifyContent="center">
           <Grid item alignItems="center">
