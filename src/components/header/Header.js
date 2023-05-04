@@ -8,6 +8,17 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 
+const style = {
+  width: "100%",
+  border: "none",
+  bgcolor: "#04AA6D",
+  color: "white",
+  padding: "14px 28px",
+  FontFace: "26px",
+  cursor: "pointer",
+  display: "flex",
+};
+
 function Header() {
 
   return (
