@@ -8,7 +8,6 @@ export default function CreateNewPalletItem(id, state) {
   const palletId = id["id"];
   const updateState = id["state"];
 
-
   const createNewPalletItem = (pallet) => {
     let palletItemData = {
       pallet_item_pallet_id: pallet,

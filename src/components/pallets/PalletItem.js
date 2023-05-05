@@ -8,6 +8,7 @@ import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import CardContent from "@mui/material/CardContent";
 import DeletePalletItem from "./DeletePalletItemButton";
+import CreateNewPalletItem from "./CreateNewPalletItemButton";
 
 export default function CreatePallet() {
   const palletId = useOutletContext();
@@ -25,18 +26,6 @@ export default function CreatePallet() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(palletItemData),
-    }).then((result) => {
-      setNewPalletItems(result);
-    });
-  };
-
-  const deletePalletItem = (item_id) => {
-    fetch(`${process.env.REACT_APP_API_URL}/pallet_item/${item_id}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
     }).then((result) => {
       setNewPalletItems(result);
     });
@@ -226,23 +215,10 @@ export default function CreatePallet() {
           </>
         ))}
       </Box>
-      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-        <Container>
-          <Grid container padding={10} spacing={10} justifyContent="center">
-            <Grid>
-              <Button
-                variant="contained"
-                size="large"
-                onClick={() => {
-                  createNewPalletItem(palletId);
-                }}
-              >
-                ADD PRODUCT TO PALLET
-              </Button>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+                      <CreateNewPalletItem
+                        id={palletId}
+                        state={setNewPalletItems}
+                      />
     </>
   );
 }
