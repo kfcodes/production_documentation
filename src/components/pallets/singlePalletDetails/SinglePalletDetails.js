@@ -1,7 +1,6 @@
 import { Outlet, useNavigate, redirect } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import PrintLabeLButton from "./buttons/PrintPalletLabelButton";
 import Box from "@mui/material/Box";
 import InputAdornment from "@mui/material/InputAdornment";
 import Container from "@mui/material/Container";
@@ -14,6 +13,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
+import PrintLabeLButton from "../buttons/PrintPalletLabelButton";
 
 const style = {
   width: "100%",

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import CreateNewPalletButton from "./buttons/CreateNewPalletButton";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
@@ -17,8 +16,9 @@ import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
-import Header from "../header/Header.js";
-import ExportPalletData from "./buttons/ExportPalletDataButton";
+import Header from "../../header/Header.js";
+import ExportPalletData from "../buttons/ExportPalletDataButton";
+import CreateNewPalletButton from "../buttons/CreateNewPalletButton";
 
 function PalletList() {
   const [pallets, setPallets] = useState([]);
