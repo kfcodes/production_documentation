@@ -17,14 +17,12 @@ import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
-import * as XLSX from 'xlsx/xlsx.mjs'
 import Header from "../header/Header.js";
 import ExportPalletData from "./buttons/ExportPalletDataButton";
 
 function PalletList() {
   const [pallets, setPallets] = useState([]);
   const [palletItems, setPalletItems] = useState([]);
- const [fullPalletData, setFullPalletData] = useState([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -53,21 +51,6 @@ function PalletList() {
       );
   }, []);
 
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/pallet_data/`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setFullPalletData(result);
-          console.log(fullPalletData);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-  }, []);
-
-  
   return (
     <>
       <Box component="span" sx={{ p: 2, border: "1px dashed grey" }}>
