@@ -1,15 +1,10 @@
 import { useOutletContext } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Unstable_Grid2";
-import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
-import CardContent from "@mui/material/CardContent";
-import DeletePalletItem from "./DeletePalletItemButton";
-import CreateNewPalletItem from "./CreateNewPalletItemButton";
-import PalletItem from "./PalletItem";
+import CreateNewPalletItem from "./buttons/CreateNewPalletItemButton";
+import PalletItem from "./SinglePalletItem";
 
 export default function CreatePallet() {
   const palletId = useOutletContext();

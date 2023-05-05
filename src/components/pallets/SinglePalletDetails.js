@@ -1,7 +1,7 @@
 import { Outlet, useNavigate, redirect } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import PrintLabeLButton from "./PrintPalletLabelButton";
+import PrintLabeLButton from "./buttons/PrintPalletLabelButton";
 import Box from "@mui/material/Box";
 import InputAdornment from "@mui/material/InputAdornment";
 import Container from "@mui/material/Container";

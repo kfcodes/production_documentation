@@ -6,7 +6,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import CardContent from "@mui/material/CardContent";
-import DeletePalletItem from "./DeletePalletItemButton";
+import DeletePalletItem from "./buttons/DeletePalletItemButton";
 
 export default function PalletItem(props) {
   const product = props["product"];
