@@ -7,11 +7,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import DeletePalletItem from "./DeletePalletItemButton";
 
 export default function CreatePallet() {
   const palletId = useOutletContext();
@@ -88,16 +84,16 @@ export default function CreatePallet() {
   return (
     <>
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-      <Container>
-    <div>
-        <Grid container padding={1} spacing={1} justifyContent="center">
-          <Grid item >
-            <h1>PALLET ITEMS</h1>
-          </Grid>
-        </Grid>
-    </div>
-      </Container>
-      </Box >
+        <Container>
+          <div>
+            <Grid container padding={1} spacing={1} justifyContent="center">
+              <Grid item>
+                <h1>PALLET ITEMS</h1>
+              </Grid>
+            </Grid>
+          </div>
+        </Container>
+      </Box>
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
         {palletItems.map((product) => (
           <>
@@ -117,19 +113,19 @@ export default function CreatePallet() {
                       spacing={1}
                       justifyContent="center"
                     >
-    {product.product_description != null && 
-                      <Grid item xs={12}>
-                        <TextField
-                          fullWidth
-                          type="text"
-                          disabled="true"
-                          id="product_description"
-                          name="product_description"
-                          value={product.product_description}
-                          inputProps={{ style: { textAlign: "center" } }}
-                        />
-                      </Grid>
-    }  
+                      {product.product_description != null && (
+                        <Grid item xs={12}>
+                          <TextField
+                            fullWidth
+                            type="text"
+                            disabled="true"
+                            id="product_description"
+                            name="product_description"
+                            value={product.product_description}
+                            inputProps={{ style: { textAlign: "center" } }}
+                          />
+                        </Grid>
+                      )}
                     </Grid>
                     <Grid
                       container
@@ -206,35 +202,18 @@ export default function CreatePallet() {
                       spacing={1}
                       justifyContent="center"
                     >
-          <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Delete Button</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-                      <Grid xs={6}>
+                      <DeletePalletItem
+                        id={product.item_id}
+                        state={setNewPalletItems}
+                      />
+                      <Grid xs={4}>
+                        {" "}
                         <Button
-                          variant="contained"
-                          color="error"
-                          size="small"
-                          onClick={() => {
-                            deletePalletItem(product.item_id);
-                          }}
-                        >
-                          DELETE
-                        </Button>
-                      </Grid>
-        </AccordionDetails>
-      </Accordion>
-                      <Grid xs={4}> <Button
                           type="submit"
                           variant="contained"
                           color="secondary"
                           size="large"
-          sx={{ marginLeft: "auto" }}
+                          sx={{ marginLeft: "auto" }}
                         >
                           SAVE
                         </Button>
@@ -248,21 +227,21 @@ export default function CreatePallet() {
         ))}
       </Box>
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-      <Container>
-        <Grid container padding={10} spacing={10} justifyContent="center">
-          <Grid>
-            <Button
-              variant="contained"
-              size="large"
-              onClick={() => {
-                createNewPalletItem(palletId);
-              }}
-            >
-              ADD PRODUCT TO PALLET
-            </Button>
+        <Container>
+          <Grid container padding={10} spacing={10} justifyContent="center">
+            <Grid>
+              <Button
+                variant="contained"
+                size="large"
+                onClick={() => {
+                  createNewPalletItem(palletId);
+                }}
+              >
+                ADD PRODUCT TO PALLET
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-    </Container>
+        </Container>
       </Box>
     </>
   );

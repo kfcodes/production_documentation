@@ -1,7 +1,7 @@
 import { Outlet, useNavigate, redirect } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import PrintLabeLButton from "./PrintPalletLabel";
+import PrintLabeLButton from "./PrintPalletLabelButton";
 import Box from "@mui/material/Box";
 import InputAdornment from "@mui/material/InputAdornment";
 import Container from "@mui/material/Container";
@@ -14,19 +14,6 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
-
-const printPalletLabel = (id) => {
-  console.log(id);
-  fetch(`${process.env.REACT_APP_API_URL}/label/${id}`, {
-    method: "get",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  }).then((response) => {
-    console.log(response);
-  });
-};
 
 const style = {
   width: "100%",
