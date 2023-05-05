@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CreateNewPalletButton from "./CreateNewPalletButton";
+import CreateNewPalletButton from "./buttons/CreateNewPalletButton";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
@@ -19,7 +19,7 @@ import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import * as XLSX from 'xlsx/xlsx.mjs'
 import Header from "../header/Header.js";
-
+import ExportPalletData from "./buttons/ExportPalletDataButton";
 
 function PalletList() {
   const [pallets, setPallets] = useState([]);
@@ -68,13 +68,6 @@ function PalletList() {
   }, []);
 
   
-  const handleOnExport = () => {
-var wb =XLSX.utils.book_new(),
-      ws = XLSX.utils.json_to_sheet(fullPalletData);
-    XLSX.utils.book_append_sheet(wb, ws, "Test Sheet");
-    XLSX.writeFile(wb, "testExcelFile.xlsx");
-  };
-
   return (
     <>
       <Box component="span" sx={{ p: 2, border: "1px dashed grey" }}>
@@ -89,14 +82,7 @@ var wb =XLSX.utils.book_new(),
             spacing={4}
             divider={<Divider orientation="vertical" flexItem />}
           >
-            <Button
-                    onClick={() => handleOnExport()}
-              size="large"
-              color="primary"
-              variant="contained"
-            >
-            EXPORT PACKING LIST
-            </Button>
+            <ExportPalletData />
             <CreateNewPalletButton />
           </Stack>
           </Grid>
