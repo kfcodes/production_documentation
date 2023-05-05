@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CreateNewPallet from "./CreatePallet";
+import CreateNewPalletButton from "./CreateNewPalletButton";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
@@ -75,7 +75,7 @@ function PalletList() {
             >
               ALL PALLETS
             </Button>
-            <CreateNewPallet />
+            <CreateNewPalletButton />
           </Stack>
           </Grid>
         </Grid>

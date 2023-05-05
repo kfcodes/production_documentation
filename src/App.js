@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import PalletList from "./components/pallets/RecentPallets";
-import FullPalletList from "./components/pallets/AllPallets";
-import CreatePalletItem from "./components/pallets/CreatePalletItem";
-import CreateNewPallet from "./components/pallets/CreatePallet";
+import PalletList from "./components/pallets/RecentPalletsList";
+import FullPalletList from "./components/pallets/AllPalletsList";
+import CreatePalletItem from "./components/pallets/PalletItem";
+import CreateNewPalletButton from "./components/pallets/CreateNewPalletButton";
 import SinglePallet from "./components/pallets/Pallet";
 import Mps from "./components/production/CurrentProduction";
 import FullMps from "./components/production/TotalProduction";
@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PalletList />} />
         <Route path="/all_pallets" element={<FullPalletList />} />
-        <Route path="create_New_pallet" element={<CreateNewPallet />}/>
+        <Route path="create_New_pallet" element={<CreateNewPalletButton />}/>
         <Route path="pallet/:palletid" element={<SinglePallet />}>
           <Route path="pallet_item" element={<CreatePalletItem />} />
         </Route>
