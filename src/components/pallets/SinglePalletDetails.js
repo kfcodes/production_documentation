@@ -3,18 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PrintLabeLButton from "./PrintPalletLabel";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Input from "@mui/material/Input";
-import FilledInput from "@mui/material/FilledInput";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import Container from "@mui/material/Container";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
@@ -49,7 +40,6 @@ const style = {
 };
 
 export default function SinglePallet() {
-  const [pallet, setPallet] = useState({});
   const [pallet_id, setPallet_id] = useState(0);
   const [palletType, setPalletType] = useState(0);
   const [emptyweight, setEmptyweight] = useState(0);
@@ -59,7 +49,6 @@ export default function SinglePallet() {
   const palletId = useParams();
   const pId = palletId["palletid"];
 
-  // Get the details for the pallet
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/pallet/${pId}`)
       .then((res) => res.json())
