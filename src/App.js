@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import PalletList from "./components/pallets/RecentPalletsList";
-import FullPalletList from "./components/pallets/AllPalletsList";
-import CreatePalletItem from "./components/pallets/PalletItem";
-import CreateNewPalletButton from "./components/pallets/CreateNewPalletButton";
-import SinglePallet from "./components/pallets/Pallet";
+import PalletList from "./components/pallets/palletLists/RecentPalletsList";
+import FullPalletList from "./components/pallets/palletLists/AllPalletsList";
+import CreatePalletItem from "./components/pallets/singlePalletDetails/SinglePalletItemsList";
+import CreateNewPalletButton from "./components/pallets/buttons/CreateNewPalletButton";
+import SinglePallet from "./components/pallets/singlePalletDetails/SinglePalletDetails";
 import Mps from "./components/production/CurrentProduction";
 import FullMps from "./components/production/TotalProduction";
-import DragDropFile from "./components/labels/UploadPDFLables";
+import DragDropFile from "./components/uploadGS1/UploadPDFLables";
 
 function App() {
   return (
