@@ -1,11 +1,8 @@
 import React from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Divider from "@mui/material/Divider";
-import Stack from "@mui/material/Stack";
 import SideBar from "./SideBar";
 
 const style = {
@@ -42,7 +39,7 @@ function Header() {
                 PALLETIZATION
               </Button>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={1}>
             </Grid>
             <Grid item xs={4}>
               <Button
