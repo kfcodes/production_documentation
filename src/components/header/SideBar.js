@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
+import Container from "@mui/material/Container";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -17,6 +18,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import DragDropFile from "../uploadGS1/UploadPDFLables";
+import UploadDataFiles from "../uploadData/UploadDataFiles"
 
 const data = [
   { name: "Upload GS1", link: "/upload_pdf" },
@@ -58,10 +60,13 @@ export default function SideBar() {
         <MenuIcon />
       </IconButton>
       <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
-    <Stack spacing={10}>
+    <Container >
+    <Stack spacing={4}>
     <DragDropFile />
+    <UploadDataFiles />
         {getList()}
     </Stack>
+    </Container >
       </Drawer>
     </div>
   );

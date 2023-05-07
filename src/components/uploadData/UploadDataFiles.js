@@ -5,6 +5,19 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 import "./UploadDataFiles.css";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function UploadDataFiles() {
   const [files, setFiles] = useState([]);
@@ -12,6 +25,9 @@ export default function UploadDataFiles() {
   const inputRef = React.useRef(null);
   const [uploaded, setUploaded] = useState();
   const [processed, setProcessed] = useState();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const UploadDataFile = async () => {
     const formData = new FormData();
@@ -75,8 +91,22 @@ export default function UploadDataFiles() {
 
   return (
     <>
-      <Box>
-        <Container maxWidth="sm">
+        <Button
+
+                fullWidth
+                size="large"
+                color="primary"
+                variant="outlined"
+ sx={{ width: 200, padding: 1, margin: 2 }}
+    onClick={handleOpen}>UPLOAD DATA FILES</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Container maxWidth="sm">
+            <Box sx={style}>
           <br />
           <>
             {uploaded ? (
@@ -149,8 +179,9 @@ export default function UploadDataFiles() {
               </>
             )}
           </>
-        </Container>
       </Box>
+          </Container>
+        </Modal>
     </>
   );
 }
