@@ -6,7 +6,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
-import Container from "@mui/material/Container";
+import SideBar from "./SideBar";
 
 const style = {
   width: "100%",
@@ -20,48 +20,47 @@ const style = {
 };
 
 function Header() {
-
   return (
     <>
-      <Box component="span" sx={{ p: 2, border: "1px dashed grey" }}>
-        <Grid container padding={2} spacing={1} justifyContent="center">
-          <Grid item alignItems="center">
-            <AppBar position="absolute" component="nav" color="primary">
-              <Toolbar>
-                <Container>
-                  <Stack
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={4}
-                    divider={<Divider orientation="vertical" flexItem />}
-                  >
-                    <Button
-                      href="/"
-                      fullWidth
-                      size="large"
-                      color="warning"
-                      variant="contained"
-                      xs={style}
-                    >
-                      PALLETS
-                    </Button>
-                    <Button
-                      href="/mps/"
-                      fullWidth
-                      size="large"
-                      color="warning"
-                      variant="contained"
-                    >
-                      PRODUCTION
-                    </Button>
-                  </Stack>
-                </Container>
-              </Toolbar>
-            </AppBar>
-          </Grid>
-        </Grid>
-      </Box>
+      <Grid container padding={2} spacing={3} justifyContent="center">
+        <AppBar position="absolute" component="nav" color="primary">
+          <Toolbar>
+            <Grid item xs={1}>
+              <SideBar />
+            </Grid>
+            <Grid item xs={1}>
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                href="/"
+                fullWidth
+                size="large"
+                color="warning"
+                variant="contained"
+                xs={style}
+              >
+                PALLETIZATION
+              </Button>
+            </Grid>
+            <Grid item xs={2}>
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                href="/mps/"
+                fullWidth
+                size="large"
+                color="warning"
+                variant="contained"
+                xs={style}
+              >
+                PRODUCTION SCHEDULE
+              </Button>
+            </Grid>
+          </Toolbar>
+        </AppBar>
+      </Grid>
+      <br />
+      <br />
     </>
   );
 }
