@@ -30,9 +30,11 @@ var wb =XLSX.utils.book_new(),
     <>
             <Button
             onClick={() => handleOnExport()}
-              size="large"
-              color="primary"
-              variant="contained"
+                fullWidth
+                size="large"
+                color="primary"
+                variant="outlined"
+ sx={{ width: 200, padding: 1, margin: 2 }}
             >
             EXPORT PALLET DATA
             </Button>
