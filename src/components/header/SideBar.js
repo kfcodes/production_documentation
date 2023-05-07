@@ -14,17 +14,13 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Stack from "@mui/material/Stack";
 
 const data = [
-  {
-    name: "Home",
-    icon: <HomeOutlined />,
-  },
-  { name: "Inbox", icon: <InboxOutlined /> },
-  { name: "Outbox", icon: <CheckBoxOutlineBlankOutlined /> },
-  { name: "Sent mail", icon: <MailOutline /> },
-  { name: "Draft", icon: <DraftsOutlined /> },
-  { name: "Trash", icon: <ReceiptOutlined /> },
+  { name: "Upload GS1", link: "/upload_pdf" },
+  { name: "Upload Data Files", link: "/upload_data"},
+  { name: "Export Pallets", link: "/export"},
+  { name: "Packing Lists", link:  "/" },
 ];
 
 export default function SideBar() {
@@ -32,14 +28,21 @@ export default function SideBar() {
 
   const getList = () => (
     <div style={{ width: 250 }} onClick={() => setOpen(false)}>
-      {data.map((item, index) => (
-        <ListItem button key={index}>
-          <ListItemIcon>{item.icon}</ListItemIcon>
-          <ListItemText primary={item.name} />
-        </ListItem>
+      {data.map((item) => (
+              <Button
+                href={`/${item.link}`}
+                fullWidth
+                size="large"
+                color="primary"
+                variant="text"
+ sx={{ width: 200, padding: 1, margin: 2 }}
+              >
+        {item.name}
+        </Button>
       ))}
     </div>
   );
+  
   return (
     <div>
       <IconButton
@@ -53,7 +56,9 @@ export default function SideBar() {
         <MenuIcon />
       </IconButton>
       <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
+    <Stack spacing={10}>
         {getList()}
+    </Stack>
       </Drawer>
     </div>
   );
