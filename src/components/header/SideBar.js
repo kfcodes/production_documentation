@@ -12,6 +12,7 @@ import UploadDataFiles from "../uploadData/UploadDataFiles"
 import ExportPalletData from "../pallets/buttons/ExportPalletDataButton";
 const data = [
   { name: "Packing Lists", link:  "/" },
+  { name: "Latest Pallets", link:  "/latest_pallets" },
 ];
 
 export default function SideBar() {

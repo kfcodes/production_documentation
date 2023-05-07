@@ -8,6 +8,7 @@ import Mps from "./components/production/CurrentProduction";
 import FullMps from "./components/production/TotalProduction";
 import DragDropFile from "./components/uploadGS1/UploadPDFLables";
 import UploadDataFiles from "./components/uploadData/UploadDataFiles";
+import LatestPallets from "./components/pallets/palletLists/LatestPallets";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="full_mps/" element={<FullMps />} />
         <Route path="upload_pdf/" element={<DragDropFile />} />
         <Route path="upload_Data/" element={<UploadDataFiles />} />
+        <Route path="latest_pallets/" element={<LatestPallets />} />
       </Routes>
     </>
   );
