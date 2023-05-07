@@ -4,9 +4,9 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
-import "./UploaddataLables.css";
+import "./UploadDataFiles.css";
 
-export default function DragDropFile() {
+export default function UploadDataFiles() {
   const [files, setFiles] = useState([]);
   const [dragActive, setDragActive] = React.useState(false);
   const inputRef = React.useRef(null);
@@ -16,7 +16,7 @@ export default function DragDropFile() {
   const UploadDataFile = async () => {
     const formData = new FormData();
     files.forEach((file) => formData.append("files", file));
-    fetch(`${process.env.REACT_APP_API_URL}/upload_Data`, {
+    fetch(`${process.env.REACT_APP_API_URL}/upload_data`, {
       method: "POST",
       body: formData,
     })
@@ -61,9 +61,9 @@ export default function DragDropFile() {
   ));
 
   function processFile() {
-    setUploaded((oldValues) => {
-      return oldValues.filter((file) => file.name !== filename);
-    });
+    // setUploaded((oldValues) => {
+    //   return oldValues.filter((file) => file.name !== filename);
+    // });
     fetch(`${process.env.REACT_APP_API_URL}/process_data`, {
       method: "POST",
     })
