@@ -15,6 +15,8 @@ import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Stack from "@mui/material/Stack";
+import { Link } from "react-router-dom";
+import DragDropFile from "../uploadGS1/UploadPDFLables";
 
 const data = [
   { name: "Upload GS1", link: "/upload_pdf" },
@@ -28,17 +30,17 @@ export default function SideBar() {
 
   const getList = () => (
     <div style={{ width: 250 }} onClick={() => setOpen(false)}>
-      {data.map((item) => (
+{data.map((item) => (
+   <Link to={item.link}>
               <Button
-                href={`/${item.link}`}
                 fullWidth
                 size="large"
                 color="primary"
-                variant="text"
+                variant="outlined"
  sx={{ width: 200, padding: 1, margin: 2 }}
               >
         {item.name}
-        </Button>
+        </Button></Link>
       ))}
     </div>
   );
@@ -57,6 +59,7 @@ export default function SideBar() {
       </IconButton>
       <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
     <Stack spacing={10}>
+    <DragDropFile />
         {getList()}
     </Stack>
       </Drawer>

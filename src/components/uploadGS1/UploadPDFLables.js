@@ -5,6 +5,19 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 import "./UploadPDFLables.css";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function DragDropFile() {
   const [file, setFile] = useState();
@@ -13,6 +26,9 @@ export default function DragDropFile() {
   const inputRef = React.useRef(null);
   const [uploaded, setUploaded] = useState();
   const [printed, setPrinted] = useState();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const UploadPdfFile = async () => {
     const formData = new FormData();
@@ -89,9 +105,22 @@ export default function DragDropFile() {
 
   return (
     <>
-      <Box>
-        <Container maxWidth="sm">
+        <Button
 
+                fullWidth
+                size="large"
+                color="primary"
+                variant="outlined"
+ sx={{ width: 200, padding: 1, margin: 2 }}
+    onClick={handleOpen}>UPLOAD GS1 LABELS</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Container maxWidth="sm">
+            <Box sx={style}>
           <br />
           <>
             {printed ? (
@@ -177,8 +206,9 @@ export default function DragDropFile() {
               </>
             )}
           </>
-        </Container>
       </Box>
+          </Container>
+        </Modal>
     </>
   );
 }
