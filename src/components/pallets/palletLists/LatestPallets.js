@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
-import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -18,6 +17,12 @@ import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import Header from "../../header/Header.js";
 import CreateNewPalletButton from "../buttons/CreateNewPalletButton";
+import TextField from "@mui/material/TextField";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { Button, CardActionArea, CardActions } from '@mui/material';
 
 function LatestPallets() {
   const [pallets, setPallets] = useState([]);
@@ -37,40 +42,94 @@ function LatestPallets() {
 
   console.log(pallets);
 
-  // const listItems = files.map((file) => (
-  //   <div key={file.size + file.name}>
-  //     <hr />
-  //     <h3>{file.name}</h3>
-  //   </div>
-  // ));
+  const listItems = pallets.map((pallet) => (
+     <Card>
+      <CardActionArea>
+        <CardContent>
+      <Grid container padding={2} spacing={3} justifyContent="center">
+            <Grid item xs={4}>
+          <Typography gutterBottom variant="h5" component="div" align="center" fontWeight="bold">
+    {pallet.PALLET}
+          </Typography>
+            </Grid >
+            <Grid item xs={4}>
+          <Typography gutterBottom variant="body1" component="div" align="center" >
+    {pallet.DIMENSIONS}
+          </Typography>
+            </Grid >
+            <Grid item xs={4}>
+          <Typography gutterBottom variant="body1" component="div" align="center" >
+    {pallet.WEIGHT}
+          </Typography>
+            </Grid >
+            <Grid item xs={4}>
+          <Typography variant="body2" color="text.secondary">
+    {pallet.ID}
+          </Typography>
+            </Grid >
+            <Grid item xs={8}>
+          <Typography variant="body2" color="text.secondary">
+    {pallet.DESCRIPTION}
+          </Typography>
+            </Grid >
+            <Grid item xs={3}>
+          <Typography variant="body2" color="text.secondary">
+            {pallet.LOT_BBE}
+          </Typography>
+            </Grid >
+            <Grid item xs={3}>
+          <Typography variant="body2" color="text.secondary">
+            {pallet.BATCH}
+          </Typography>
+            </Grid >
+            <Grid item xs={3}>
+          <Typography variant="body2" color="text.secondary">
+            {pallet.QTY}
+          </Typography>
+            </Grid >
+    </Grid>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary">
+          Share
+        </Button>
+      </CardActions>
+    </Card>
+    ));
+
+    // <TableRow
+    //   sx={{ "& > *": { borderBottom: "unset" } }} key={pallet.PALLET} > <TableCell> {pallet.ID} </TableCell> <TableCell > {pallet.DESCRIPTION} </TableCell> <TableCell align="center">
+    //     {pallet.LOT_BBE}
+    //   </TableCell>
+    //   <TableCell align="center">{pallet.BATCH} kg</TableCell>
+    //   <TableCell align="center">{pallet.QUANTITY} cm</TableCell>
+    //   <TableCell> {pallet.DIMENSIONS} </TableCell>
+    //   <TableCell> {pallet.WEIGHT} </TableCell>
+    //   <TableCell> {pallet.PALLET} </TableCell>
+    //   </TableRow>
+    // ));
+  
+    // {pallet.HEIGHT ? (
+    //   <Button
+    //     variant="outlined"
+    //     size="small"
+    //     color="secondary"
+    //     href={`/pallet/${pallet.pallet_id}/pallet_item/`}
+    //   >
+    //     Change pallet Details
+    //   </Button>
 
   return (
     <>
       <Header />
-      <br />
-      <br />
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>PRODUCT DESCRIPTION</TableCell>
-              <TableCell align="right">LOT</TableCell>
-              <TableCell align="right">BBE</TableCell>
-              <TableCell align="right">Quantity</TableCell>
-              <TableCell align="center">Pallet Type</TableCell>
-              <TableCell align="center">Pallet Weight (kg)</TableCell>
-              <TableCell align="center">Pallet Height (cm)</TableCell>
-              <TableCell>Pallet Id</TableCell>
-              <TableCell />
-            </TableRow>
-          </TableHead>
-        </Table>
-      </TableContainer>
+    <Container>
+    {listItems}
+    </Container>
     </>
   );
 }
 
-// <TableBody>
 // {pallets.map((pallet) => (
 //   <>
 //     <TableRow
