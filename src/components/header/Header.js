@@ -58,9 +58,6 @@ function Header() {
       </Grid>
       <br />
       <br />
-      <br />
-      <br />
-      <br />
     </>
   );
 }
