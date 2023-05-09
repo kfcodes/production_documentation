@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
-import Alert from "@mui/material/Alert";
 
-export default function PrintBlankLabels() {
+export default function PrintTemporaryLabels() {
 
 const handleClick = () => {
-    // fetch(`${process.env.REACT_APP_API_URL}/pallet_data/`)
-    //   .then((res) => res.json())
-    //   .then(
-    //     (result) => {
-    //       console.log(result);
-          <Alert severity="success">
-  <AlertTitle>Success</AlertTitle>
-  This is a success alert — <strong>check it out!</strong>
-</Alert>
-      //   },
-      //   (error) => {
-      //     console.log(error);
-      //   }
-      // );
+    fetch(`${process.env.REACT_APP_API_URL}/print_blank_labels`, {
+      method: "post",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+        alert(result.message)
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   };
 
   return (

@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import DragDropFile from "../uploadGS1/UploadPDFLables";
 import UploadDataFiles from "../uploadData/UploadDataFiles"
 import ExportPalletData from "../pallets/buttons/ExportPalletDataButton";
+import PrintTemporaryLabels from "./PrintBlankLabelsButton";
+
 const data = [
   { name: "Packing Lists", link:  "/" },
   { name: "Latest Pallets", link:  "/latest_pallets" },
@@ -54,6 +56,7 @@ export default function SideBar() {
     <DragDropFile />
     <UploadDataFiles />
     <ExportPalletData />
+    <PrintTemporaryLabels />
     <Divider />
     <h3>PACKING LISTS</h3>
         {getList()}
