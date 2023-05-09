@@ -57,9 +57,6 @@ export default function SideBar() {
     <UploadDataFiles />
     <ExportPalletData />
     <PrintTemporaryLabels />
-    <Divider />
-    <h3>PACKING LISTS</h3>
-        {getList()}
     </Stack>
     </Container >
       </Drawer>
