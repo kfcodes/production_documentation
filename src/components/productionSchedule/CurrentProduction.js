@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import List from "@mui/material/List";
 import Grid from "@mui/material/Unstable_Grid2";
-import ListItem from "@mui/material/ListItem";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -16,18 +8,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import PropTypes from "prop-types";
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import ButtonGroup from "@mui/material/ButtonGroup";
-// import Eol from "./eol";
-// import CreateEol from "./createEol";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import MenuIcon from "@mui/icons-material/Menu";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
@@ -48,13 +28,9 @@ const style = {
 function Mps() {
   const [mps, setMps] = useState([]);
   const [update, setUpdate] = useState("");
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
 
   const setMpsData = () => {
     fetch(`${process.env.REACT_APP_API_URL}/mps`)
-      // fetch(`${process.env.REACT_APP_API_URL}/mps2`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -68,16 +44,6 @@ function Mps() {
 
   useEffect(() => {
     setMpsData();
-    // fetch(`${process.env.REACT_APP_API_URL}/mps`)
-    //   .then((res) => res.json())
-    //   .then(
-    //     (result) => {
-    //       setMps(result);
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
   }, [update]);
 
   const printBoxLabel = (id) => {
@@ -93,53 +59,16 @@ function Mps() {
   };
 
   const Eol2 = (id) => () => {
-    // const Eol2 = () => {
-
-    // <Eol po={p.po_quantity} productId={p.id} />
     console.log(id);
   };
 
-  // {mps.map((p) => (
-  //   <li key={p.mps_id}>
-  //   <br />
-  //   {p.eol_id}
-  //   <br />
-  //   {p.description}
-  //   <br />
-  //   mps={p.mps_quantity} po={p.po_quantity} eol={p.eol_total} pallets={p.pallet_total}
-  //   <br />
-  //       <button onClick={() => printBoxLabel(p.eol_id)}>
-  //   Print Box Label
-  //       </button>
-  //   </li>
-  // ))}
 
-  // onClick={() => createEOL(p.eol_id)}>
-  // <Eol po={p.po} poQuantity={p.po_quantity} productId={p.id} />
-  // <TableCell align="right">EOL LOT</TableCell>
-  // <TableCell align="left">EOL BBE</TableCell>
-  // <TableCell align="right">PL LOT</TableCell>
-  // <TableCell align="left">PL BBE</TableCell>
-  //     <TableCell align="right">{p.pl_lot}</TableCell>
-  //     <TableCell align="left">{p.pl_bbe}</TableCell>
-  //     <TableCell align="right">{p.lot}</TableCell>
-  //     <TableCell align="left">{p.bbe}</TableCell>
-  // <Eol eolId={p.eol_id} po={p.po} productId={p.id} />
-
-  // <TableCell align="right">End of Line Sheets</TableCell>
-  // <TableCell align="right">{p.eol_total}</TableCell>
   const navItems = [
     { title: "Pallets", key: "" },
     { title: "Full Production Schedule ", key: "full_mps" },
   ];
 
-  return (
-    <>
-    <Header />
-        <Grid container padding={2} spacing={1} justifyContent="center">
-          <Grid item alignItems="center">
-          </Grid>
-        </Grid>
+const buttonList = () =>{
         <Container>
         <Grid container padding={2} spacing={3} justifyContent="center">
           <Grid item alignItems="center">
@@ -162,6 +91,17 @@ function Mps() {
           </Grid>
         </Grid>
         </Container>
+
+}
+
+  return (
+    <>
+    <Header />
+    <buttonList />
+        <Grid container padding={2} spacing={1} justifyContent="center">
+          <Grid item alignItems="center">
+          </Grid>
+        </Grid>
             <TableContainer component={Paper}>
               <Table aria-label="simple table">
                 <TableHead>
