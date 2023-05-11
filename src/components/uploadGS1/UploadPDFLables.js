@@ -27,7 +27,7 @@ export default function DragDropFile() {
   const [uploaded, setUploaded] = useState();
   const [printed, setPrinted] = useState();
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handlePdfOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const UploadPdfFile = async () => {
@@ -112,7 +112,7 @@ export default function DragDropFile() {
                 color="primary"
                 variant="outlined"
  sx={{ width: 200, padding: 1, margin: 2 }}
-    onClick={handleOpen}>UPLOAD GS1 LABELS</Button>
+    onClick={handlePdfOpen}>UPLOAD GS1 LABELS</Button>
         <Modal
           open={open}
           onClose={handleClose}

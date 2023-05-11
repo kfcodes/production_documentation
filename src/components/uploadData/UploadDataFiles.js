@@ -26,7 +26,7 @@ export default function UploadDataFiles() {
   const [uploaded, setUploaded] = useState();
   const [processed, setProcessed] = useState();
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleDataOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const UploadDataFile = async () => {
@@ -98,7 +98,7 @@ export default function UploadDataFiles() {
                 color="primary"
                 variant="outlined"
  sx={{ width: 200, padding: 1, margin: 2 }}
-    onClick={handleOpen}>UPLOAD DATA FILES</Button>
+    onClick={handleDataOpen}>UPLOAD DATA FILES</Button>
         <Modal
           open={open}
           onClose={handleClose}
