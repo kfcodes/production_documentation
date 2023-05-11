@@ -12,6 +12,7 @@ import UploadDataFiles from "../uploadData/UploadDataFiles";
 import ExportPalletData from "../pallets/buttons/ExportPalletDataButton";
 import PrintTemporaryLabels from "./PrintBlankLabelsButton";
 import SplitButton from "./uploadButtonsDropdown";
+import LatestPallets from "../pallets/palletLists/LatestPallets";
 
 const data = [
   { name: "Packing Lists", link: "/" },
@@ -62,6 +63,8 @@ export default function SideBar() {
 <DragDropFile />
 <UploadDataFiles />
             <PrintTemporaryLabels />
+    <h3>PACKING LISTS</h3>
+        {getList()}
           </Stack>
         </Container>
       </Drawer>
