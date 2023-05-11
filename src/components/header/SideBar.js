@@ -8,13 +8,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import DragDropFile from "../uploadGS1/UploadPDFLables";
-import UploadDataFiles from "../uploadData/UploadDataFiles"
+import UploadDataFiles from "../uploadData/UploadDataFiles";
 import ExportPalletData from "../pallets/buttons/ExportPalletDataButton";
 import PrintTemporaryLabels from "./PrintBlankLabelsButton";
+import SplitButton from "./uploadButtonsDropdown";
 
 const data = [
-  { name: "Packing Lists", link:  "/" },
-  { name: "Latest Pallets", link:  "/latest_pallets" },
+  { name: "Packing Lists", link: "/" },
+  { name: "Latest Pallets", link: "/latest_pallets" },
 ];
 
 export default function SideBar() {
@@ -22,21 +23,22 @@ export default function SideBar() {
 
   const getList = () => (
     <div style={{ width: 250 }} onClick={() => setOpen(false)}>
-{data.map((item) => (
-   <Link to={item.link}>
-              <Button
-                fullWidth
-                size="large"
-                color="primary"
-                variant="outlined"
- sx={{ width: 200, padding: 1, margin: 2 }}
-              >
-        {item.name}
-        </Button></Link>
+      {data.map((item) => (
+        <Link to={item.link}>
+          <Button
+            fullWidth
+            size="large"
+            color="primary"
+            variant="outlined"
+            sx={{ width: 200, padding: 1, margin: 2 }}
+          >
+            {item.name}
+          </Button>
+        </Link>
       ))}
     </div>
   );
-  
+
   return (
     <div>
       <IconButton
@@ -50,15 +52,18 @@ export default function SideBar() {
         <MenuIcon />
       </IconButton>
       <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
-    <Container >
-    <Stack spacing={4}>
-    <br />
-    <DragDropFile />
-    <UploadDataFiles />
-    <ExportPalletData />
-    <PrintTemporaryLabels />
-    </Stack>
-    </Container >
+        <Container>
+          <Stack spacing={4}>
+            <br />
+            <br />
+            <br />
+            <br />
+            <ExportPalletData />
+<DragDropFile />
+<UploadDataFiles />
+            <PrintTemporaryLabels />
+          </Stack>
+        </Container>
       </Drawer>
     </div>
   );
