@@ -28,7 +28,7 @@ function LatestPallets() {
   const [pallets, setPallets] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/pallet_data/`)
+    fetch(`${process.env.REACT_APP_API_URL}/latest_pallet_data/`)
       .then((res) => res.json())
       .then(
         (result) => {
