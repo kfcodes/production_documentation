@@ -18,11 +18,11 @@ import Container from "@mui/material/Container";
 import Header from "../../header/Header.js";
 import CreateNewPalletButton from "../buttons/CreateNewPalletButton";
 import TextField from "@mui/material/TextField";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { Button, CardActionArea, CardActions } from "@mui/material";
 
 function LatestPallets() {
   const [pallets, setPallets] = useState([]);
@@ -42,52 +42,96 @@ function LatestPallets() {
 
   console.log(pallets);
 
-  const listItems = pallets.map((pallet) => (
-     <Card>
+  const listItemsNew = pallets.map((pallet) => (
+    <Card>
       <CardActionArea>
         <CardContent>
-      <Grid container padding={2} spacing={3} justifyContent="center">
+          <Grid container padding={2} spacing={3} justifyContent="center">
             <Grid item xs={4}>
-          <Typography gutterBottom variant="h5" component="div" align="center" fontWeight="bold">
-    {pallet.PALLET}
-          </Typography>
-            </Grid >
-            <Grid item xs={4}>
-          <Typography gutterBottom variant="body1" component="div" align="center" >
-    {pallet.DIMENSIONS}
-          </Typography>
-            </Grid >
-            <Grid item xs={4}>
-          <Typography gutterBottom variant="body1" component="div" align="center" >
-    {pallet.WEIGHT}
-          </Typography>
-            </Grid >
-            <Grid item xs={4}>
-          <Typography variant="body2" color="text.secondary">
-    {pallet.ID}
-          </Typography>
-            </Grid >
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                align="center"
+                fontWeight="bold"
+              >
+                {pallet.PALLET}
+              </Typography>
+            </Grid>
+            }
             <Grid item xs={8}>
-          <Typography variant="body2" color="text.secondary">
-    {pallet.DESCRIPTION}
-          </Typography>
-            </Grid >
+              <Typography variant="body2" color="text.secondary">
+                {pallet.DESCRIPTION}
+              </Typography>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  ));
+
+  const listItems = pallets.map((pallet) => (
+    <Card>
+      <CardActionArea>
+        <CardContent>
+          <Grid container padding={2} spacing={3} justifyContent="center">
+            <Grid item xs={4}>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                align="center"
+                fontWeight="bold"
+              >
+                {pallet.PALLET}
+              </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography
+                gutterBottom
+                variant="body1"
+                component="div"
+                align="center"
+              >
+                {pallet.DIMENSIONS}
+              </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography
+                gutterBottom
+                variant="body1"
+                component="div"
+                align="center"
+              >
+                {pallet.WEIGHT}
+              </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant="body2" color="text.secondary">
+                {pallet.ID}
+              </Typography>
+            </Grid>
+            <Grid item xs={8}>
+              <Typography variant="body2" color="text.secondary">
+                {pallet.DESCRIPTION}
+              </Typography>
+            </Grid>
             <Grid item xs={3}>
-          <Typography variant="body2" color="text.secondary">
-            {pallet.LOT_BBE}
-          </Typography>
-            </Grid >
+              <Typography variant="body2" color="text.secondary">
+                {pallet.LOT_BBE}
+              </Typography>
+            </Grid>
             <Grid item xs={3}>
-          <Typography variant="body2" color="text.secondary">
-            {pallet.BATCH}
-          </Typography>
-            </Grid >
+              <Typography variant="body2" color="text.secondary">
+                {pallet.BATCH}
+              </Typography>
+            </Grid>
             <Grid item xs={3}>
-          <Typography variant="body2" color="text.secondary">
-            {pallet.QTY}
-          </Typography>
-            </Grid >
-    </Grid>
+              <Typography variant="body2" color="text.secondary">
+                {pallet.QTY}
+              </Typography>
+            </Grid>
+          </Grid>
         </CardContent>
       </CardActionArea>
       <CardActions>
@@ -96,84 +140,80 @@ function LatestPallets() {
         </Button>
       </CardActions>
     </Card>
-    ));
+  ));
 
-    // <TableRow
-    //   sx={{ "& > *": { borderBottom: "unset" } }} key={pallet.PALLET} > <TableCell> {pallet.ID} </TableCell> <TableCell > {pallet.DESCRIPTION} </TableCell> <TableCell align="center">
-    //     {pallet.LOT_BBE}
-    //   </TableCell>
-    //   <TableCell align="center">{pallet.BATCH} kg</TableCell>
-    //   <TableCell align="center">{pallet.QUANTITY} cm</TableCell>
-    //   <TableCell> {pallet.DIMENSIONS} </TableCell>
-    //   <TableCell> {pallet.WEIGHT} </TableCell>
-    //   <TableCell> {pallet.PALLET} </TableCell>
-    //   </TableRow>
-    // ));
-  
-    // {pallet.HEIGHT ? (
-    //   <Button
-    //     variant="outlined"
-    //     size="small"
-    //     color="secondary"
-    //     href={`/pallet/${pallet.pallet_id}/pallet_item/`}
-    //   >
-    //     Change pallet Details
-    //   </Button>
+  // <TableRow
+  //   sx={{ "& > *": { borderBottom: "unset" } }} key={pallet.PALLET} > <TableCell> {pallet.ID} </TableCell> <TableCell > {pallet.DESCRIPTION} </TableCell> <TableCell align="center">
+  //     {pallet.LOT_BBE}
+  //   </TableCell>
+  //   <TableCell align="center">{pallet.BATCH} kg</TableCell>
+  //   <TableCell align="center">{pallet.QUANTITY} cm</TableCell>
+  //   <TableCell> {pallet.DIMENSIONS} </TableCell>
+  //   <TableCell> {pallet.WEIGHT} </TableCell>
+  //   <TableCell> {pallet.PALLET} </TableCell>
+  //   </TableRow>
+  // ));
+
+  // {pallet.HEIGHT ? (
+  //   <Button
+  //     variant="outlined"
+  //     size="small"
+  //     color="secondary"
+  //     href={`/pallet/${pallet.pallet_id}/pallet_item/`}
+  //   >
+  //     Change pallet Details
+  //   </Button>
 
   return (
     <>
       <Header />
-    <Container>
-    {listItems}
-    </Container>
+      <Container>
+        <br />
+        <br />
+        {pallets.map((pallet, index) => (
+          <Card>
+            <CardActionArea>
+              <CardContent>
+                <Grid container padding={2} spacing={3} justifyContent="center">
+                  {pallet.PALLET ? (
+                    <>
+                      <Grid item xs={4}>
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="div"
+                          align="center"
+                          fontWeight="bold"
+                        >
+                          {pallet.PALLET}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <Typography variant="body2" color="text.secondary">
+                          {pallet.DESCRIPTION}
+                        </Typography>
+                      </Grid>
+                    </>
+                  ) : (
+                    <>
+                      <Grid item xs={8}>
+                        <Typography variant="body2" color="text.secondary">
+                          {pallet.DESCRIPTION}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          NEEEEEEEEEE
+                        </Typography>
+                      </Grid>
+                    </>
+                  )}
+                </Grid>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        ))}
+      </Container>
     </>
   );
 }
-
-// {pallets.map((pallet) => (
-//   <>
-//     <TableRow
-//       sx={{ "& > *": { borderBottom: "unset" } }}
-//       key={pallet.pallet_id}
-//     >
-//       <TableCell />
-//       <TableCell component="th" scope="row">
-//         {pallet.pallet_id}
-//       </TableCell>
-//       <TableCell align="center">
-//         {pallet.pallet_type_letter}
-//       </TableCell>
-//       <TableCell align="center">{pallet.weight} kg</TableCell>
-//       <TableCell align="center">{pallet.height} cm</TableCell>
-//       <Button
-//         variant="outlined"
-//         size="small"
-//         color="secondary"
-//         href={`/pallet/${pallet.pallet_id}/pallet_item/`}
-//       >
-//         Change pallet Details
-//       </Button>
-//                 {palletItems.map((item) => (
-//                   <>
-//                     {pallet.pallet_id ===
-//                       item.pallet_item_pallet_id && (
-//                       <TableRow key={item.pallet_item_pallet_id}>
-//                         <TableCell component="th" scope="row">
-//                           {item.product_description}
-//                         </TableCell>
-//                         <TableCell align="right">
-//                           {item.lot}
-//                         </TableCell>
-//                         <TableCell align="right">
-//                           {item.bbe}
-//                         </TableCell>
-//                         <TableCell align="right">
-//                           {item.quantity}
-//                         </TableCell>
-//                       </TableRow>
-//                     )}
-//                   </>
-//                 ))}
-//               </TableBody>
 
 export default LatestPallets;
