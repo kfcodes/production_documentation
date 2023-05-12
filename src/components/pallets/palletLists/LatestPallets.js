@@ -171,45 +171,16 @@ function LatestPallets() {
         <br />
         <br />
         {pallets.map((pallet, index) => (
-          <Card>
-            <CardActionArea>
-              <CardContent>
-                <Grid container padding={2} spacing={3} justifyContent="center">
+          <>
                   {pallet.PALLET ? (
                     <>
-                      <Grid item xs={4}>
-                        <Typography
-                          gutterBottom
-                          variant="h5"
-                          component="div"
-                          align="center"
-                          fontWeight="bold"
-                        >
-                          {pallet.PALLET}
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={8}>
-                        <Typography variant="body2" color="text.secondary">
-                          {pallet.DESCRIPTION}
-                        </Typography>
-                      </Grid>
-                    </>
+          <Card> <CardActionArea> <CardContent> <Grid container padding={2} spacing={3} justifyContent="center"> <Grid item xs={4}> <Typography gutterBottom variant="h5" component="div" align="center" fontWeight="bold" > {pallet.PALLET} </Typography> </Grid> <Grid item xs={8}> <Typography variant="body2" color="text.secondary"> {pallet.DESCRIPTION} </Typography> </Grid> </Grid> </CardContent> </CardActionArea> </Card> </>
                   ) : (
                     <>
-                      <Grid item xs={8}>
-                        <Typography variant="body2" color="text.secondary">
-                          {pallet.DESCRIPTION}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          NEEEEEEEEEE
-                        </Typography>
-                      </Grid>
+          <Card> <CardActionArea> <CardContent> <Grid container padding={2} spacing={3} justifyContent="center"> <Grid item xs={8}> <Typography variant="body2" color="text.secondary"> {pallet.DESCRIPTION} </Typography> <Typography variant="body2" color="text.secondary"> NEEEEEEEEEE </Typography> </Grid> </Grid> </CardContent> </CardActionArea> </Card>
                     </>
                   )}
-                </Grid>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+          </>
         ))}
       </Container>
     </>
