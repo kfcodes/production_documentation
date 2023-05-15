@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 
 
 export default function Pallet() {
-  const [pallet, setpallet] = useState(0);
+  const [pallet, setPallet] = useState(0);
 
 
   const onSubmit = () => {
@@ -35,20 +35,12 @@ export default function Pallet() {
             Enter The Purchase Order Details
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={6} md={8}>
+            <Grid item xs={12} md={8}>
               <TextField
                 label="ID"
                 type="number"
-                value={poCode}
-                onChange={(e) => setPoCode(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={6} md={8}>
-              <TextField
-                label="Pallet"
-                type="text"
-                value={customerCode}
-                onChange={(e) => setCustomerCode(e.target.value)}
+                value={pallet}
+                onChange={(e) => setPallet(e.target.value)}
               />
             </Grid>
             <Grid item xs={6} md={8}>
