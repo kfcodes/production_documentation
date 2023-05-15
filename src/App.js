@@ -9,6 +9,7 @@ import FullMps from "./components/productionSchedule/TotalProduction";
 import DragDropFile from "./components/uploadGS1/UploadPDFLables";
 import UploadDataFiles from "./components/uploadData/UploadDataFiles";
 import LatestPallets from "./components/pallets/palletLists/LatestPallets";
+import SearchPallets from "./components/pallets/searchPalletModal/searchPalleModal";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="upload_pdf/" element={<DragDropFile />} />
         <Route path="upload_Data/" element={<UploadDataFiles />} />
         <Route path="latest_pallets/" element={<LatestPallets />} />
+        <Route path="search_pallet/" element={<SearchPallets />} />
       </Routes>
     </>
   );

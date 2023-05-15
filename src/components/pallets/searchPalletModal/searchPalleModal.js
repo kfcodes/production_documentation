@@ -21,25 +21,14 @@ const style = {
   p: 4,
 };
 
-export default function Pallet() {
+export default function SearchPallets() {
   const [pallet, setPallet] = useState(0);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const onSubmit = () => {
-      let po = {
-    id: id,
-    pallet: pallet,
-      };
-    fetch(`${process.env.REACT_APP_API_URL}/pallet/`, {
-      method: "post",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(po),
-    });
+    console.log(pallet);
   };
 
   return (
