@@ -9,7 +9,7 @@ import FullMps from "./components/productionSchedule/TotalProduction";
 import DragDropFile from "./components/uploadGS1/UploadPDFLables";
 import UploadDataFiles from "./components/uploadData/UploadDataFiles";
 import LatestPallets from "./components/pallets/palletLists/LatestPallets";
-import SearchPallets from "./components/pallets/searchPalletModal/searchPalleModal";
+import SearchPallets from "./components/pallets/searchPalletModal/SearchPallet";
 
 function App() {
   return (

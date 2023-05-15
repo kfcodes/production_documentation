@@ -13,7 +13,7 @@ import ExportPalletData from "../pallets/buttons/ExportPalletDataButton";
 import PrintTemporaryLabels from "./PrintBlankLabelsButton";
 import SplitButton from "./uploadButtonsDropdown";
 import LatestPallets from "../pallets/palletLists/LatestPallets";
-import SearchPallets from "../pallets/searchPalletModal/searchPalleModal";
+import SearchPallets from "../pallets/searchPalletModal/SearchPallet";
 
 const data = [
   { name: "Packing Lists", link: "/" },
