@@ -3,14 +3,23 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { __esModule } from "quagga";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function Pallet() {
   const [pallet, setPallet] = useState(0);
-
 
   const onSubmit = () => {
       let po = {
@@ -32,7 +41,7 @@ export default function Pallet() {
       <Container maxWidth="sm">
         <Box>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Enter The Purchase Order Details
+            ENTER PALLET ID
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} md={8}>
