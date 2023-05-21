@@ -46,7 +46,6 @@ function LatestPallets() {
       .then(
         (result) => {
           setPallets(result);
-          console.log(result);
         },
         (error) => {
           console.log(error);
@@ -154,6 +153,10 @@ function LatestPallets() {
     </Card>
   ));
 
+  const actionClick = (id) => {
+console.log(`You clicked the card with id of ${id}`);
+  }
+
   // <TableRow
   //   sx={{ "& > *": { borderBottom: "unset" } }} key={pallet.PALLET} > <TableCell> {pallet.ID} </TableCell> <TableCell > {pallet.DESCRIPTION} </TableCell> <TableCell align="center">
   //     {pallet.LOT_BBE}
@@ -188,7 +191,7 @@ function LatestPallets() {
               <>
                 <Card sx={style}>
                   {" "}
-                  <CardActionArea>
+                  <CardActionArea onClick={actionClick(pallet.pallet)}>
                     {" "}
                     <CardContent>
                       {" "}
@@ -196,39 +199,53 @@ function LatestPallets() {
                         container
                         padding={2}
                         spacing={3}
-                        justifyContent="center"
                       >
                         {" "}
-                        <Grid item xs={4}>
+                        <Grid item xs={3}>
                           {" "}
                           <Typography
                             gutterBottom
-                            variant="h5"
+                            variant="h4"
                             component="div"
-                            align="center"
+                            align="left"
                             fontWeight="bold"
                           >
                             {" "}
                             {pallet.pallet}{" "}
                           </Typography>{" "}
                         </Grid>{" "}
-                        <Grid item xs={2}>
+                        <Grid item xs={3}>
                           {" "}
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography
+                            gutterBottom
+                            variant="subtitle1"
+                            component="div"
+                            align="left"
+                          >
                             {" "}
                             {pallet.type} {" "}
                           </Typography>{" "}
                         </Grid>{" "}
-                        <Grid item xs={2}>
+                        <Grid item xs={3}>
                           {" "}
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography
+                            gutterBottom
+                            variant="subtitle1"
+                            component="div"
+                            align="left"
+                          >
                             {" "}
           Height: {pallet.height} CM{" "}
                           </Typography>{" "}
                         </Grid>{" "}
-                        <Grid item xs={2}>
+                        <Grid item xs={3}>
                           {" "}
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography
+                            gutterBottom
+                            variant="subtitle1"
+                            component="div"
+                            align="left"
+                          >
                             {" "}
           Weight: {pallet.weight} KG{" "}
                           </Typography>{" "}
