@@ -24,6 +24,19 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 
+const style = {
+  width: "100%",
+  border: "5px",
+  FontFace: "26px",
+  display: "flex",
+  bgcolor: "background.paper",
+  boxShadow: "1",
+  borderRadius: "2",
+  border: 1,
+  gap: 2,
+  margin: 2,
+};
+
 function LatestPallets() {
   const [pallets, setPallets] = useState([]);
 
@@ -173,7 +186,7 @@ function LatestPallets() {
         <br />
         {pallets.map((pallet, index) => (
               <>
-                <Card>
+                <Card sx={style}>
                   {" "}
                   <CardActionArea>
                     {" "}
