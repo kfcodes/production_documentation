@@ -137,9 +137,11 @@ function LatestPallets() {
               </Typography>
             </Grid>
             <Grid item xs={3}>
-              <Typography variant="body1" color="text.secondary"
-                            fontWeight="bold"
-    >
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                fontWeight="bold"
+              >
                 {pallet.QTY}
               </Typography>
             </Grid>
@@ -155,9 +157,9 @@ function LatestPallets() {
   ));
 
   const actionClick = (id) => {
-console.log(`You clicked the card with id of ${id}`);
-        navigateFunction(id);
-  }
+    console.log(`You clicked the card with id of ${id}`);
+    navigateFunction(id);
+  };
 
   // <TableRow
   //   sx={{ "& > *": { borderBottom: "unset" } }} key={pallet.PALLET} > <TableCell> {pallet.ID} </TableCell> <TableCell > {pallet.DESCRIPTION} </TableCell> <TableCell align="center">
@@ -187,140 +189,137 @@ console.log(`You clicked the card with id of ${id}`);
     <>
       <Header />
       <br />
-    <Box
-sx={{
-        backgroundColor: 'lightgrey',
-  }}
-    >
-    <Container
-    maxWidth="md">
-        <br />
-        {pallets.map((pallet, index) => (
-              <>
-                <Card sx={{ width: "90%", margin: 2, bgcolor: pallet.height ? "paper": "lightpink" }}>
-                 {" "}
-                 <CardActionArea onClick={() => actionClick(pallet.pallet)} >
-                   {" "}
-                   <CardContent>
-                     {" "}
-                     <Grid
-                       container
-                       padding={2}
-                       spacing={3}
-                     >
-                       {" "}
-                       <Grid item xs={3}>
-                         {" "}
-                         <Typography
-                           gutterBottom
-                           variant="h4"
-                           component="div"
-                           align="left"
-                           fontWeight="bold"
-                         >
-                           {" "}
-                           {pallet.pallet}{" "}
-                         </Typography>{" "}
-                       </Grid>{" "}
-                       <Grid item xs={3}>
-                         {" "}
-                         <Typography
-                           gutterBottom
-                           variant="subtitle1"
-                           component="div"
-                           align="left"
-                         >
-                           {" "}
-                           {pallet.type} {" "}
-                         </Typography>{" "}
-                       </Grid>{" "}
-                       <Grid item xs={3}>
-                         {" "}
-                         <Typography
-                           gutterBottom
-                           variant="subtitle1"
-                           component="div"
-                           align="left"
-                         >
-                           {" "}
-         Height: {pallet.height} CM{" "}
-                         </Typography>{" "}
-                       </Grid>{" "}
-                       <Grid item xs={3}>
-                         {" "}
-                         <Typography
-                           gutterBottom
-                           variant="subtitle1"
-                           component="div"
-                           align="left"
-                         >
-                           {" "}
-         Weight: {pallet.weight} KG{" "}
-                         </Typography>{" "}
-                       </Grid>{" "}
-                     </Grid>{" "}
-                     <Divider  />
-       {pallet.products.map((product) => (
-                     <Grid
-                       container
-                       padding={1}
-                       spacing={5}
-                       justifyContent="center"
-                     >
-                       {" "}
-                       <Grid item xs={2}>
-                         {" "}
-                         <Typography variant="body2" color="text.secondary">
-                           {" "}
-product.ID}{" "}
-                         </Typography>{" "}
-                       </Grid>{" "}
-                       <Grid item xs={5}>
-                         {" "}
-                         <Typography variant="body2" color="text.secondary">
-                           {" "}
-product.DESCRIPTION}{" "}
-                         </Typography>{" "}
-                       </Grid>{" "}
-                       <Grid item xs={1}>
-                         {" "}
-                         <Typography variant="body2" color="text.secondary">
-                           {" "}
-product.LOT}{" "}
-                         </Typography>{" "}
-                       </Grid>{" "}
-                       <Grid item xs={1}>
-                         {" "}
-                         <Typography variant="body2" color="text.secondary">
-                           {" "}
-product.BBE}{" "}
-                         </Typography>{" "}
-                       </Grid>{" "}
-                       <Grid item xs={2}>
-                         {" "}
-                         <Typography variant="body2" color="text.secondary">
-                           {" "}
-product.BATCH}{" "}
-                         </Typography>{" "}
-                       </Grid>{" "}
-                       <Grid item xs={1}>
-                         {" "}
-                         <Typography variant="body2" color="text.secondary">
-                           {" "}
-product.QTY}{" "}
-                         </Typography>{" "}
-                       </Grid>{" "}
-                       </Grid>
-       ))}
-                   </CardContent>{" "}
-                 </CardActionArea>{" "}
-               </Card>{" "}
-             </>
-       ))}
-     </Container>
-   </Box>
-   </>
- );
+      <Box sx={{ backgroundColor: "lightgrey" }}>
+        <Container maxWidth="md">
+          <br />
+          {pallets.map((pallet, index) => (
+            <>
+              <Card
+                sx={{
+                  width: "90%",
+                  margin: 2,
+                  bgcolor: pallet.height ? "paper" : "lightsalmon",
+                }}
+              >
+                {" "}
+                <CardActionArea onClick={() => actionClick(pallet.pallet)}>
+                  {" "}
+                  <CardContent>
+                    {" "}
+                    <Grid container padding={2} spacing={3}>
+                      {" "}
+                      <Grid item xs={3}>
+                        {" "}
+                        <Typography
+                          gutterBottom
+                          variant="h4"
+                          component="div"
+                          align="left"
+                          fontWeight="bold"
+                        >
+                          {" "}
+                          {pallet.pallet}{" "}
+                        </Typography>{" "}
+                      </Grid>{" "}
+                      <Grid item xs={3}>
+                        {" "}
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div"
+                          align="left"
+                        >
+                          {" "}
+                          {pallet.type}{" "}
+                        </Typography>{" "}
+                      </Grid>{" "}
+                      <Grid item xs={3}>
+                        {" "}
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div"
+                          align="left"
+                        >
+                          {" "}
+                          Height: {pallet.height} CM{" "}
+                        </Typography>{" "}
+                      </Grid>{" "}
+                      <Grid item xs={3}>
+                        {" "}
+                        <Typography
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div"
+                          align="left"
+                        >
+                          {" "}
+                          Weight: {pallet.weight} KG{" "}
+                        </Typography>{" "}
+                      </Grid>{" "}
+                    </Grid>{" "}
+                    <Divider />
+                    {pallet.products.map((product) => (
+                      <Grid
+                        container
+                        padding={1}
+                        spacing={5}
+                        justifyContent="center"
+                      >
+                        {" "}
+                        <Grid item xs={2}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+                      {product.ID}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={5}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+            {product.DESCRIPTION}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={1}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+    {product.LOT}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={1}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+{product.BBE}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={2}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+{product.BATCH}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={1}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+{product.QTY}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                      </Grid>
+                    ))}
+                  </CardContent>{" "}
+                </CardActionArea>{" "}
+              </Card>{" "}
+            </>
+          ))}
+        </Container>
+      </Box>
+    </>
+  );
 }
 
 export default LatestPallets;
