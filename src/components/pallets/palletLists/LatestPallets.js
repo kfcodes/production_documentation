@@ -33,14 +33,13 @@ function LatestPallets() {
       .then(
         (result) => {
           setPallets(result);
+          console.log(result);
         },
         (error) => {
           console.log(error);
         }
       );
   }, []);
-
-  console.log(pallets);
 
   const listItemsNew = pallets.map((pallet) => (
     <Card>
@@ -164,22 +163,88 @@ function LatestPallets() {
   //     Change pallet Details
   //   </Button>
 
+  // {pallets}
+
   return (
     <>
       <Header />
+      <br />
       <Container>
-        <br />
         <br />
         {pallets.map((pallet, index) => (
           <>
-                  {pallet.PALLET ? (
-                    <>
-          <Card> <CardActionArea> <CardContent> <Grid container padding={2} spacing={3} justifyContent="center"> <Grid item xs={4}> <Typography gutterBottom variant="h5" component="div" align="center" fontWeight="bold" > {pallet.PALLET} </Typography> </Grid> <Grid item xs={8}> <Typography variant="body2" color="text.secondary"> {pallet.DESCRIPTION} </Typography> </Grid> </Grid> </CardContent> </CardActionArea> </Card> </>
-                  ) : (
-                    <>
-          <Card> <CardActionArea> <CardContent> <Grid container padding={2} spacing={3} justifyContent="center"> <Grid item xs={8}> <Typography variant="body2" color="text.secondary"> {pallet.DESCRIPTION} </Typography> <Typography variant="body2" color="text.secondary"> NEEEEEEEEEE </Typography> </Grid> </Grid> </CardContent> </CardActionArea> </Card>
-                    </>
-                  )}
+            {pallet.pallet ? (
+              <>
+                <Card>
+                  {" "}
+                  <CardActionArea>
+                    {" "}
+                    <CardContent>
+                      {" "}
+                      <Grid
+                        container
+                        padding={2}
+                        spacing={3}
+                        justifyContent="center"
+                      >
+                        {" "}
+                        <Grid item xs={4}>
+                          {" "}
+                          <Typography
+                            gutterBottom
+                            variant="h5"
+                            component="div"
+                            align="center"
+                            fontWeight="bold"
+                          >
+                            {" "}
+                            {pallet.pallet}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={8}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+                            {pallet.id}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                      </Grid>{" "}
+                    </CardContent>{" "}
+                  </CardActionArea>{" "}
+                </Card>{" "}
+              </>
+            ) : (
+              <>
+                <Card>
+                  {" "}
+                  <CardActionArea>
+                    {" "}
+                    <CardContent>
+                      {" "}
+                      <Grid
+                        container
+                        padding={2}
+                        spacing={3}
+                        justifyContent="center"
+                      >
+                        {" "}
+                        <Grid item xs={8}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+                            {pallet.id}{" "}
+                          </Typography>{" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+                            NEEEEEEEEEE{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                      </Grid>{" "}
+                    </CardContent>{" "}
+                  </CardActionArea>{" "}
+                </Card>
+              </>
+            )}
           </>
         ))}
       </Container>
