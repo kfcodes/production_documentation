@@ -172,8 +172,6 @@ function LatestPallets() {
       <Container>
         <br />
         {pallets.map((pallet, index) => (
-          <>
-            {pallet.pallet ? (
               <>
                 <Card>
                   {" "}
@@ -201,51 +199,85 @@ function LatestPallets() {
                             {pallet.pallet}{" "}
                           </Typography>{" "}
                         </Grid>{" "}
-                        <Grid item xs={8}>
+                        <Grid item xs={2}>
                           {" "}
                           <Typography variant="body2" color="text.secondary">
                             {" "}
-                            {pallet.id}{" "}
+                            {pallet.type} {" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={2}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+          Height: {pallet.height} CM{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={2}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+          Weight: {pallet.weight} KG{" "}
                           </Typography>{" "}
                         </Grid>{" "}
                       </Grid>{" "}
+                      <Divider  />
+        {pallet.products.map((product) => (
+                      <Grid
+                        container
+                        padding={1}
+                        spacing={5}
+                        justifyContent="center"
+                      >
+                        {" "}
+                        <Grid item xs={2}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+{product.ID}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={5}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+{product.DESCRIPTION}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={1}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+{product.LOT}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={1}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+{product.BBE}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={2}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+{product.BATCH}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        <Grid item xs={1}>
+                          {" "}
+                          <Typography variant="body2" color="text.secondary">
+                            {" "}
+{product.QTY}{" "}
+                          </Typography>{" "}
+                        </Grid>{" "}
+                        </Grid>
+        ))}
                     </CardContent>{" "}
                   </CardActionArea>{" "}
                 </Card>{" "}
               </>
-            ) : (
-              <>
-                <Card>
-                  {" "}
-                  <CardActionArea>
-                    {" "}
-                    <CardContent>
-                      {" "}
-                      <Grid
-                        container
-                        padding={2}
-                        spacing={3}
-                        justifyContent="center"
-                      >
-                        {" "}
-                        <Grid item xs={8}>
-                          {" "}
-                          <Typography variant="body2" color="text.secondary">
-                            {" "}
-                            {pallet.id}{" "}
-                          </Typography>{" "}
-                          <Typography variant="body2" color="text.secondary">
-                            {" "}
-                            NEEEEEEEEEE{" "}
-                          </Typography>{" "}
-                        </Grid>{" "}
-                      </Grid>{" "}
-                    </CardContent>{" "}
-                  </CardActionArea>{" "}
-                </Card>
-              </>
-            )}
-          </>
         ))}
       </Container>
     </>
