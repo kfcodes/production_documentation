@@ -58,15 +58,13 @@ export default function SideBar() {
           <Stack spacing={4}>
             <br />
             <br />
-            <br />
-            <br />
-    <SearchPallets/>
+            <SearchPallets />
             <ExportPalletData />
-<DragDropFile />
-<UploadDataFiles />
+            <DragDropFile />
+            <UploadDataFiles />
             <PrintTemporaryLabels />
-    <h3>PACKING LISTS</h3>
-        {getList()}
+            <h3>PACKING LISTS</h3>
+            {getList()}
           </Stack>
         </Container>
       </Drawer>
