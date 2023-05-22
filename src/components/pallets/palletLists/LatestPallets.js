@@ -56,7 +56,7 @@ function LatestPallets() {
     <Card>
       <CardActionArea>
         <CardContent>
-          <Grid container padding={2} spacing={3} justifyContent="center">
+          <Grid container padding={0} spacing={3} justifyContent="center">
             <Grid item xs={4}>
               <Typography
                 gutterBottom
@@ -212,7 +212,7 @@ function LatestPallets() {
           </Grid>
         </Grid>
         </Container>
-      <Box sx={{ backgroundColor: "lightgrey" }}>
+      <Box sx={{ backgroundColor: "lightgrey", display: "flex", flexWrap: "wrap" }}>
         <Container maxWidth="md">
           <br />
           {pallets.map((pallet, index) => (
@@ -221,7 +221,7 @@ function LatestPallets() {
                 sx={{
                   width: "90%",
                   margin: 2,
-                  bgcolor: pallet.height ? "paper" : "lightsalmon",
+                  bgcolor: pallet.height && pallet.products[0] ? "paper" : "lightsalmon",
                 }}
               >
                 {" "}
@@ -229,13 +229,12 @@ function LatestPallets() {
                   {" "}
                   <CardContent>
                     {" "}
-                    <Grid container padding={2} spacing={3}>
+                    <Grid container padding={0} spacing={3}>
                       {" "}
                       <Grid item xs={3}>
                         {" "}
                         <Typography
-                          gutterBottom
-                          variant="h4"
+                          variant="subtitle1"
                           component="div"
                           align="left"
                           fontWeight="bold"
@@ -285,7 +284,7 @@ function LatestPallets() {
                     {pallet.products.map((product) => (
                       <Grid
                         container
-                        padding={1}
+                        padding={0}
                         spacing={5}
                         justifyContent="center"
                       >
