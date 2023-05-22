@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import Container from "@mui/material/Container";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Stack from "@mui/material/Stack";
@@ -11,8 +10,6 @@ import DragDropFile from "../uploadGS1/UploadPDFLables";
 import UploadDataFiles from "../uploadData/UploadDataFiles";
 import ExportPalletData from "../pallets/buttons/ExportPalletDataButton";
 import PrintTemporaryLabels from "./PrintBlankLabelsButton";
-import SplitButton from "./uploadButtonsDropdown";
-import LatestPallets from "../pallets/palletLists/LatestPallets";
 import SearchPallets from "../pallets/searchPalletModal/SearchPallet";
 
 const data = [
