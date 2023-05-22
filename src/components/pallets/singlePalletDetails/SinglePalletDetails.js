@@ -9,12 +9,9 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Divider from "@mui/material/Divider";
-import Stack from "@mui/material/Stack";
 import PrintLabeLButton from "../buttons/PrintPalletLabelButton";
 import Header from "../../header/Header";
+import Modal from "@mui/material/Modal";
 
 const style = {
   width: "100%",
@@ -36,6 +33,11 @@ export default function SinglePallet() {
   const [packing_list, setPacking_list] = useState(0);
   const palletId = useParams();
   const pId = palletId["palletid"];
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/pallet/${pId}`)
