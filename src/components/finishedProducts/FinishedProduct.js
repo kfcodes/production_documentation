@@ -23,7 +23,6 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import PrintBoxLabel from "./box_label";
 
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -61,8 +60,7 @@ const printBoxLabel = (id) => {
   });
 };
 
-export default function Eol(props) {
-
+export default function FinsishedProduct(props) {
   const [eolId] = useState(props.eolId);
   const [productId, setProductId] = useState("");
   const [po, setPo] = useState("");
@@ -95,11 +93,11 @@ export default function Eol(props) {
 
   const onSubmit = (id) => {
     let eol = {
-  product_id: productId,
-  po: po,
-  lot: lot,
-  bbe: bbe,
-  quantity: quantity,
+      po: po,
+      product_id: productId,
+      lot: lot,
+      bbe: bbe,
+      quantity: quantity,
     };
     fetch(`${process.env.REACT_APP_API_URL}/eol/${id}`, {
       method: "put",
@@ -109,91 +107,92 @@ export default function Eol(props) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(eol),
-    })
-      // .then((res) => res.json());
+    });
+    // .then((res) => res.json());
     props.setUpdate(`${productId}${lot}${bbe}`);
     handleClose();
   };
 
-    return (
-      <>
-        <Button onClick={handleOpen}>End Of line Data</Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Container maxWidth="sm">
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Enter End of Line Data
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={6} md={8}>
-                  <TextField
-                    disabled
-                    label="PRODUCT CODE"
-                    type="text"
-                    value={productId}
-                  />
-                </Grid>
-
-                <Grid item xs={6} md={8}>
-                  <TextField
-                    disabled
-                    label="INTERNAL PO CODE"
-                    type="text"
-                    value={po}
-                  />
-                </Grid>
-                <Grid item xs={6} md={8}>
-                  <TextField
-                    label="LOT"
-                    type="text"
-                    value={lot}
-                    onChange={(e) => setLot(e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={6} md={8}>
-                  <TextField
-                    label="BBE"
-                    type="text"
-                    value={bbe}
-                    onChange={(e) => setBbe(e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={6} md={8}>
-                  <TextField
-                    label="Total Quantity Produced"
-                    type="number"
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={6} md={8}>
-                  <Container maxWidth="sm">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="Large"
-                      onClick={() => {
-                        onSubmit(eolId);
-                      }}
-                    >
-      Update the EOL Data
-                    </Button>
-      <br />
-      <PrintBoxLabel eolId={eolId} />
-                  </Container>
-                </Grid>
+  return (
+    <>
+      <Button onClick={handleOpen}>End Of line Data</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Container maxWidth="sm">
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Enter End of Line Data
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={6} md={8}>
+                <TextField
+                  disabled
+                  label="PRODUCT CODE"
+                  type="text"
+                  value={productId}
+                />
               </Grid>
-            </Box>
-          </Container>
-        </Modal>
-      </>
-    );
-  }
-                    // <Button onClick={() => printBoxLabel(eolId)}>
-                    //   Print Box Label
-                    // </Button>
+
+              <Grid item xs={6} md={8}>
+                <TextField
+                  disabled
+                  label="INTERNAL PO CODE"
+                  type="text"
+                  value={po}
+                />
+              </Grid>
+              <Grid item xs={6} md={8}>
+                <TextField
+                  label="LOT"
+                  type="text"
+                  value={lot}
+                  onChange={(e) => setLot(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6} md={8}>
+                <TextField
+                  label="BBE"
+                  type="text"
+                  value={bbe}
+                  onChange={(e) => setBbe(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6} md={8}>
+                <TextField
+                  label="Total Quantity Produced"
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6} md={8}>
+                <Container maxWidth="sm">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="Large"
+                    onClick={() => {
+                      onSubmit(eolId);
+                    }}
+                  >
+                    Update the EOL Data
+                  </Button>
+                  <br />
+                  <PrintBoxLabel eolId={eolId} />
+                </Container>
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
+      </Modal>
+    </>
+  );
+}
+
+// <Button onClick={() => printBoxLabel(eolId)}>
+//   Print Box Label
+// </Button>

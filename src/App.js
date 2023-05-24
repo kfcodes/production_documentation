@@ -10,6 +10,7 @@ import DragDropFile from "./components/uploadGS1/UploadPDFLables";
 import UploadDataFiles from "./components/uploadData/UploadDataFiles";
 import LatestPallets from "./components/pallets/palletLists/LatestPallets";
 import SearchPallets from "./components/pallets/searchPalletModal/SearchPallet";
+import FinishedProduct from "./components/finishedProducts/FinishedProduct";
 
 function App() {
   return (
