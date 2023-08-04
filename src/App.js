@@ -11,6 +11,8 @@ import UploadDataFiles from "./components/uploadData/UploadDataFiles";
 import LatestPallets from "./components/pallets/palletLists/LatestPallets";
 import SearchPallets from "./components/pallets/searchPalletModal/SearchPallet";
 import FinishedProduct from "./components/finishedProducts/FinishedProduct";
+import Po from "./components/po/CreatePo";
+
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
         <Route path="upload_Data/" element={<UploadDataFiles />} />
         <Route path="latest_pallets/" element={<LatestPallets />} />
         <Route path="search_pallet/" element={<SearchPallets />} />
+        <Route path="finished_product/" element={<FinishedProduct />} />
+        <Route path="po/" element={<Po />} />
       </Routes>
     </>
   );
