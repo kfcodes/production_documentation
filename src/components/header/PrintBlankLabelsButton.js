@@ -2,8 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 
 export default function PrintTemporaryLabels() {
-
-const handleClick = () => {
+  const handleClick = () => {
     fetch(`${process.env.REACT_APP_API_URL}/print_blank_labels`, {
       method: "post",
       mode: "cors",
@@ -16,7 +15,7 @@ const handleClick = () => {
       .then(
         (result) => {
           console.log(result);
-        alert(result.message)
+          alert(result.message);
         },
         (error) => {
           console.log(error);
@@ -26,16 +25,16 @@ const handleClick = () => {
 
   return (
     <>
-            <Button
-            onClick={() => handleClick()}
-                fullWidth
-                size="large"
-                color="primary"
-                variant="outlined"
- sx={{ width: 200, padding: 1, margin: 2 }}
-            >
-  Print 100 Blank Labels
-            </Button>
+      <Button
+        onClick={() => handleClick()}
+        fullWidth
+        size="large"
+        color="primary"
+        variant="outlined"
+        sx={{ width: 200, padding: 1, margin: 2 }}
+      >
+        Print 100 Blank Labels
+      </Button>
     </>
   );
 }

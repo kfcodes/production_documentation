@@ -72,7 +72,9 @@ export default function SplitButton() {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
-                  <MenuItem onClick={() => handleMenuItemClick(UploadDataFiles)}>
+                  <MenuItem
+                    onClick={() => handleMenuItemClick(UploadDataFiles)}
+                  >
                     UploadDataFiles
                   </MenuItem>
                   <MenuItem onClick={() => handleMenuItemClick(DragDropFile)}>

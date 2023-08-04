@@ -25,8 +25,7 @@ function Header() {
             <Grid item xs={1}>
               <SideBar />
             </Grid>
-            <Grid item xs={1}>
-            </Grid>
+            <Grid item xs={1}></Grid>
             <Grid item xs={4}>
               <Button
                 href="/"
@@ -39,8 +38,7 @@ function Header() {
                 PALLETIZATION
               </Button>
             </Grid>
-            <Grid item xs={1}>
-            </Grid>
+            <Grid item xs={1}></Grid>
             <Grid item xs={4}>
               <Button
                 href="/mps/"
