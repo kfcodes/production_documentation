@@ -60,7 +60,6 @@ const style = {
 // };
 
 export default function PrintBoxLabel(props) {
-
   const [eolId] = useState(props.eolId);
   const [batch, setBatch] = useState("");
   const [quantity, setQuantity] = useState(0);
@@ -90,11 +89,11 @@ export default function PrintBoxLabel(props) {
 
   const onSubmit = () => {
     let label = {
-  batch: batch,
-  label_quantity: quantity,
+      batch: batch,
+      label_quantity: quantity,
     };
     // console.log(label);
-  fetch(`${process.env.REACT_APP_API_URL}/box_label/${eolId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/box_label/${eolId}`, {
       method: "post",
       headers: {
         Accept: "application/json",
@@ -105,55 +104,55 @@ export default function PrintBoxLabel(props) {
     handleClose();
   };
 
-    return (
-      <>
-        <Button onClick={handleOpen}>Print Box Labels</Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Container maxWidth="sm">
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Enter Label data
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={6} md={8}>
-                  <TextField
-                    label="Batch"
-                    type="text"
-                    value={batch}
-                    onChange={(e) => setBatch(e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={6} md={8}>
-                  <TextField
-                    label="Quantity of Labels"
-                    type="number"
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={6} md={8}>
-                  <Container maxWidth="sm">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="Large"
-                      onClick={() => {
-                        onSubmit(eolId);
-                      }}
-                    >
-             PRINT LABELS
-                    </Button>
-                  </Container>
-                </Grid>
+  return (
+    <>
+      <Button onClick={handleOpen}>Print Box Labels</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Container maxWidth="sm">
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Enter Label data
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={6} md={8}>
+                <TextField
+                  label="Batch"
+                  type="text"
+                  value={batch}
+                  onChange={(e) => setBatch(e.target.value)}
+                />
               </Grid>
-            </Box>
-          </Container>
-        </Modal>
-      </>
-    );
-  }
+              <Grid item xs={6} md={8}>
+                <TextField
+                  label="Quantity of Labels"
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6} md={8}>
+                <Container maxWidth="sm">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="Large"
+                    onClick={() => {
+                      onSubmit(eolId);
+                    }}
+                  >
+                    PRINT LABELS
+                  </Button>
+                </Container>
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
+      </Modal>
+    </>
+  );
+}

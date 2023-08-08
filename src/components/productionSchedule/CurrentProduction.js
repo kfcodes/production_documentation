@@ -13,7 +13,6 @@ import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import Header from "../header/Header.js";
 
-
 const style = {
   width: "100%",
   border: "none",
@@ -62,16 +61,15 @@ function Mps() {
     console.log(id);
   };
 
-
   const navItems = [
     { title: "Pallets", key: "" },
     { title: "Full Production Schedule ", key: "full_mps" },
   ];
 
-const buttonList = () =>{
-        <Container>
-        <Grid container padding={2} spacing={3} justifyContent="center">
-          <Grid item alignItems="center">
+  const buttonList = () => {
+    <Container>
+      <Grid container padding={2} spacing={3} justifyContent="center">
+        <Grid item alignItems="center">
           <Stack
             direction="row"
             justifyContent="center"
@@ -85,54 +83,52 @@ const buttonList = () =>{
               color="success"
               variant="contained"
             >
-    Full Production Schedule
+              Full Production Schedule
             </Button>
           </Stack>
-          </Grid>
         </Grid>
-        </Container>
-
-}
+      </Grid>
+    </Container>;
+  };
 
   return (
     <>
-    <Header />
-    <buttonList />
-        <Grid container padding={2} spacing={1} justifyContent="center">
-          <Grid item alignItems="center">
-          </Grid>
-        </Grid>
-            <TableContainer component={Paper}>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center">ID</TableCell>
-                    <TableCell align="left">Description</TableCell>
-                    <TableCell align="right">Schedule</TableCell>
-                    <TableCell align="left">Order</TableCell>
-                    <TableCell align="center">Packing List</TableCell>
-                    <TableCell align="right">LOT</TableCell>
-                    <TableCell align="left">BBE</TableCell>
-                    <TableCell />
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {mps.map((p) => (
-                    <>
-                      <TableRow key={p.mps_id} onClick={Eol2(p.eol_id)}>
-                        <TableCell align="center">{p.id}</TableCell>
-                        <TableCell align="left">{p.description}</TableCell>
-                        <TableCell align="right">{p.mps_quantity}</TableCell>
-                        <TableCell align="left">{p.po_quantity}</TableCell>
-                        <TableCell align="center">{p.pallet_total}</TableCell>
-                        <TableCell align="right">{p.pl_lot}</TableCell>
-                        <TableCell align="left">{p.pl_bbe}</TableCell>
-                      </TableRow>
-                    </>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+      <Header />
+      <buttonList />
+      <Grid container padding={2} spacing={1} justifyContent="center">
+        <Grid item alignItems="center"></Grid>
+      </Grid>
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">ID</TableCell>
+              <TableCell align="left">Description</TableCell>
+              <TableCell align="right">Schedule</TableCell>
+              <TableCell align="left">Order</TableCell>
+              <TableCell align="center">Packing List</TableCell>
+              <TableCell align="right">LOT</TableCell>
+              <TableCell align="left">BBE</TableCell>
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {mps.map((p) => (
+              <>
+                <TableRow key={p.mps_id} onClick={Eol2(p.eol_id)}>
+                  <TableCell align="center">{p.id}</TableCell>
+                  <TableCell align="left">{p.description}</TableCell>
+                  <TableCell align="right">{p.mps_quantity}</TableCell>
+                  <TableCell align="left">{p.po_quantity}</TableCell>
+                  <TableCell align="center">{p.pallet_total}</TableCell>
+                  <TableCell align="right">{p.pl_lot}</TableCell>
+                  <TableCell align="left">{p.pl_bbe}</TableCell>
+                </TableRow>
+              </>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 }

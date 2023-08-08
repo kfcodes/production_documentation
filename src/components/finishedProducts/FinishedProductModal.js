@@ -113,7 +113,6 @@ export default function Eol(props) {
   console.log(props.eolId);
   console.log(eolId);
 
-
   // Get the details for the pallet
   // useEffect(() => {
   //   fetch(`${process.env.REACT_APP_API_URL}/pallet/${pId}`)
