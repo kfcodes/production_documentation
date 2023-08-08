@@ -17,6 +17,7 @@ import Header from "../../header/Header";
 export default function CombinePallets() {
   const [possiblePallets, setPossiblePallets] = useState([]);
   const [pallets, setPallets] = useState([]);
+  const [height, setHeight] = useState(0);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/possible_pallets`)
@@ -36,7 +37,6 @@ export default function CombinePallets() {
       fetch(`${process.env.REACT_APP_API_URL}/pallet/${id}`).then((res) => res.json())
         .then((palletData) => {
           pallets.push(palletData);
-          console.log(pallets);
         });
   };
 
