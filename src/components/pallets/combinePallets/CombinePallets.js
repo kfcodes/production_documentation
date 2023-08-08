@@ -43,6 +43,46 @@ export default function CombinePallets() {
   return (
     <>
       <Header />
+
+      <Container maxWidth="sm">
+        <Box>
+    
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            PALLETS BEING COMBINED
+          </Typography>
+
+
+          <Grid container padding={2} spacing={1} justifyContent="center">
+            <Grid item alignItems="center"></Grid>
+          </Grid>
+
+          <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">PALLET</TableCell>
+                  <TableCell align="center">SIZE (CM)</TableCell>
+                  <TableCell align="center">HEIGHT (CM)</TableCell>
+                  <TableCell align="center">WEIGHT (KG)</TableCell>
+                  <TableCell />
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {pallets.map((p) => (
+                  <>
+                    <TableRow key={p.pallet_id}>
+                      <TableCell align="center">{p.id}</TableCell>
+                      <TableCell align="left">{p.size}</TableCell>
+                      <TableCell align="right">{p.height}</TableCell>
+                      <TableCell align="left">{p.weight}</TableCell>
+                    </TableRow>
+                  </>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Container>
     </>
   );
 }
