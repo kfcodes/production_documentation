@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import * as XLSX from 'xlsx';
+import * as XLSX from "xlsx";
 
 export default function ExportPalletData() {
- const [fullPalletData, setFullPalletData] = useState([]);
+  const [fullPalletData, setFullPalletData] = useState([]);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/pallet_data/`)
@@ -19,8 +19,8 @@ export default function ExportPalletData() {
       );
   }, []);
 
-const handleOnExport = () => {
-var wb =XLSX.utils.book_new(),
+  const handleOnExport = () => {
+    var wb = XLSX.utils.book_new(),
       ws = XLSX.utils.json_to_sheet(fullPalletData);
     XLSX.utils.book_append_sheet(wb, ws, "Test Sheet");
     XLSX.writeFile(wb, "testExcelFile.xlsx");
@@ -28,16 +28,16 @@ var wb =XLSX.utils.book_new(),
 
   return (
     <>
-            <Button
-            onClick={() => handleOnExport()}
-                fullWidth
-                size="large"
-                color="primary"
-                variant="outlined"
- sx={{ width: 200, padding: 1, margin: 2 }}
-            >
-            EXPORT PALLET DATA
-            </Button>
+      <Button
+        onClick={() => handleOnExport()}
+        fullWidth
+        size="large"
+        color="primary"
+        variant="outlined"
+        sx={{ width: 200, padding: 1, margin: 2 }}
+      >
+        EXPORT PALLET DATA
+      </Button>
     </>
   );
 }

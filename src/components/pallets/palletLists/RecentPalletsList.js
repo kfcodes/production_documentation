@@ -30,8 +30,8 @@ function PalletList() {
       .then(
         (result) => {
           setPallets(result);
-    console.log("The returned is type:")
-    console.log(typeof(result))
+          console.log("The returned is type:");
+          console.log(typeof result);
         },
         (error) => {
           console.log(error);
@@ -52,33 +52,32 @@ function PalletList() {
       );
   }, []);
 
-
   return (
     <>
       <Box component="span" sx={{ p: 2, border: "1px dashed grey" }}>
         <Header />
         <Container>
-        <Grid container padding={2} spacing={3} justifyContent="center">
-          <Grid item alignItems="center">
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            spacing={4}
-            divider={<Divider orientation="vertical" flexItem />}
-          >
-            <Button
-              href="/all_pallets"
-              size="small"
-              color="success"
-              variant="contained"
-            >
-              ALL PALLETS
-            </Button>
-            <CreateNewPalletButton />
-          </Stack>
+          <Grid container padding={2} spacing={3} justifyContent="center">
+            <Grid item alignItems="center">
+              <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                spacing={4}
+                divider={<Divider orientation="vertical" flexItem />}
+              >
+                <Button
+                  href="/all_pallets"
+                  size="small"
+                  color="success"
+                  variant="contained"
+                >
+                  ALL PALLETS
+                </Button>
+                <CreateNewPalletButton />
+              </Stack>
+            </Grid>
           </Grid>
-        </Grid>
         </Container>
         <TableContainer component={Paper}>
           <Table aria-label="simple table">

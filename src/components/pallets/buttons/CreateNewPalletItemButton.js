@@ -24,7 +24,6 @@ export default function CreateNewPalletItem(id, state) {
     });
   };
 
-
   return (
     <>
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>

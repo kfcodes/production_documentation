@@ -15,7 +15,6 @@ export default function SavePalletDetails(pallet, item, state) {
   const item_id = pallet["item"];
   const updateState = pallet["state"];
 
-
   const saveData = (event) => {
     event.preventDefault();
     let palletItemData = {
@@ -44,23 +43,23 @@ export default function SavePalletDetails(pallet, item, state) {
   };
 
   return (
-          <>
-            <Container>
-                      <Grid xs={4}>
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          color="secondary"
-                          size="large"
-                          sx={{ marginLeft: "auto" }}
-              onClick={() => {
-                saveData(item_id);
-              }}
-                        >
-                          SAVE Data
-                        </Button>
-                      </Grid>
-            </Container>
+    <>
+      <Container>
+        <Grid xs={4}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            size="large"
+            sx={{ marginLeft: "auto" }}
+            onClick={() => {
+              saveData(item_id);
+            }}
+          >
+            SAVE Data
+          </Button>
+        </Grid>
+      </Container>
     </>
   );
 }

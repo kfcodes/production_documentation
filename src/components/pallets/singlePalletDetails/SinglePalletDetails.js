@@ -38,7 +38,6 @@ export default function SinglePallet() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/pallet/${pId}`)
       .then((res) => res.json())
@@ -79,7 +78,7 @@ export default function SinglePallet() {
 
   return (
     <>
-    <Header />
+      <Header />
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
         <Container>
           <Grid container padding={1} spacing={1} justifyContent="center">

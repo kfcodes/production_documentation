@@ -189,30 +189,32 @@ function LatestPallets() {
     <>
       <Header />
       <br />
-        <Container>
+      <Container>
         <Grid container padding={2} spacing={3} justifyContent="center">
           <Grid item alignItems="center">
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            spacing={4}
-            divider={<Divider orientation="vertical" flexItem />}
-          >
-            <Button
-              href="/all_pallets"
-              size="small"
-              color="success"
-              variant="contained"
+            <Stack
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={4}
+              divider={<Divider orientation="vertical" flexItem />}
             >
-              ALL PALLETS
-            </Button>
-            <CreateNewPalletButton />
-          </Stack>
+              <Button
+                href="/all_pallets"
+                size="small"
+                color="success"
+                variant="contained"
+              >
+                ALL PALLETS
+              </Button>
+              <CreateNewPalletButton />
+            </Stack>
           </Grid>
         </Grid>
-        </Container>
-      <Box sx={{ backgroundColor: "lightgrey", display: "flex", flexWrap: "wrap" }}>
+      </Container>
+      <Box
+        sx={{ backgroundColor: "lightgrey", display: "flex", flexWrap: "wrap" }}
+      >
         <Container maxWidth="md">
           <br />
           {pallets.map((pallet, index) => (
@@ -221,7 +223,10 @@ function LatestPallets() {
                 sx={{
                   width: "90%",
                   margin: 2,
-                  bgcolor: pallet.height && pallet.products[0] ? "paper" : "lightsalmon",
+                  bgcolor:
+                    pallet.height && pallet.products[0]
+                      ? "paper"
+                      : "lightsalmon",
                 }}
               >
                 {" "}
@@ -293,42 +298,42 @@ function LatestPallets() {
                           {" "}
                           <Typography variant="body2" color="text.secondary">
                             {" "}
-                      {product.ID}{" "}
+                            {product.ID}{" "}
                           </Typography>{" "}
                         </Grid>{" "}
                         <Grid item xs={5}>
                           {" "}
                           <Typography variant="body2" color="text.secondary">
                             {" "}
-            {product.DESCRIPTION}{" "}
+                            {product.DESCRIPTION}{" "}
                           </Typography>{" "}
                         </Grid>{" "}
                         <Grid item xs={1}>
                           {" "}
                           <Typography variant="body2" color="text.secondary">
                             {" "}
-    {product.LOT}{" "}
+                            {product.LOT}{" "}
                           </Typography>{" "}
                         </Grid>{" "}
                         <Grid item xs={1}>
                           {" "}
                           <Typography variant="body2" color="text.secondary">
                             {" "}
-{product.BBE}{" "}
+                            {product.BBE}{" "}
                           </Typography>{" "}
                         </Grid>{" "}
                         <Grid item xs={2}>
                           {" "}
                           <Typography variant="body2" color="text.secondary">
                             {" "}
-{product.BATCH}{" "}
+                            {product.BATCH}{" "}
                           </Typography>{" "}
                         </Grid>{" "}
                         <Grid item xs={1}>
                           {" "}
                           <Typography variant="body2" color="text.secondary">
                             {" "}
-{product.QTY}{" "}
+                            {product.QTY}{" "}
                           </Typography>{" "}
                         </Grid>{" "}
                       </Grid>
