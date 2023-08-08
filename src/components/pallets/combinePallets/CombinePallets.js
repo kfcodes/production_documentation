@@ -16,7 +16,9 @@ import Header from "../../header/Header";
 
 export default function CombinePallets() {
   const [possiblePallets, setPossiblePallets] = useState([]);
-  const [pallets, setPallets] = useState([]);
+  const [palletId, setPalletId] = useState(0);
+  const [palletData, setPalletData] = useState([]);
+  const [selectedpallets, setSelectePallets] = useState([]);
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
@@ -36,7 +38,8 @@ export default function CombinePallets() {
     if (possiblePallets.includes(id))
       fetch(`${process.env.REACT_APP_API_URL}/pallet/${id}`).then((res) => res.json())
         .then((palletData) => {
-          pallets.push(palletData);
+          palletData.push(palletData);
+          console.log(palletData);
         });
   };
 
@@ -68,7 +71,7 @@ export default function CombinePallets() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {pallets.map((p) => (
+                {palletData.map((p) => (
                   <>
                     <TableRow key={p.pallet_id}>
                       <TableCell align="center">{p.id}</TableCell>
@@ -81,6 +84,63 @@ export default function CombinePallets() {
               </TableBody>
             </Table>
           </TableContainer>
+
+          <Grid container spacing={2}>
+
+            <Grid item xs={6} md={8}>
+
+              <TextField
+                label="PALLET ID"
+                type="number"
+                value={palletId}
+                onChange={(e) => setPalletId(e.target.value)}
+              />
+
+            </Grid>
+
+            <Grid item xs={6} md={8}>
+
+              <TextField
+                label="TOTAL PALLET HEIGHT"
+                type="number"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+              />
+
+            </Grid>
+
+            <Grid item xs={6} md={8}>
+
+              <Container maxWidth="sm">
+
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="Large"
+                  onClick={() => {
+                    addPallet(3104);
+                  }}
+                >
+    ADD PALLET TO LIST
+                </Button>
+
+                <Button
+                  variant="contained"
+                  color="error"
+                  size="Large"
+                  onClick={() => {
+                    addPallet(3104);
+                  }}
+                >
+    COMBINE PALLETS AND PRINT LABEL
+                </Button>
+
+              </Container>
+
+            </Grid>
+
+          </Grid>
+
         </Box>
       </Container>
     </>
