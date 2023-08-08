@@ -27,9 +27,9 @@ function Singlebom() {
         {bom.map((component) => (
           <li key={component.component_id}>
             <h3>{component.product_description}</h3>
-            <p>sage code - {component.component_id} </p> 
-                <p> quantity - {component.quantity} </p>
-                <p> stock - {component.stock}</p>
+            <p>sage code - {component.component_id} </p>
+            <p> quantity - {component.quantity} </p>
+            <p> stock - {component.stock}</p>
           </li>
         ))}
       </ul>

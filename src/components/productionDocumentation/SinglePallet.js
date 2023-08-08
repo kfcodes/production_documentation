@@ -22,45 +22,45 @@ function SinglePallet() {
       );
   }, []);
 
-        // <p>{pallet.item_id}</p>
-        // <p>{pallet.pallet_item_pallet_id}</p>
-        // <p>{pallet.product_id}</p>
-        // <p>{pallet.lot}</p>
-        // <p>{pallet.bbe}</p>
-        // <p>{pallet.batch}</p>
-        // <p>{pallet.quantity}</p>
-        // <p>{pallet.id}</p>
-        // <p>{pallet.pallet_length}</p>
-        // <p>{pallet.pallet_width}</p>
-        // <p>{pallet.pallet_name}</p>
-        // <p>{pallet.packing_list_id}</p>
-        // <p>{pallet.packing_list_name}</p>
-        // {pallet.map((pallet) => (
-        // {pallet[0]((pallet) => (
-        // )
-// )}
+  // <p>{pallet.item_id}</p>
+  // <p>{pallet.pallet_item_pallet_id}</p>
+  // <p>{pallet.product_id}</p>
+  // <p>{pallet.lot}</p>
+  // <p>{pallet.bbe}</p>
+  // <p>{pallet.batch}</p>
+  // <p>{pallet.quantity}</p>
+  // <p>{pallet.id}</p>
+  // <p>{pallet.pallet_length}</p>
+  // <p>{pallet.pallet_width}</p>
+  // <p>{pallet.pallet_name}</p>
+  // <p>{pallet.packing_list_id}</p>
+  // <p>{pallet.packing_list_name}</p>
+  // {pallet.map((pallet) => (
+  // {pallet[0]((pallet) => (
+  // )
+  // )}
   //
   //
   //
   //
-  // 
+  //
   return (
     <div className="wrapper">
       <h2> Pallet Details </h2>
-          <p>Pallet Number: {pallet_1.pallet_id}</p>
-          <p>pallet Weight: {pallet_1.weight}Kg</p>
-          <p>Pallet Height: {pallet_1.height}cm</p>
-          <p>Pallet Type: {pallet_1.pallet_name}</p>
-        <h3> Pallet Contents </h3>
-        {pallet.map((pallet) => (
-          <li key={pallet.item_id}>
-            <p>Product code: {pallet.product_id}</p>
-            <p>Product lot: {pallet.lot}</p>
-            <p>Product BBE: {pallet.bbe}</p>
-            <p>Product Batch: {pallet.batch}</p>
-            <p>Product Quantity: {pallet.quantity}</p>
-          </li>
-        ))}
+      <p>Pallet Number: {pallet_1.pallet_id}</p>
+      <p>pallet Weight: {pallet_1.weight}Kg</p>
+      <p>Pallet Height: {pallet_1.height}cm</p>
+      <p>Pallet Type: {pallet_1.pallet_name}</p>
+      <h3> Pallet Contents </h3>
+      {pallet.map((pallet) => (
+        <li key={pallet.item_id}>
+          <p>Product code: {pallet.product_id}</p>
+          <p>Product lot: {pallet.lot}</p>
+          <p>Product BBE: {pallet.bbe}</p>
+          <p>Product Batch: {pallet.batch}</p>
+          <p>Product Quantity: {pallet.quantity}</p>
+        </li>
+      ))}
     </div>
   );
 }

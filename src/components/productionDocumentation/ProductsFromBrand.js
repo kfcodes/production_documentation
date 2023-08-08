@@ -26,7 +26,12 @@ function ProductList() {
       <ul>
         {products.map((product) => (
           <li key={product.product_id}>
-            <Link to={`/product/${product.product_id}/bom/${product.product_id}/`}> {product.product_description}</Link>
+            <Link
+              to={`/product/${product.product_id}/bom/${product.product_id}/`}
+            >
+              {" "}
+              {product.product_description}
+            </Link>
           </li>
         ))}
       </ul>

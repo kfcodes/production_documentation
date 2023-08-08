@@ -29,7 +29,7 @@ function SingleProduct() {
       <p>BBE - {product.bbe_months} months</p>
       <p>Batch - {product.batch}</p>
       <p>Pallet Type - {product.pallet_name}</p>
-      <Outlet context={[product.product_id]}/>
+      <Outlet context={[product.product_id]} />
     </div>
   );
 }
