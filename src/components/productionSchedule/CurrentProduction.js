@@ -45,26 +45,9 @@ function Mps() {
     setMpsData();
   }, [update]);
 
-  const printBoxLabel = (id) => {
-    fetch(`${process.env.REACT_APP_API_URL}/box_label/${id}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      console.log(response);
-    });
-  };
-
   const Eol2 = (id) => () => {
     console.log(id);
   };
-
-  const navItems = [
-    { title: "Pallets", key: "" },
-    { title: "Full Production Schedule ", key: "full_mps" },
-  ];
 
   const buttonList = () => {
     <Container>
