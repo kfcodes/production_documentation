@@ -91,97 +91,101 @@ export default function UploadDataFiles() {
 
   return (
     <>
-        <Button
-
-                fullWidth
-                size="large"
-                color="primary"
-                variant="outlined"
- sx={{ width: 200, padding: 1, margin: 2 }}
-    onClick={handleDataOpen}>UPLOAD DATA FILES</Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Container maxWidth="sm">
-            <Box sx={style}>
-          <br />
-          <>
-            {uploaded ? (
-              <>
-                <h1>CLICK FILE TO PROCESS</h1>
-                {uploaded.map((file) => (
-                  <div key={file.size + file.name}>
-                    <hr />
-                    <Container>
-                      <Button
-                        size="large"
-                        color="success"
-                        variant="contained"
-                  onClick={() => processFile(file.name)}
-                      >
-                        {file.name}
-                      </Button>
-                    </Container>
-                  </div>
-                ))}
-                <hr />{" "}
-              </>
-            ) : (
-              <>
+      <Button
+        fullWidth
+        size="large"
+        color="primary"
+        variant="outlined"
+        sx={{ width: 200, padding: 1, margin: 2 }}
+        onClick={handleDataOpen}
+      >
+        UPLOAD DATA FILES
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Container maxWidth="sm">
+          <Box sx={style}>
+            <br />
+            <>
+              {uploaded ? (
                 <>
-                  {" "}
-                  <form
-                    id="form-file-upload"
-                    onDragEnter={handleDrag}
-                    onSubmit={(e) => e.preventDefault()}
-                  >
+                  <h1>CLICK FILE TO PROCESS</h1>
+                  {uploaded.map((file) => (
+                    <div key={file.size + file.name}>
+                      <hr />
+                      <Container>
+                        <Button
+                          size="large"
+                          color="success"
+                          variant="contained"
+                          onClick={() => processFile(file.name)}
+                        >
+                          {file.name}
+                        </Button>
+                      </Container>
+                    </div>
+                  ))}
+                  <hr />{" "}
+                </>
+              ) : (
+                <>
+                  <>
                     {" "}
-                    <input
-                      ref={inputRef}
-                      type="file"
-                      id="input-file-upload"
-                      multiple={true}
-                      onChange={handleChange}
-                    />{" "}
-                    <label
-                      id="label-file-upload"
-                      htmlFor="input-file-upload"
-                      className={dragActive ? "drag-active" : ""}
+                    <form
+                      id="form-file-upload"
+                      onDragEnter={handleDrag}
+                      onSubmit={(e) => e.preventDefault()}
                     >
                       {" "}
-                      <div>
+                      <input
+                        ref={inputRef}
+                        type="file"
+                        id="input-file-upload"
+                        multiple={true}
+                        onChange={handleChange}
+                      />{" "}
+                      <label
+                        id="label-file-upload"
+                        htmlFor="input-file-upload"
+                        className={dragActive ? "drag-active" : ""}
+                      >
                         {" "}
-                        <p>DRAG AND DROP FILES OR CLICK TO SELECT FILES</p>{" "}
-                      </div>{" "}
-                    </label>{" "}
-                    {dragActive && (
-                      <div
-                        id="drag-file-element"
-                        onDragEnter={handleDrag}
-                        onDragLeave={handleDrag}
-                        onDragOver={handleDrag}
-                        onDrop={handleDrop}
-                      ></div>
-                    )}{" "}
-                  </form>{" "}
+                        <div>
+                          {" "}
+                          <p>
+                            DRAG AND DROP FILES OR CLICK TO SELECT FILES
+                          </p>{" "}
+                        </div>{" "}
+                      </label>{" "}
+                      {dragActive && (
+                        <div
+                          id="drag-file-element"
+                          onDragEnter={handleDrag}
+                          onDragLeave={handleDrag}
+                          onDragOver={handleDrag}
+                          onDrop={handleDrop}
+                        ></div>
+                      )}{" "}
+                    </form>{" "}
+                  </>
+                  <h1>UPLOAD THE FOLLOWING FILES TO THE SERVER</h1>
+                  <Container>{listItems}</Container>
+                  <hr />
+                  <br />
+                  <button className="uploadFile" onClick={UploadDataFile}>
+                    {" "}
+                    UPLOAD FILES TO SERVER{" "}
+                  </button>{" "}
                 </>
-                <h1>UPLOAD THE FOLLOWING FILES TO THE SERVER</h1>
-                <Container>{listItems}</Container>
-                <hr />
-                <br />
-                <button className="uploadFile" onClick={UploadDataFile}>
-                  {" "}
-                  UPLOAD FILES TO SERVER{" "}
-                </button>{" "}
-              </>
-            )}
-          </>
-      </Box>
-          </Container>
-        </Modal>
+              )}
+            </>
+          </Box>
+        </Container>
+      </Modal>
     </>
   );
 }

@@ -105,110 +105,110 @@ export default function DragDropFile() {
 
   return (
     <>
-        <Button
-
-                fullWidth
-                size="large"
-                color="primary"
-                variant="outlined"
- sx={{ width: 200, padding: 1, margin: 2 }}
-    onClick={handlePdfOpen}>UPLOAD GS1 LABELS</Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Container maxWidth="sm">
-            <Box sx={style}>
-          <br />
-          <>
-            {printed ? (
-              <>
-                <h1>{printed}</h1>
-                {listItems}
-              </>
-            ) : (
-              <>
-                {uploaded ? (
-                  <>
-                    <h1>CLICK FILE TO PRINT</h1>
-                    {uploaded.map((file) => (
-                      <div key={file.size + file.name}>
-                        <hr />
-                        <Container>
-                          <Button
-                            size="large"
-                            color="success"
-                            variant="contained"
-                            onClick={() => printItem(file.name)}
+      <Button
+        fullWidth
+        size="large"
+        color="primary"
+        variant="outlined"
+        sx={{ width: 200, padding: 1, margin: 2 }}
+        onClick={handlePdfOpen}
+      >
+        UPLOAD GS1 LABELS
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Container maxWidth="sm">
+          <Box sx={style}>
+            <br />
+            <>
+              {printed ? (
+                <>
+                  <h1>{printed}</h1>
+                  {listItems}
+                </>
+              ) : (
+                <>
+                  {uploaded ? (
+                    <>
+                      <h1>CLICK FILE TO PRINT</h1>
+                      {uploaded.map((file) => (
+                        <div key={file.size + file.name}>
+                          <hr />
+                          <Container>
+                            <Button
+                              size="large"
+                              color="success"
+                              variant="contained"
+                              onClick={() => printItem(file.name)}
+                            >
+                              {file.name}
+                            </Button>
+                          </Container>
+                        </div>
+                      ))}
+                      <hr />{" "}
+                    </>
+                  ) : (
+                    <>
+                      <>
+                        {" "}
+                        <form
+                          id="form-file-upload"
+                          onDragEnter={handleDrag}
+                          onSubmit={(e) => e.preventDefault()}
+                        >
+                          {" "}
+                          <input
+                            ref={inputRef}
+                            type="file"
+                            id="input-file-upload"
+                            multiple={true}
+                            onChange={handleChange}
+                          />{" "}
+                          <label
+                            id="label-file-upload"
+                            htmlFor="input-file-upload"
+                            className={dragActive ? "drag-active" : ""}
                           >
-                            {file.name}
-                          </Button>
-                        </Container>
-                      </div>
-                    ))}
-                    <hr />{" "}
-                  </>
-                ) : (
-                  <>
-
-          <>
-            {" "}
-            <form
-              id="form-file-upload"
-              onDragEnter={handleDrag}
-              onSubmit={(e) => e.preventDefault()}
-            >
-              {" "}
-              <input
-                ref={inputRef}
-                type="file"
-                id="input-file-upload"
-                multiple={true}
-                onChange={handleChange}
-              />{" "}
-              <label
-                id="label-file-upload"
-                htmlFor="input-file-upload"
-                className={dragActive ? "drag-active" : ""}
-              >
-                {" "}
-                <div>
-                  {" "}
-                  <p>DRAG AND DROP FILES OR CLICK TO SELECT FILES</p>{" "}
-                </div>{" "}
-              </label>{" "}
-              {dragActive && (
-                <div
-                  id="drag-file-element"
-                  onDragEnter={handleDrag}
-                  onDragLeave={handleDrag}
-                  onDragOver={handleDrag}
-                  onDrop={handleDrop}
-                ></div>
-              )}{" "}
-            </form>{" "}
-          </>
-
-
-
-                    <h1>UPLOAD THE FOLLOWING FILES TO THE SERVER</h1>
-                    <Container>{listItems}</Container>
-                    <hr />
-                    <br />
-                    <button className="uploadFile" onClick={UploadPdfFile}>
-                      {" "}
-                      UPLOAD FILES TO SERVER{" "}
-                    </button>{" "}
-                  </>
-                )}
-              </>
-            )}
-          </>
-      </Box>
-          </Container>
-        </Modal>
+                            {" "}
+                            <div>
+                              {" "}
+                              <p>
+                                DRAG AND DROP FILES OR CLICK TO SELECT FILES
+                              </p>{" "}
+                            </div>{" "}
+                          </label>{" "}
+                          {dragActive && (
+                            <div
+                              id="drag-file-element"
+                              onDragEnter={handleDrag}
+                              onDragLeave={handleDrag}
+                              onDragOver={handleDrag}
+                              onDrop={handleDrop}
+                            ></div>
+                          )}{" "}
+                        </form>{" "}
+                      </>
+                      <h1>UPLOAD THE FOLLOWING FILES TO THE SERVER</h1>
+                      <Container>{listItems}</Container>
+                      <hr />
+                      <br />
+                      <button className="uploadFile" onClick={UploadPdfFile}>
+                        {" "}
+                        UPLOAD FILES TO SERVER{" "}
+                      </button>{" "}
+                    </>
+                  )}
+                </>
+              )}
+            </>
+          </Box>
+        </Container>
+      </Modal>
     </>
   );
 }
