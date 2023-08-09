@@ -34,7 +34,7 @@ export default function CombinePallets() {
       );
   }, []);
 
-  const addPallets2 = () => {
+  const ppp = () => {
     console.log(selectedpallets);
     console.log(palletDataArray);
   };
@@ -60,10 +60,11 @@ export default function CombinePallets() {
 
   return (
     <>
+      <br />
+      <br />
       <Header />
       <Container maxWidth="sm">
         <Box>
-
           <Typography id="modal-modal-title" variant="h6" component="h2">
             PALLETS BEING COMBINED
           </Typography>
@@ -72,7 +73,7 @@ export default function CombinePallets() {
             <Grid item alignItems="center"></Grid>
           </Grid>
 
-          <Grid container padding={2} spacing={1} justifyContent="center">
+          <Grid container padding={2} spacing={4} justifyContent="center">
             <TableContainer component={Paper}>
               <Table aria-label="simple table">
                 <TableHead>
@@ -98,7 +99,7 @@ export default function CombinePallets() {
             </TableContainer>
           </Grid>
 
-          <Grid container spacing={20}>
+          <Grid container padding={2} spacing={4} justifyContent="center">
             <Grid item xs={6} md={8}>
               <TextField
                 label="PALLET ID"
@@ -107,30 +108,35 @@ export default function CombinePallets() {
                 onChange={(e) => setPalletId(e.target.value)}
               />
             </Grid>
-            <Grid item xs={6} md={8}>
-              <Container maxWidth="sm">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="Large"
-                  onClick={() => {
-                    addPallet(palletId);
-                  }}
-                >
-                  ADD PALLET
-                </Button>
+          </Grid>
 
-                <Button
-                  variant="contained"
-                  color="error"
-                  size="Large"
-                  onClick={() => {
-                    addPallets2();
-                  }}
-                >
-                  COMBINE PALLETS AND PRINT LABEL
-                </Button>
-              </Container>
+          <Grid container padding={2} spacing={4} justifyContent="center">
+            <Grid item xs={6} md={8}>
+              <Button
+                variant="contained"
+                color="primary"
+                size="Large"
+                onClick={() => {
+                  addPallet(palletId);
+                }}
+              >
+                ADD PALLET
+              </Button>
+            </Grid>
+          </Grid>
+
+          <Grid container padding={2} spacing={4} justifyContent="center">
+            <Grid item xs={6} md={8}>
+              <Button
+                variant="contained"
+                color="error"
+                size="Large"
+                onClick={() => {
+                  ppp();
+                }}
+              >
+                COMBINE PALLETS AND PRINT LABEL
+              </Button>
             </Grid>
           </Grid>
         </Box>
