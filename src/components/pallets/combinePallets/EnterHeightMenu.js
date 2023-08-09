@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef, useImperativeHandle } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
@@ -20,8 +20,8 @@ const style = {
   p: 4,
 };
 
-export default function EnterPalletHeightMenu(cm) {
-  const [height, setHeight] = useState();
+const EnterPalletHeightMenu = forwardRef((props, _ref ) => {
+  const [height, setHeight] = useState(0);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -29,6 +29,12 @@ export default function EnterPalletHeightMenu(cm) {
   const onSubmit = () => {
     console.log(height)
   };
+
+  useImperativeHandle(_ref, () => ({
+    getChildCount: () => {
+      return height;
+    },
+  }));
 
   return (
     <>
@@ -83,4 +89,6 @@ export default function EnterPalletHeightMenu(cm) {
       </Modal>
     </>
   );
-}
+})
+
+export default React.memo(EnterPalletHeightMenu);

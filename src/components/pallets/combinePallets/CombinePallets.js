@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
@@ -20,7 +20,7 @@ export default function CombinePallets() {
   const [palletId, setPalletId] = useState(0);
   const [palletDataArray, setPalletDataArray] = useState([]);
   const [selectedpallets, setSelectePallets] = useState([]);
-  const [height, setHeight] = useState(0);
+  const height = useRef();
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/possible_pallets`)
@@ -36,8 +36,10 @@ export default function CombinePallets() {
   }, []);
 
   const ppp = () => {
-    console.log(selectedpallets);
-    console.log(palletDataArray);
+    // console.log(selectedpallets);
+    // console.log(palletDataArray);
+    const childState = height.current.getChildCount();
+    console.log(`The state is ${childState}`);
   };
 
   const addPallet = (id) => {
@@ -126,6 +128,12 @@ export default function CombinePallets() {
 
           <Grid container padding={2} spacing={4} justifyContent="center">
             <Grid item xs={6} md={8}>
+          <EnterHeightMenu ref={height}/>
+            </Grid>
+          </Grid>
+
+          <Grid container padding={1} spacing={4} justifyContent="center">
+            <Grid item xs={5} md={8}>
               <Button
                 variant="contained"
                 color="error"
@@ -134,14 +142,8 @@ export default function CombinePallets() {
                   ppp();
                 }}
               >
-                COMBINE PALLETS AND PRINT LABEL
+    SAVE DATA AND PRINT LABEL
               </Button>
-            </Grid>
-          </Grid>
-
-          <Grid container padding={2} spacing={4} justifyContent="center">
-            <Grid item xs={6} md={8}>
-          <EnterHeightMenu cm={height} setCm={setHeight}/>
             </Grid>
           </Grid>
         </Box>
