@@ -13,6 +13,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Header from "../../header/Header";
+import EnterHeightMenu from "./EnterHeightMenu";
 
 export default function CombinePallets() {
   const [possiblePallets, setPossiblePallets] = useState([]);
@@ -68,19 +69,17 @@ export default function CombinePallets() {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             PALLETS BEING COMBINED
           </Typography>
-
           <Grid container padding={2} spacing={1} justifyContent="center">
             <Grid item alignItems="center"></Grid>
           </Grid>
-
           <Grid container padding={2} spacing={4} justifyContent="center">
             <TableContainer component={Paper}>
               <Table aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell align="center">PALLET</TableCell>
-                    <TableCell align="center">HEIGHT (CM)</TableCell>
-                    <TableCell align="center">WEIGHT (KG)</TableCell>
+                    <TableCell align="center">HEIGHT (cm)</TableCell>
+                    <TableCell align="center">WEIGHT (kg)</TableCell>
+                    <TableCell align="center">PALLET ID</TableCell>
                     <TableCell />
                   </TableRow>
                 </TableHead>
@@ -88,9 +87,9 @@ export default function CombinePallets() {
                   {palletDataArray.map((p) => (
                     <>
                       <TableRow key={p.pallet_id}>
-                        <TableCell align="center">{p.pallet_id}</TableCell>
-                        <TableCell align="center">{p.height}</TableCell>
-                        <TableCell align="center">{p.weight}</TableCell>
+                        <TableCell align="center">{p.height} cm</TableCell>
+                        <TableCell align="center">{p.weight} kg</TableCell>
+                        <TableCell align="center"> {p.pallet_id}</TableCell>
                       </TableRow>
                     </>
                   ))}
@@ -98,7 +97,7 @@ export default function CombinePallets() {
               </Table>
             </TableContainer>
           </Grid>
-
+    <hr />
           <Grid container padding={2} spacing={4} justifyContent="center">
             <Grid item xs={6} md={8}>
               <TextField
@@ -137,6 +136,12 @@ export default function CombinePallets() {
               >
                 COMBINE PALLETS AND PRINT LABEL
               </Button>
+            </Grid>
+          </Grid>
+
+          <Grid container padding={2} spacing={4} justifyContent="center">
+            <Grid item xs={6} md={8}>
+          <EnterHeightMenu cm={height} setCm={setHeight}/>
             </Grid>
           </Grid>
         </Box>
