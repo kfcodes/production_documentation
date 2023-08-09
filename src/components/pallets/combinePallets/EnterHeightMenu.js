@@ -20,14 +20,15 @@ const style = {
   p: 4,
 };
 
-const EnterPalletHeightMenu = forwardRef((props, _ref ) => {
+const EnterPalletHeightMenu = forwardRef((props, _ref, get ) => {
   const [height, setHeight] = useState(0);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const onSubmit = () => {
-    console.log(height)
+    // console.log(height)
+    get();
   };
 
   useImperativeHandle(_ref, () => ({

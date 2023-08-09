@@ -109,11 +109,7 @@ export default function CombinePallets() {
 
           <Grid container padding={2} spacing={4} justifyContent="center">
             <Grid item xs={6} md={8}>
-              <TextField
-                label="PALLET HEIGHT"
-                type="number"
-                value={height}
-              />
+              <TextField label="PALLET HEIGHT" type="number" value={height} />
             </Grid>
           </Grid>
 
@@ -147,7 +143,7 @@ export default function CombinePallets() {
 
           <Grid container padding={2} spacing={4} justifyContent="center">
             <Grid item xs={6} md={8}>
-              <EnterHeightMenu ref={refHeight} />
+              <EnterHeightMenu ref={refHeight} get={getHeight} />
             </Grid>
           </Grid>
 
