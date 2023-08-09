@@ -46,7 +46,7 @@ const EnterPalletHeightMenu = forwardRef((props, _ref ) => {
         sx={{ width: 200, padding: 1, margin: 2 }}
         onClick={handleOpen}
       >
-        SEARCH PALLETS
+        Enter Pallet Height
       </Button>
       <Modal
         open={open}

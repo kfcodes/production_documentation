@@ -20,7 +20,9 @@ export default function CombinePallets() {
   const [palletId, setPalletId] = useState(0);
   const [palletDataArray, setPalletDataArray] = useState([]);
   const [selectedpallets, setSelectePallets] = useState([]);
-  const height = useRef();
+  const [height, setHeight] = useState(0);
+  const refHeight = useRef();
+  // const height = useRef().current.getChildCount();
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/possible_pallets`)
@@ -35,11 +37,16 @@ export default function CombinePallets() {
       );
   }, []);
 
-  const ppp = () => {
-    // console.log(selectedpallets);
-    // console.log(palletDataArray);
-    const childState = height.current.getChildCount();
+  const getHeight = () => {
+    const childState = refHeight.current.getChildCount();
     console.log(`The state is ${childState}`);
+    setHeight(childState);
+    // return childState;
+  };
+
+  const ppp = () => {
+    console.log(selectedpallets);
+    console.log(palletDataArray);
   };
 
   const addPallet = (id) => {
@@ -99,7 +106,19 @@ export default function CombinePallets() {
               </Table>
             </TableContainer>
           </Grid>
-    <hr />
+
+          <Grid container padding={2} spacing={4} justifyContent="center">
+            <Grid item xs={6} md={8}>
+              <TextField
+                label="PALLET HEIGHT"
+                type="number"
+                value={height}
+              />
+            </Grid>
+          </Grid>
+
+          <hr />
+
           <Grid container padding={2} spacing={4} justifyContent="center">
             <Grid item xs={6} md={8}>
               <TextField
@@ -128,7 +147,7 @@ export default function CombinePallets() {
 
           <Grid container padding={2} spacing={4} justifyContent="center">
             <Grid item xs={6} md={8}>
-          <EnterHeightMenu ref={height}/>
+              <EnterHeightMenu ref={refHeight} />
             </Grid>
           </Grid>
 
@@ -139,10 +158,10 @@ export default function CombinePallets() {
                 color="error"
                 size="Large"
                 onClick={() => {
-                  ppp();
+                  getHeight();
                 }}
               >
-    SAVE DATA AND PRINT LABEL
+                SAVE DATA AND PRINT LABEL
               </Button>
             </Grid>
           </Grid>
