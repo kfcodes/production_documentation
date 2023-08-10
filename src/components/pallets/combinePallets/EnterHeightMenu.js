@@ -24,7 +24,10 @@ const EnterPalletHeightMenu = forwardRef((props, _ref, get ) => {
   const [height, setHeight] = useState(0);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () =>{
+    setOpen(false);
+  }
+// get();
 
   const onSubmit = () => {
     // console.log(height)
@@ -69,20 +72,6 @@ const EnterPalletHeightMenu = forwardRef((props, _ref, get ) => {
                   value={height}
                   onChange={(e) => setHeight(e.target.value)}
                 />
-              </Grid>
-              <Grid item xs={6} md={8}>
-                <Container maxWidth="sm">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="Large"
-                    onClick={() => {
-                      onSubmit();
-                    }}
-                  >
-                    SUBMIT
-                  </Button>
-                </Container>
               </Grid>
             </Grid>
           </Box>

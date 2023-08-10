@@ -21,8 +21,6 @@ export default function CombinePallets() {
   const [palletDataArray, setPalletDataArray] = useState([]);
   const [selectedpallets, setSelectePallets] = useState([]);
   const [height, setHeight] = useState(0);
-  const refHeight = useRef();
-  // const height = useRef().current.getChildCount();
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/possible_pallets`)
@@ -36,17 +34,6 @@ export default function CombinePallets() {
         }
       );
   }, []);
-
-  const getHeight = () => {
-    const childState = refHeight.current.getChildCount();
-    console.log(`The state is ${childState}`);
-    setHeight(childState);
-  };
-
-  const ppp = () => {
-    console.log(selectedpallets);
-    console.log(palletDataArray);
-  };
 
   const addPallet = (id) => {
     if (possiblePallets.includes(id)) console.log(possiblePallets);
@@ -97,12 +84,6 @@ export default function CombinePallets() {
             </TableContainer>
           </Grid>
 
-          <Grid container padding={2} spacing={4} justifyContent="center">
-            <Grid item xs={6} md={8}>
-              <TextField label="PALLET HEIGHT" type="number" value={height} />
-            </Grid>
-          </Grid>
-
           <hr />
 
           <Grid container padding={2} spacing={4} justifyContent="center">
@@ -133,7 +114,12 @@ export default function CombinePallets() {
 
           <Grid container padding={2} spacing={4} justifyContent="center">
             <Grid item xs={6} md={8}>
-              <EnterHeightMenu ref={refHeight} get={getHeight()} />
+              <TextField
+                label="COMBINED PALLET HEIGHT"
+                type="number"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+              />
             </Grid>
           </Grid>
 
@@ -144,7 +130,7 @@ export default function CombinePallets() {
                 color="error"
                 size="Large"
                 onClick={() => {
-                  getHeight();
+                  console.log({ height });
                 }}
               >
                 SAVE DATA AND PRINT LABEL
