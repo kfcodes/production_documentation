@@ -41,7 +41,6 @@ export default function CombinePallets() {
     const childState = refHeight.current.getChildCount();
     console.log(`The state is ${childState}`);
     setHeight(childState);
-    // return childState;
   };
 
   const ppp = () => {
@@ -58,15 +57,6 @@ export default function CombinePallets() {
         setPalletDataArray([...palletDataArray, ...palletData]);
       });
   };
-
-  // <Grid item xs={6} md={8}>
-  //   <TextField
-  //     label="TOTAL PALLET HEIGHT"
-  //     type="number"
-  //     value={height}
-  //     onChange={(e) => setHeight(e.target.value)}
-  //   />
-  // </Grid>
 
   return (
     <>
@@ -143,7 +133,7 @@ export default function CombinePallets() {
 
           <Grid container padding={2} spacing={4} justifyContent="center">
             <Grid item xs={6} md={8}>
-              <EnterHeightMenu ref={refHeight} get={getHeight} />
+              <EnterHeightMenu ref={refHeight} get={getHeight()} />
             </Grid>
           </Grid>
 
