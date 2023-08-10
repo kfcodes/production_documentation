@@ -17,10 +17,10 @@ import EnterHeightMenu from "./EnterHeightMenu";
 
 export default function CombinePallets() {
   const [possiblePallets, setPossiblePallets] = useState([]);
-  const [palletId, setPalletId] = useState(0);
+  const [palletId, setPalletId] = useState();
   const [palletDataArray, setPalletDataArray] = useState([]);
   const [selectedpallets, setSelectePallets] = useState([]);
-  const [height, setHeight] = useState(0);
+  const [height, setHeight] = useState();
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/possible_pallets`)
@@ -112,31 +112,35 @@ export default function CombinePallets() {
             </Grid>
           </Grid>
 
-          <Grid container padding={2} spacing={4} justifyContent="center">
-            <Grid item xs={6} md={8}>
-              <TextField
-                label="COMBINED PALLET HEIGHT"
-                type="number"
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
-              />
+          {selectedpallets.length > 1 && (
+            <Grid container padding={2} spacing={4} justifyContent="center">
+              <Grid item xs={6} md={8}>
+                <TextField
+                  label="COMBINED PALLET HEIGHT"
+                  type="number"
+                  value={height}
+                  onChange={(e) => setHeight(e.target.value)}
+                />
+              </Grid>
             </Grid>
-          </Grid>
+          )}
 
-          <Grid container padding={1} spacing={4} justifyContent="center">
-            <Grid item xs={5} md={8}>
-              <Button
-                variant="contained"
-                color="error"
-                size="Large"
-                onClick={() => {
-                  console.log({ height });
-                }}
-              >
-                SAVE DATA AND PRINT LABEL
-              </Button>
+          {height && (
+            <Grid container padding={1} spacing={4} justifyContent="center">
+              <Grid item xs={5} md={8}>
+                <Button
+                  variant="contained"
+                  color="error"
+                  size="Large"
+                  onClick={() => {
+                    console.log({ height });
+                  }}
+                >
+                  SAVE DATA AND PRINT LABEL
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
+          )}
         </Box>
       </Container>
     </>
