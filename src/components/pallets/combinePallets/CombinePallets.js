@@ -13,13 +13,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Header from "../../header/Header";
-import EnterHeightMenu from "./EnterHeightMenu";
 
 export default function CombinePallets() {
   const [possiblePallets, setPossiblePallets] = useState([]);
   const [palletId, setPalletId] = useState();
   const [palletDataArray, setPalletDataArray] = useState([]);
-  const [selectedpallets, setSelectePallets] = useState([]);
+  const [selectedPallets, setSelectePallets] = useState([]);
   const [height, setHeight] = useState();
 
   useEffect(() => {
@@ -40,9 +39,17 @@ export default function CombinePallets() {
     fetch(`${process.env.REACT_APP_API_URL}/pallet_details/${id}`)
       .then((res) => res.json())
       .then((palletData) => {
-        setSelectePallets([...selectedpallets, id]);
+        setSelectePallets([...selectedPallets, id]);
         setPalletDataArray([...palletDataArray, ...palletData]);
       });
+  };
+
+  const saveAndPrintLabel = () => {
+    const data = {
+      pallets: selectedPallets,
+      height: height,
+    };
+    console.log(data);
   };
 
   return (
@@ -112,7 +119,7 @@ export default function CombinePallets() {
             </Grid>
           </Grid>
 
-          {selectedpallets.length > 1 && (
+          {selectedPallets.length > 1 && (
             <Grid container padding={2} spacing={4} justifyContent="center">
               <Grid item xs={6} md={8}>
                 <TextField
@@ -133,7 +140,7 @@ export default function CombinePallets() {
                   color="error"
                   size="Large"
                   onClick={() => {
-                    console.log({ height });
+                    saveAndPrintLabel();
                   }}
                 >
                   SAVE DATA AND PRINT LABEL
