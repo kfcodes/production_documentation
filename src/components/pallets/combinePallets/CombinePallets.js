@@ -50,7 +50,6 @@ export default function CombinePallets() {
       height: height,
     };
     console.log(data);
-
     fetch(
       `${process.env.REACT_APP_API_URL}/combine_pallets`,
       {
