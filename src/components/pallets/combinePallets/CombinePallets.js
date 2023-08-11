@@ -132,7 +132,6 @@ export default function CombinePallets() {
               </Button>
             </Grid>
           </Grid>
-
           {selectedPallets.length > 1 && (
             <Grid container padding={2} spacing={4} justifyContent="center">
               <Grid item xs={6} md={8}>
@@ -145,7 +144,6 @@ export default function CombinePallets() {
               </Grid>
             </Grid>
           )}
-
           {height && (
             <Grid container padding={1} spacing={4} justifyContent="center">
               <Grid item xs={5} md={8}>
