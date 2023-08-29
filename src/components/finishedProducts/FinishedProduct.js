@@ -25,6 +25,8 @@ export default function FinsishedProduct(props) {
   const [lot, setLot] = useState("");
   const [bbe, setBbe] = useState("");
   const [batch, setBatch] = useState("");
+  const [useId, setUseId] = useState(15);
+  const [qty, setQty] = useState(0);
 
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
@@ -44,7 +46,47 @@ export default function FinsishedProduct(props) {
       );
   };
 
+  const onSubmitData = () => {
+    let finishedProduct = {
+      eol_product_id: productId,
+      eol_lot: lot,
+      eol_bbe: bbe,
+      eol_batch: batch,
+    };
+    fetch(`${process.env.REACT_APP_API_URL}/finished_product/`, {
+      method: "post",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(finishedProduct),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setUseId(result["LAST_INSERT_ID()"]);
+      });
+  };
 
+  const onPrintLabels = () => {
+    let number = {
+      qty: qty
+    };
+    fetch(`${process.env.REACT_APP_API_URL}/box_label/${useId}`, {
+      method: "post",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(number),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+      });
+  };
 
   return (
     <>
@@ -160,3 +202,8 @@ export default function FinsishedProduct(props) {
     </>
   );
 }
+// <PrintBoxLabel eolId={eolId} />
+
+// <Button onClick={() => printBoxLabel(eolId)}>
+//   Print Box Label
+// </Button>
