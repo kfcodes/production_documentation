@@ -25,8 +25,6 @@ export default function FinsishedProduct(props) {
   const [lot, setLot] = useState("");
   const [bbe, setBbe] = useState("");
   const [batch, setBatch] = useState("");
-  const [useId, setUseId] = useState(15);
-  const [qty, setQty] = useState(0);
 
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
@@ -86,12 +84,79 @@ export default function FinsishedProduct(props) {
                 </Container>
               </Grid>
 
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+    {productDescription}
+            </Typography>
+              <Grid item xs={6} md={8}>
+                <TextField
+                  label="LOT"
+                  type="text"
+                  value={lot}
+                  onChange={(e) => setLot(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6} md={8}>
+                <TextField
+                  label="BBE"
+                  type="text"
+                  value={bbe}
+                  onChange={(e) => setBbe(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6} md={8}>
+                <TextField
+                  label="BATCH"
+                  type="text"
+                  value={batch}
+                  onChange={(e) => setBatch(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={6} md={8}>
+                <Container maxWidth="sm">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="Large"
+                    onClick={() => {
+                      onSubmitData();
+                    }}
+                  >
+    SAVE LABEL DATA
+                  </Button>
+                </Container>
+              </Grid>
+
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+    {productDescription}{lot}{bbe}{batch}
+            </Typography>
+              <Grid item xs={6} md={8}>
+                <TextField
+                  label="Quantity"
+                  type="number"
+                  value={qty}
+                  onChange={(e) => setQty(e.target.value)}
+                />
+              </Grid>
+
+              <Grid item xs={6} md={8}>
+                <Container maxWidth="sm">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="Large"
+                    onClick={() => {
+                      onPrintLabels();
+                    }}
+                  >
+    PRINT LABELS
+                  </Button>
+                  <br />
+                </Container>
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
       </Modal>
     </>
   );
 }
-// <PrintBoxLabel eolId={eolId} />
-
-// <Button onClick={() => printBoxLabel(eolId)}>
-//   Print Box Label
-// </Button>
