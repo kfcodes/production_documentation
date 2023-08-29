@@ -19,83 +19,34 @@ const style = {
   p: 4,
 };
 
-const printPalletLabel = (id) => {
-  console.log(id);
-  fetch(`${process.env.REACT_APP_API_URL}/label/${id}`, {
-    method: "get",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  }).then((response) => {
-    console.log(response);
-  });
-};
-
-// const printBoxLabel = (id) => {
-//   fetch(`${process.env.REACT_APP_API_URL}/box_label/${id}`, {
-//     method: "GET",
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//     },
-//   }).then((response) => {
-//     console.log(response);
-//   });
-// };
-
 export default function FinsishedProduct(props) {
-  const [eolId] = useState(props.eolId);
   const [productId, setProductId] = useState("");
-  const [po, setPo] = useState("");
+  const [productDescription, setProductDescription] = useState("");
   const [lot, setLot] = useState("");
   const [bbe, setBbe] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [batch, setBatch] = useState("");
+  const [useId, setUseId] = useState(15);
+  const [qty, setQty] = useState(0);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  // Get the EOL details and add them to the state
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/eol/${eolId}`)
+  const onSubmitId = (id) => {
+    fetch(`${process.env.REACT_APP_API_URL}/product/${id}`)
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result);
-          setProductId(result[0].eol_product_id);
-          setPo(result[0].eol_po);
-          setLot(result[0].eol_lot);
-          setBbe(result[0].eol_bbe);
-          setQuantity(result[0].eol_quantity);
+          console.log(result.product_description)
+          setProductDescription(result.product_description);
         },
         (error) => {
           console.log(error);
         }
       );
-  }, []);
-
-  const onSubmit = (id) => {
-    let eol = {
-      po: po,
-      product_id: productId,
-      lot: lot,
-      bbe: bbe,
-      quantity: quantity,
-    };
-    fetch(`${process.env.REACT_APP_API_URL}/eol/${id}`, {
-      method: "put",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(eol),
-    });
-    // .then((res) => res.json());
-    props.setUpdate(`${productId}${lot}${bbe}`);
-    handleClose();
   };
+
+
 
   return (
     <>
@@ -114,43 +65,10 @@ export default function FinsishedProduct(props) {
             <Grid container spacing={2}>
               <Grid item xs={6} md={8}>
                 <TextField
-                  disabled
-                  label="PRODUCT CODE"
+                  label="PRODUCT ID"
                   type="text"
                   value={productId}
-                />
-              </Grid>
-
-              <Grid item xs={6} md={8}>
-                <TextField
-                  disabled
-                  label="INTERNAL PO CODE"
-                  type="text"
-                  value={po}
-                />
-              </Grid>
-              <Grid item xs={6} md={8}>
-                <TextField
-                  label="LOT"
-                  type="text"
-                  value={lot}
-                  onChange={(e) => setLot(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={6} md={8}>
-                <TextField
-                  label="BBE"
-                  type="text"
-                  value={bbe}
-                  onChange={(e) => setBbe(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={6} md={8}>
-                <TextField
-                  label="Total Quantity Produced"
-                  type="number"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
+                  onChange={(e) => setProductId(e.target.value)}
                 />
               </Grid>
               <Grid item xs={6} md={8}>
@@ -160,17 +78,14 @@ export default function FinsishedProduct(props) {
                     color="primary"
                     size="Large"
                     onClick={() => {
-                      onSubmit(eolId);
+                      onSubmitId(productId);
                     }}
                   >
-                    Update the EOL Data
+    CREATE LABELS FOR THIS PRODUCT
                   </Button>
-                  <br />
                 </Container>
               </Grid>
-            </Grid>
-          </Box>
-        </Container>
+
       </Modal>
     </>
   );
