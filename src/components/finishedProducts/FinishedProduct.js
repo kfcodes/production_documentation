@@ -37,7 +37,7 @@ export default function FinsishedProduct(props) {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result.product_description)
+          console.log(result.product_description);
           setProductDescription(result.product_description);
         },
         (error) => {
@@ -71,7 +71,7 @@ export default function FinsishedProduct(props) {
 
   const onPrintLabels = () => {
     let number = {
-      qty: qty
+      qty: qty,
     };
     fetch(`${process.env.REACT_APP_API_URL}/box_label/${useId}`, {
       method: "post",
@@ -121,14 +121,14 @@ export default function FinsishedProduct(props) {
                       onSubmitId(productId);
                     }}
                   >
-    CREATE LABELS FOR THIS PRODUCT
+                    CREATE LABELS FOR THIS PRODUCT
                   </Button>
                 </Container>
               </Grid>
 
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-    {productDescription}
-            </Typography>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                {productDescription}
+              </Typography>
               <Grid item xs={6} md={8}>
                 <TextField
                   label="LOT"
@@ -163,14 +163,17 @@ export default function FinsishedProduct(props) {
                       onSubmitData();
                     }}
                   >
-    SAVE LABEL DATA
+                    SAVE LABEL DATA
                   </Button>
                 </Container>
               </Grid>
 
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-    {productDescription}{lot}{bbe}{batch}
-            </Typography>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                {productDescription}
+                {lot}
+                {bbe}
+                {batch}
+              </Typography>
               <Grid item xs={6} md={8}>
                 <TextField
                   label="Quantity"
@@ -190,7 +193,7 @@ export default function FinsishedProduct(props) {
                       onPrintLabels();
                     }}
                   >
-    PRINT LABELS
+                    PRINT LABELS
                   </Button>
                   <br />
                 </Container>
@@ -202,8 +205,3 @@ export default function FinsishedProduct(props) {
     </>
   );
 }
-// <PrintBoxLabel eolId={eolId} />
-
-// <Button onClick={() => printBoxLabel(eolId)}>
-//   Print Box Label
-// </Button>
