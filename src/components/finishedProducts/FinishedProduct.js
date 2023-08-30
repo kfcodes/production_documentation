@@ -21,13 +21,12 @@ const style = {
 
 export default function FinsishedProduct(props) {
   const [productId, setProductId] = useState("");
-  const [productDescription, setProductDescription] = useState("");
+  const [productDescription, setProductDescription] = useState();
   const [lot, setLot] = useState("");
   const [bbe, setBbe] = useState("");
   const [batch, setBatch] = useState("");
-  const [useId, setUseId] = useState(15);
+  const [useId, setUseId] = useState();
   const [qty, setQty] = useState(0);
-
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -97,11 +96,16 @@ export default function FinsishedProduct(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
+
         <Container maxWidth="sm">
           <Box sx={style}>
+
+      {(!productDescription && !useId) &&
+        <>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Enter End of Line Data
             </Typography>
+
             <Grid container spacing={2}>
               <Grid item xs={6} md={8}>
                 <TextField
@@ -111,6 +115,7 @@ export default function FinsishedProduct(props) {
                   onChange={(e) => setProductId(e.target.value)}
                 />
               </Grid>
+
               <Grid item xs={6} md={8}>
                 <Container maxWidth="sm">
                   <Button
@@ -125,7 +130,12 @@ export default function FinsishedProduct(props) {
                   </Button>
                 </Container>
               </Grid>
+            </Grid>
+        </>
+}
 
+      {(productDescription && !useId) &&
+        <>
               <Typography id="modal-modal-title" variant="h6" component="h2">
                 {productDescription}
               </Typography>
@@ -167,12 +177,25 @@ export default function FinsishedProduct(props) {
                   </Button>
                 </Container>
               </Grid>
+        </>
+}
 
-              <Typography id="modal-modal-title" variant="h6" component="h2">
+      { (useId && productDescription) &&
+        <>
+              <Typography align="center" id="modal-modal-title" variant="h6" component="h2">
                 {productDescription}
-                {lot}
-                {bbe}
-                {batch}
+              </Typography>
+              <Typography align="center" id="modal-modal-title" variant="p" component="p">
+                LOT: {lot}
+          <hr />
+              </Typography>
+              <Typography align="center" id="modal-modal-title" variant="p" component="p">
+                BBE: {bbe}
+          <hr />
+              </Typography>
+              <Typography align="center" id="modal-modal-title" variant="p" component="p">
+                BATCH: {batch}
+          <hr />
               </Typography>
               <Grid item xs={6} md={8}>
                 <TextField
@@ -198,7 +221,8 @@ export default function FinsishedProduct(props) {
                   <br />
                 </Container>
               </Grid>
-            </Grid>
+        </>
+}
           </Box>
         </Container>
       </Modal>
