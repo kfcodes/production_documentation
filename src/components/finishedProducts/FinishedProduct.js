@@ -37,27 +37,28 @@ export default function FinsishedProduct(props) {
       .then((res) => res.json())
       .then(
         (result) => {
-          if(result) {
-          setNo(result.product_description);
-          }else{
+          if (result) {
+            setNo(result.product_description);
+          } else {
             return;
           }
         },
         (error) => {
           console.log(error);
         }
-      ).then(
-    fetch(`${process.env.REACT_APP_API_URL}/product/${id}`)
-      .then((res) => res.json())
+      )
       .then(
-        (result) => {
-          setProductDescription(result.product_description);
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
-      )
+        fetch(`${process.env.REACT_APP_API_URL}/product/${id}`)
+          .then((res) => res.json())
+          .then(
+            (result) => {
+              setProductDescription(result.product_description);
+            },
+            (error) => {
+              console.log(error);
+            }
+          )
+      );
   };
 
   const onSubmitData = () => {
@@ -111,138 +112,157 @@ export default function FinsishedProduct(props) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-
         <Container maxWidth="sm">
           <Box sx={style}>
-      { no &&
-        <>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              THERE IS NO LABEL DATA FOR {productId}
-            </Typography>
-        </>
-      }
-      {(!productDescription && !useId && !no) &&
-        <>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Enter End of Line Data
-            </Typography>
+            {no && (
+              <>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  THERE IS NO LABEL DATA FOR {productId}
+                </Typography>
+              </>
+            )}
+            {!productDescription && !useId && !no && (
+              <>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  Enter End of Line Data
+                </Typography>
 
-            <Grid container spacing={2}>
-              <Grid item xs={6} md={8}>
-                <TextField
-                  label="PRODUCT ID"
-                  type="text"
-                  value={productId}
-                  onChange={(e) => setProductId(e.target.value)}
-                />
-              </Grid>
+                <Grid container spacing={2}>
+                  <Grid item xs={6} md={8}>
+                    <TextField
+                      label="PRODUCT ID"
+                      type="text"
+                      value={productId}
+                      onChange={(e) => setProductId(e.target.value)}
+                    />
+                  </Grid>
 
-              <Grid item xs={6} md={8}>
-                <Container maxWidth="sm">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="Large"
-                    onClick={() => {
-                      onSubmitId(productId);
-                    }}
-                  >
-                    CREATE LABELS FOR THIS PRODUCT
-                  </Button>
-                </Container>
-              </Grid>
-            </Grid>
-        </>
-}
-      {(productDescription && !useId && !no) &&
-        <>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                {productDescription}
-              </Typography>
-              <Grid item xs={6} md={8}>
-                <TextField
-                  label="LOT"
-                  type="text"
-                  value={lot}
-                  onChange={(e) => setLot(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={6} md={8}>
-                <TextField
-                  label="BBE"
-                  type="text"
-                  value={bbe}
-                  onChange={(e) => setBbe(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={6} md={8}>
-                <TextField
-                  label="BATCH"
-                  type="text"
-                  value={batch}
-                  onChange={(e) => setBatch(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={6} md={8}>
-                <Container maxWidth="sm">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="Large"
-                    onClick={() => {
-                      onSubmitData();
-                    }}
-                  >
-                    SAVE LABEL DATA
-                  </Button>
-                </Container>
-              </Grid>
-        </>
-}
+                  <Grid item xs={6} md={8}>
+                    <Container maxWidth="sm">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        size="Large"
+                        onClick={() => {
+                          onSubmitId(productId);
+                        }}
+                      >
+                        CREATE LABELS FOR THIS PRODUCT
+                      </Button>
+                    </Container>
+                  </Grid>
+                </Grid>
+              </>
+            )}
+            {productDescription && !useId && !no && (
+              <>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  {productDescription}
+                </Typography>
+                <Grid item xs={6} md={8}>
+                  <TextField
+                    label="LOT"
+                    type="text"
+                    value={lot}
+                    onChange={(e) => setLot(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={6} md={8}>
+                  <TextField
+                    label="BBE"
+                    type="text"
+                    value={bbe}
+                    onChange={(e) => setBbe(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={6} md={8}>
+                  <TextField
+                    label="BATCH"
+                    type="text"
+                    value={batch}
+                    onChange={(e) => setBatch(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={6} md={8}>
+                  <Container maxWidth="sm">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="Large"
+                      onClick={() => {
+                        onSubmitData();
+                      }}
+                    >
+                      SAVE LABEL DATA
+                    </Button>
+                  </Container>
+                </Grid>
+              </>
+            )}
 
-      { (useId && productDescription && !no) &&
-        <>
-              <Typography align="center" id="modal-modal-title" variant="h6" component="h2">
-                {productDescription}
-              </Typography>
-              <Typography align="center" id="modal-modal-title" variant="p" component="p">
-                LOT: {lot}
-          <hr />
-              </Typography>
-              <Typography align="center" id="modal-modal-title" variant="p" component="p">
-                BBE: {bbe}
-          <hr />
-              </Typography>
-              <Typography align="center" id="modal-modal-title" variant="p" component="p">
-                BATCH: {batch}
-          <hr />
-              </Typography>
-              <Grid item xs={6} md={8}>
-                <TextField
-                  label="Quantity"
-                  type="number"
-                  value={qty}
-                  onChange={(e) => setQty(e.target.value)}
-                />
-              </Grid>
+            {useId && productDescription && !no && (
+              <>
+                <Typography
+                  align="center"
+                  id="modal-modal-title"
+                  variant="h6"
+                  component="h2"
+                >
+                  {productDescription}
+                </Typography>
+                <Typography
+                  align="center"
+                  id="modal-modal-title"
+                  variant="p"
+                  component="p"
+                >
+                  LOT: {lot}
+                  <hr />
+                </Typography>
+                <Typography
+                  align="center"
+                  id="modal-modal-title"
+                  variant="p"
+                  component="p"
+                >
+                  BBE: {bbe}
+                  <hr />
+                </Typography>
+                <Typography
+                  align="center"
+                  id="modal-modal-title"
+                  variant="p"
+                  component="p"
+                >
+                  BATCH: {batch}
+                  <hr />
+                </Typography>
+                <Grid item xs={6} md={8}>
+                  <TextField
+                    label="Quantity"
+                    type="number"
+                    value={qty}
+                    onChange={(e) => setQty(e.target.value)}
+                  />
+                </Grid>
 
-              <Grid item xs={6} md={8}>
-                <Container maxWidth="sm">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="Large"
-                    onClick={() => {
-                      onPrintLabels();
-                    }}
-                  >
-                    PRINT LABELS
-                  </Button>
-                  <br />
-                </Container>
-              </Grid>
-        </>
-}
+                <Grid item xs={6} md={8}>
+                  <Container maxWidth="sm">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="Large"
+                      onClick={() => {
+                        onPrintLabels();
+                      }}
+                    >
+                      PRINT LABELS
+                    </Button>
+                    <br />
+                  </Container>
+                </Grid>
+              </>
+            )}
           </Box>
         </Container>
       </Modal>
