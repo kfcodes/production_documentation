@@ -33,29 +33,23 @@ export default function FinsishedProduct() {
   const handleClose = () => setOpen(false);
 
   const onSubmitId = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/label/${productId}`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-
-          // if (result.status == 200) {
-              console.log(result);
-
-        // fetch(`${process.env.REACT_APP_API_URL}/product/${productId}`)
-        //   .then((res) => res.json())
-        //   .then(
-        //     (result) => {
-        //       setProductDescription(result.product_description);
-        //     },
-        //     (error) => {
-        //       console.log(error);
-        //     }
-        //   )
-          // } else {
-          //   setNo(result);
-          //   return;
-          // }
-          
+    fetch(`${process.env.REACT_APP_API_URL}/label_info/${productId}`)
+      .then((res) => {
+          if (res.status == 200) {
+        fetch(`${process.env.REACT_APP_API_URL}/product/${productId}`)
+          .then((res) => res.json())
+          .then(
+            (result) => {
+              setProductDescription(result.product_description);
+            },
+            (error) => {
+              console.log(error);
+            }
+          )
+          } else {
+            setNo("No Lable found");
+            return;
+          }
         },
         (error) => {
           console.log(error);
@@ -87,9 +81,8 @@ export default function FinsishedProduct() {
   };
 
   const onPrintLabels = () => {
-    let number = {
-      qty: qty,
-    };
+    console.log(useId)
+    let newnumber = { qty: qty, };
     fetch(`${process.env.REACT_APP_API_URL}/box_label/${useId}`, {
       method: "post",
       mode: "cors",
@@ -97,7 +90,7 @@ export default function FinsishedProduct() {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(number),
+      body: JSON.stringify(newnumber),
     })
       .then((res) => res.json())
       .then((result) => {
@@ -107,18 +100,19 @@ export default function FinsishedProduct() {
 
   return (
     <>
-      <Button onClick={handleOpen}>End Of line Data</Button>
+      <Button onClick={handleOpen}>PRINT BOX LABELS</Button>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Container maxWidth="sm">
+        <Container align="center" maxWidth="sm">
           <Box sx={style}>
+          <Grid container align="center" spacing={3}>
             {no && (
               <>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
+                <Typography align="center"  id="modal-modal-title" variant="h6" component="h2">
                   THERE IS NO LABEL DATA FOR {productId}
                 </Typography>
               </>
@@ -126,7 +120,7 @@ export default function FinsishedProduct() {
             {!productDescription && !useId && !no && (
               <>
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                  Enter End of Line Data
+                  Enter Product ID
                 </Typography>
                 <Grid container spacing={2}>
                   <Grid item xs={6} md={8}>
@@ -147,7 +141,7 @@ export default function FinsishedProduct() {
                           onSubmitId();
                         }}
                       >
-                        CREATE LABELS FOR THIS PRODUCT
+                        Save
                       </Button>
                     </Container>
                   </Grid>
@@ -159,6 +153,7 @@ export default function FinsishedProduct() {
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                   {productDescription}
                 </Typography>
+                  <hr />
                 <Grid item xs={6} md={8}>
                   <TextField
                     label="LOT"
@@ -199,7 +194,6 @@ export default function FinsishedProduct() {
                 </Grid>
               </>
             )}
-
             {useId && productDescription && !no && (
               <>
                 <Typography
@@ -210,6 +204,7 @@ export default function FinsishedProduct() {
                 >
                   {productDescription}
                 </Typography>
+                  <hr />
                 <Typography
                   align="center"
                   id="modal-modal-title"
@@ -217,8 +212,8 @@ export default function FinsishedProduct() {
                   component="p"
                 >
                   LOT: {lot}
-                  <hr />
                 </Typography>
+                  <hr />
                 <Typography
                   align="center"
                   id="modal-modal-title"
@@ -226,8 +221,8 @@ export default function FinsishedProduct() {
                   component="p"
                 >
                   BBE: {bbe}
-                  <hr />
                 </Typography>
+                  <hr />
                 <Typography
                   align="center"
                   id="modal-modal-title"
@@ -235,9 +230,10 @@ export default function FinsishedProduct() {
                   component="p"
                 >
                   BATCH: {batch}
-                  <hr />
                 </Typography>
-                <Grid item xs={6} md={8}>
+                  <hr />
+              <br />
+                <Grid align="center" item xs={6} md={8}>
                   <TextField
                     label="Quantity"
                     type="number"
@@ -245,8 +241,8 @@ export default function FinsishedProduct() {
                     onChange={(e) => setQty(e.target.value)}
                   />
                 </Grid>
-
-                <Grid item xs={6} md={8}>
+              <br />
+                <Grid align="center" item xs={6} md={8}>
                   <Container maxWidth="sm">
                     <Button
                       variant="contained"
@@ -258,11 +254,11 @@ export default function FinsishedProduct() {
                     >
                       PRINT LABELS
                     </Button>
-                    <br />
                   </Container>
                 </Grid>
               </>
             )}
+                </Grid>
           </Box>
         </Container>
       </Modal>
