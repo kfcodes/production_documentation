@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function FinsishedProduct(props) {
+export default function FinsishedProduct() {
   const [productId, setProductId] = useState("");
   const [productDescription, setProductDescription] = useState();
   const [lot, setLot] = useState("");
@@ -32,33 +32,35 @@ export default function FinsishedProduct(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const onSubmitId = (id) => {
-    fetch(`${process.env.REACT_APP_API_URL}/box_label/${id}`)
+  const onSubmitId = () => {
+    fetch(`${process.env.REACT_APP_API_URL}/label/${productId}`)
       .then((res) => res.json())
       .then(
         (result) => {
-          if (result) {
-            setNo(result.product_description);
-          } else {
-            return;
-          }
+
+          // if (result.status == 200) {
+              console.log(result);
+
+        // fetch(`${process.env.REACT_APP_API_URL}/product/${productId}`)
+        //   .then((res) => res.json())
+        //   .then(
+        //     (result) => {
+        //       setProductDescription(result.product_description);
+        //     },
+        //     (error) => {
+        //       console.log(error);
+        //     }
+        //   )
+          // } else {
+          //   setNo(result);
+          //   return;
+          // }
+          
         },
         (error) => {
           console.log(error);
         }
       )
-      .then(
-        fetch(`${process.env.REACT_APP_API_URL}/product/${id}`)
-          .then((res) => res.json())
-          .then(
-            (result) => {
-              setProductDescription(result.product_description);
-            },
-            (error) => {
-              console.log(error);
-            }
-          )
-      );
   };
 
   const onSubmitData = () => {
@@ -126,7 +128,6 @@ export default function FinsishedProduct(props) {
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                   Enter End of Line Data
                 </Typography>
-
                 <Grid container spacing={2}>
                   <Grid item xs={6} md={8}>
                     <TextField
@@ -136,7 +137,6 @@ export default function FinsishedProduct(props) {
                       onChange={(e) => setProductId(e.target.value)}
                     />
                   </Grid>
-
                   <Grid item xs={6} md={8}>
                     <Container maxWidth="sm">
                       <Button
@@ -144,7 +144,7 @@ export default function FinsishedProduct(props) {
                         color="primary"
                         size="Large"
                         onClick={() => {
-                          onSubmitId(productId);
+                          onSubmitId();
                         }}
                       >
                         CREATE LABELS FOR THIS PRODUCT
