@@ -12,6 +12,7 @@ import ExportPalletData from "../pallets/buttons/ExportPalletDataButton";
 import PrintTemporaryLabels from "./PrintBlankLabelsButton";
 import SearchPallets from "../pallets/searchPalletModal/SearchPallet";
 import COMBINE from "../pallets/buttons/MoveToCombeinePallets";
+import FinishedProduct from "../finishedProducts/FinishedProduct";
 
 const data = [
   { name: "Packing Lists", link: "/" },
@@ -61,6 +62,7 @@ export default function SideBar() {
             <DragDropFile />
             <UploadDataFiles />
             <PrintTemporaryLabels />
+            <FinishedProduct />
             <COMBINE />
             <h3>PACKING LISTS</h3>
             {getList()}

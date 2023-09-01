@@ -28,7 +28,7 @@ export default function FinsishedProduct() {
   const [useId, setUseId] = useState();
   const [no, setNo] = useState();
   const [qty, setQty] = useState(0);
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -100,7 +100,7 @@ export default function FinsishedProduct() {
 
   return (
     <>
-      <Button onClick={handleOpen}>PRINT BOX LABELS</Button>
+      <Button variant="contained" color="primary" size="Large" onClick={handleOpen}>PRINT BOX LABELS</Button>
       <Modal
         open={open}
         onClose={handleClose}
