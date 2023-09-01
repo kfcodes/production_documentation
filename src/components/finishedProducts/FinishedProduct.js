@@ -26,23 +26,38 @@ export default function FinsishedProduct(props) {
   const [bbe, setBbe] = useState("");
   const [batch, setBatch] = useState("");
   const [useId, setUseId] = useState();
+  const [no, setNo] = useState();
   const [qty, setQty] = useState(0);
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const onSubmitId = (id) => {
+    fetch(`${process.env.REACT_APP_API_URL}/box_label/${id}`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          if(result) {
+          setNo(result.product_description);
+          }else{
+            return;
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      ).then(
     fetch(`${process.env.REACT_APP_API_URL}/product/${id}`)
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result.product_description);
           setProductDescription(result.product_description);
         },
         (error) => {
           console.log(error);
         }
-      );
+      )
+      )
   };
 
   const onSubmitData = () => {
@@ -99,8 +114,14 @@ export default function FinsishedProduct(props) {
 
         <Container maxWidth="sm">
           <Box sx={style}>
-
-      {(!productDescription && !useId) &&
+      { no &&
+        <>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              THERE IS NO LABEL DATA FOR {productId}
+            </Typography>
+        </>
+      }
+      {(!productDescription && !useId && !no) &&
         <>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Enter End of Line Data
@@ -133,8 +154,7 @@ export default function FinsishedProduct(props) {
             </Grid>
         </>
 }
-
-      {(productDescription && !useId) &&
+      {(productDescription && !useId && !no) &&
         <>
               <Typography id="modal-modal-title" variant="h6" component="h2">
                 {productDescription}
@@ -180,7 +200,7 @@ export default function FinsishedProduct(props) {
         </>
 }
 
-      { (useId && productDescription) &&
+      { (useId && productDescription && !no) &&
         <>
               <Typography align="center" id="modal-modal-title" variant="h6" component="h2">
                 {productDescription}
