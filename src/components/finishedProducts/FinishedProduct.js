@@ -20,32 +20,44 @@ const style = {
 };
 
 export default function FinsishedProduct() {
-  const [productId, setProductId] = useState("");
+  const [poId, setPoId] = useState();
+  const [productId, setProductId] = useState();
   const [productDescription, setProductDescription] = useState();
-  const [lot, setLot] = useState("");
-  const [bbe, setBbe] = useState("");
-  const [batch, setBatch] = useState("");
+  const [lot, setLot] = useState();
+  const [bbe, setBbe] = useState();
+  const [batch, setBatch] = useState();
   const [useId, setUseId] = useState();
   const [no, setNo] = useState();
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setProductId();
+    setProductDescription();
+    setLot();
+    setBbe();
+    setBatch();
+    setUseId();
+    setNo();
+    setQty();
+  };
 
   const onSubmitId = () => {
+    fetch(`${process.env.REACT_APP_API_URL}/product/${productId}`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setProductDescription(result.product_description);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     fetch(`${process.env.REACT_APP_API_URL}/label_info/${productId}`).then(
       (res) => {
         if (res.status == 200) {
-          fetch(`${process.env.REACT_APP_API_URL}/product/${productId}`)
-            .then((res) => res.json())
-            .then(
-              (result) => {
-                setProductDescription(result.product_description);
-              },
-              (error) => {
-                console.log(error);
-              }
-            );
+          return;
         } else {
           setNo("No Lable found");
           return;
@@ -81,7 +93,6 @@ export default function FinsishedProduct() {
   };
 
   const onPrintLabels = () => {
-    console.log(useId);
     let newnumber = { qty: qty };
     fetch(`${process.env.REACT_APP_API_URL}/box_label/${useId}`, {
       method: "post",
@@ -95,12 +106,20 @@ export default function FinsishedProduct() {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
+        handleClose();
       });
   };
 
   return (
     <>
-      <Button variant="contained" color="primary" size="Large" onClick={handleOpen}>PRINT BOX LABELS</Button>
+      <Button
+        variant="contained"
+        color="primary"
+        size="Large"
+        onClick={handleOpen}
+      >
+        PRINT BOX LABELS
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -118,7 +137,8 @@ export default function FinsishedProduct() {
                     variant="h6"
                     component="h2"
                   >
-                    THERE IS NO LABEL DATA FOR {productId}
+                    THERE IS NO LABEL DATA FOR <br />
+                    {productDescription}
                   </Typography>
                 </>
               )}
