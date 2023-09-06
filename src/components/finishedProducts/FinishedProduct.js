@@ -41,6 +41,7 @@ export default function FinsishedProduct() {
     setUseId();
     setNo();
     setQty();
+    setPoId();
   };
 
   const onSubmitId = () => {
@@ -181,12 +182,20 @@ export default function FinsishedProduct() {
                 <>
                   <Typography
                     id="modal-modal-title"
-                    variant="h6"
+                    variant="h4"
                     component="h2"
                   >
                     {productDescription}
                   </Typography>
-                  <hr />
+                  <br />
+                  <Grid item xs={6} md={8}>
+                    <TextField
+                      label="PO NUMBER"
+                      type="number"
+                      value={poId}
+                      onChange={(e) => setPoId(e.target.value)}
+                    />
+                  </Grid>
                   <Grid item xs={6} md={8}>
                     <TextField
                       label="LOT"
@@ -229,46 +238,59 @@ export default function FinsishedProduct() {
               )}
               {useId && productDescription && !no && (
                 <>
-                  <Typography
-                    align="center"
-                    id="modal-modal-title"
-                    variant="h6"
-                    component="h2"
-                  >
-                    {productDescription}
-                  </Typography>
-                  <hr />
-                  <Typography
-                    align="center"
-                    id="modal-modal-title"
-                    variant="p"
-                    component="p"
-                  >
-                    LOT: {lot}
-                  </Typography>
-                  <hr />
-                  <Typography
-                    align="center"
-                    id="modal-modal-title"
-                    variant="p"
-                    component="p"
-                  >
-                    BBE: {bbe}
-                  </Typography>
-                  <hr />
-                  <Typography
-                    align="center"
-                    id="modal-modal-title"
-                    variant="p"
-                    component="p"
-                  >
-                    BATCH: {batch}
-                  </Typography>
-                  <hr />
-                  <br />
+                  <Grid align="center" item xs={6} md={8}>
+                    <Typography
+                      align="center"
+                      id="modal-modal-title"
+                      variant="h4"
+                      component="h2"
+                    >
+                      QUANTITY OF LABELS REQUIRED
+                    </Typography>
+                  </Grid>
+                  <Grid align="center" item xs={6} md={8}>
+                    <Typography
+                      align="center"
+                      id="modal-modal-title"
+                      variant="h6"
+                      component="h3"
+                    >
+                      {productDescription}
+                    </Typography>
+                  </Grid>
+                  <Grid align="center" item xs={6} md={8}>
+                    <Typography
+                      align="center"
+                      id="modal-modal-title"
+                      variant="p"
+                      component="p"
+                    >
+                      LOT: {lot}
+                    </Typography>
+                  </Grid>
+                  <Grid align="center" item xs={6} md={8}>
+                    <Typography
+                      align="center"
+                      id="modal-modal-title"
+                      variant="p"
+                      component="p"
+                    >
+                      BBE: {bbe}
+                    </Typography>
+                  </Grid>
+                  <Grid align="center" item xs={6} md={8}>
+                    <Typography
+                      align="center"
+                      id="modal-modal-title"
+                      variant="p"
+                      component="p"
+                    >
+                      BATCH: {batch}
+                    </Typography>
+                  </Grid>
                   <Grid align="center" item xs={6} md={8}>
                     <TextField
-                      label="Quantity"
+                      label="NUMBER OF LABELS REQUIRED"
                       type="number"
                       value={qty}
                       onChange={(e) => setQty(e.target.value)}
