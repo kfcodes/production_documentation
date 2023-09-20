@@ -53,7 +53,7 @@ export default function FinsishedProduct() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
     fetch(`${process.env.REACT_APP_API_URL}/label_info/${productId}`).then(
       (res) => {
@@ -66,7 +66,7 @@ export default function FinsishedProduct() {
       },
       (error) => {
         console.log(error);
-      }
+      },
     );
   };
 
@@ -76,6 +76,7 @@ export default function FinsishedProduct() {
       eol_lot: lot,
       eol_bbe: bbe,
       eol_batch: batch,
+      eol_po: poId,
     };
     fetch(`${process.env.REACT_APP_API_URL}/finished_product/`, {
       method: "post",
