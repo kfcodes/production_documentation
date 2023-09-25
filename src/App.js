@@ -4,7 +4,7 @@ import FullPalletList from "./components/pallets/palletLists/AllPalletsList";
 import CreatePalletItem from "./components/pallets/singlePalletDetails/SinglePalletItemsList";
 import CreateNewPalletButton from "./components/pallets/buttons/CreateNewPalletButton";
 import SinglePallet from "./components/pallets/singlePalletDetails/SinglePalletDetails";
-import Mps from "./components/productionSchedule/CurrentProduction";
+import Production from "./components/productionSchedule/CurrentProduction";
 import FullMps from "./components/productionSchedule/TotalProduction";
 import DragDropFile from "./components/uploadGS1/UploadPDFLables";
 import UploadDataFiles from "./components/uploadData/UploadDataFiles";
@@ -24,7 +24,7 @@ function App() {
         <Route path="pallet/:palletid" element={<SinglePallet />}>
           <Route path="pallet_item" element={<CreatePalletItem />} />
         </Route>
-        <Route path="mps/" element={<Mps />} />
+        <Route path="production/" element={<Production />} />
         <Route path="full_mps/" element={<FullMps />} />
         <Route path="upload_pdf/" element={<DragDropFile />} />
         <Route path="upload_Data/" element={<UploadDataFiles />} />
