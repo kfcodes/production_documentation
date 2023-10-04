@@ -72,11 +72,11 @@ export default function FinsishedProduct() {
 
   const onSubmitData = () => {
     let finishedProduct = {
+      eol_po: poId,
       eol_product_id: productId,
       eol_lot: lot,
       eol_bbe: bbe,
       eol_batch: batch,
-      eol_po: poId,
     };
     fetch(`${process.env.REACT_APP_API_URL}/finished_product/`, {
       method: "post",
@@ -90,7 +90,7 @@ export default function FinsishedProduct() {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
-        setUseId(result["LAST_INSERT_ID()"]);
+        setUseId("Product created");
       });
   };
 
