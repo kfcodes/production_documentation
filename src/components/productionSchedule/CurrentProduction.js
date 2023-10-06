@@ -23,7 +23,7 @@ function CurrentProduction() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 
@@ -44,7 +44,7 @@ function CurrentProduction() {
             <TableRow>
               <TableCell align="left">ID</TableCell>
               <TableCell align="left">Description</TableCell>
-              <TableCell align="left">LOT  BBE</TableCell>
+              <TableCell align="left">LOT BBE</TableCell>
               <TableCell align="left">Order Qty</TableCell>
               <TableCell align="">Packing List Qty</TableCell>
               <TableCell />
@@ -53,7 +53,10 @@ function CurrentProduction() {
           <TableBody>
             {production.map((p) => (
               <>
-                <TableRow key={p["Product Code"]} onClick ={ product(p["Product Code"])} >
+                <TableRow
+                  key={p["Product Code"]}
+                  onClick={product(p["Product Code"])}
+                >
                   <TableCell align="left">{p["Product Code"]}</TableCell>
                   <TableCell align="left">{p["Description"]}</TableCell>
                   <TableCell align="left">{p["LOT  BBE"]}</TableCell>
