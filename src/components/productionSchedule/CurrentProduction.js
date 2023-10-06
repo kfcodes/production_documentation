@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Unstable_Grid2";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,6 +11,7 @@ import Paper from "@mui/material/Paper";
 import Header from "../header/Header.js";
 
 function CurrentProduction() {
+  const navigate = useNavigate();
   const [production, setProduction] = useState([]);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ function CurrentProduction() {
   }, []);
 
   const product = (id) => () => {
-    console.log(id);
+    navigate(`/finished_product/${id}`);
   };
 
   return (
@@ -44,14 +46,14 @@ function CurrentProduction() {
               <TableCell align="left">Description</TableCell>
               <TableCell align="left">LOT  BBE</TableCell>
               <TableCell align="left">Order Qty</TableCell>
-              <TableCell align="center">Packing List Qty</TableCell>
+              <TableCell align="">Packing List Qty</TableCell>
               <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
             {production.map((p) => (
               <>
-                <TableRow key={p["Product Code"]} onClick ={ () => {console.log("Test")}} >
+                <TableRow key={p["Product Code"]} onClick ={ product(p["Product Code"])} >
                   <TableCell align="left">{p["Product Code"]}</TableCell>
                   <TableCell align="left">{p["Description"]}</TableCell>
                   <TableCell align="left">{p["LOT  BBE"]}</TableCell>
