@@ -28,7 +28,7 @@ function CurrentProduction() {
   }, []);
 
   const product = (id) => () => {
-    navigate(`/finished_product/${id}`);
+    navigate(`/production/${id}`);
   };
 
   return (
@@ -55,7 +55,7 @@ function CurrentProduction() {
               <>
                 <TableRow
                   key={p["Product Code"]}
-                  onClick={product(p["Product Code"])}
+                  onClick={product(p["eol_id"])}
                 >
                   <TableCell align="left">{p["Product Code"]}</TableCell>
                   <TableCell align="left">{p["Description"]}</TableCell>
