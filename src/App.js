@@ -10,7 +10,8 @@ import DragDropFile from "./components/uploadGS1/UploadPDFLables";
 import UploadDataFiles from "./components/uploadData/UploadDataFiles";
 import LatestPallets from "./components/pallets/palletLists/LatestPallets";
 import SearchPallets from "./components/pallets/searchPalletModal/SearchPallet";
-import FinishedProduct from "./components/finishedProducts/FinishedProduct";
+// import FinishedProduct from "./components/finishedProducts/FinishedProduct";
+import FinishedProduct from "./components/productionSchedule/FinishedProduct";
 import CombinePallets from "./components/pallets/combinePallets/CombinePallets";
 
 
@@ -30,7 +31,7 @@ function App() {
         <Route path="upload_Data/" element={<UploadDataFiles />} />
         <Route path="latest_pallets/" element={<LatestPallets />} />
         <Route path="search_pallet/" element={<SearchPallets />} />
-        <Route path="finished_product/" element={<FinishedProduct />} />
+        <Route path="production/:id" element={<FinishedProduct />} />
         <Route path="combine_pallets/" element={<CombinePallets />} />
       </Routes>
     </>
