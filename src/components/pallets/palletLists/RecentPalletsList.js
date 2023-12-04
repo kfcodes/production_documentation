@@ -26,14 +26,10 @@ function PalletList() {
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL2}/new_pallets/`)
-    // fetch(`${process.env.REACT_APP_API_URL}/new_pallets/`)
       .then((res) => res.json())
       .then(
         (result) => {
           setPallets(result);
-          console.log("The returned is type:");
-          console.log(typeof result);
-          console.log(result);
         },
         (error) => {
           console.log(error);
@@ -42,7 +38,7 @@ function PalletList() {
   }, []);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/pallet_items/`)
+    fetch(`${process.env.REACT_APP_API_URL2}/new_pallet_items/`)
       .then((res) => res.json())
       .then(
         (result) => {
