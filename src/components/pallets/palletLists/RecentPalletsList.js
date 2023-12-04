@@ -25,13 +25,15 @@ function PalletList() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/pallets/`)
+    fetch(`${process.env.REACT_APP_API_URL2}/new_pallets/`)
+    // fetch(`${process.env.REACT_APP_API_URL}/new_pallets/`)
       .then((res) => res.json())
       .then(
         (result) => {
           setPallets(result);
           console.log("The returned is type:");
           console.log(typeof result);
+          console.log(result);
         },
         (error) => {
           console.log(error);

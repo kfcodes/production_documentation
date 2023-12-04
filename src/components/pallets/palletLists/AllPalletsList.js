@@ -26,7 +26,7 @@ function PalletList() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/all_pallets/`)
+    fetch(`${process.env.REACT_APP_API_URL2}/all_pallets/`)
       .then((res) => res.json())
       .then(
         (result) => {
