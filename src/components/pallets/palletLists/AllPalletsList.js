@@ -39,7 +39,7 @@ function PalletList() {
   }, []);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/pallet_items/`)
+    fetch(`${process.env.REACT_APP_API_URL2}/all_pallet_items/`)
       .then((res) => res.json())
       .then(
         (result) => {

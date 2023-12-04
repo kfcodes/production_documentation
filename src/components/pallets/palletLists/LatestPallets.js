@@ -40,7 +40,7 @@ function LatestPallets() {
   }
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/latest_pallet_data/`)
+    fetch(`${process.env.REACT_APP_API_URL2}/latest_pallet_data/`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -65,10 +65,9 @@ function LatestPallets() {
                 align="center"
                 fontWeight="bold"
               >
-                {pallet.PALLET}
+                {pallet.pallet_id}
               </Typography>
             </Grid>
-            }
             <Grid item xs={8}>
               <Typography variant="body2" color="text.secondary">
                 {pallet.DESCRIPTION}
@@ -160,30 +159,6 @@ function LatestPallets() {
     console.log(`You clicked the card with id of ${id}`);
     navigateFunction(id);
   };
-
-  // <TableRow
-  //   sx={{ "& > *": { borderBottom: "unset" } }} key={pallet.PALLET} > <TableCell> {pallet.ID} </TableCell> <TableCell > {pallet.DESCRIPTION} </TableCell> <TableCell align="center">
-  //     {pallet.LOT_BBE}
-  //   </TableCell>
-  //   <TableCell align="center">{pallet.BATCH} kg</TableCell>
-  //   <TableCell align="center">{pallet.QUANTITY} cm</TableCell>
-  //   <TableCell> {pallet.DIMENSIONS} </TableCell>
-  //   <TableCell> {pallet.WEIGHT} </TableCell>
-  //   <TableCell> {pallet.PALLET} </TableCell>
-  //   </TableRow>
-  // ));
-
-  // {pallet.HEIGHT ? (
-  //   <Button
-  //     variant="outlined"
-  //     size="small"
-  //     color="secondary"
-  //     href={`/pallet/${pallet.pallet_id}/pallet_item/`}
-  //   >
-  //     Change pallet Details
-  //   </Button>
-
-  // {pallets}
 
   return (
     <>
