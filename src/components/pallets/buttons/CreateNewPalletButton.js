@@ -9,7 +9,7 @@ export default function CreateNewPalletButton() {
   }
 
   function createPallet() {
-    fetch(`${process.env.REACT_APP_API_URL}/pallet`, {
+    fetch(`${process.env.REACT_APP_API_URL2}/pallet`, {
       method: "post",
       mode: "cors",
       headers: {
@@ -19,7 +19,7 @@ export default function CreateNewPalletButton() {
     })
       .then((res) => res.json())
       .then((result) => {
-        navigateFunction(result["LAST_INSERT_ID()"]);
+        navigateFunction(result);
       });
   }
 
