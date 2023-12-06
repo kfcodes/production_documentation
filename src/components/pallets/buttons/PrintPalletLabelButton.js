@@ -5,7 +5,7 @@ export default function PrintLabeLButton(id) {
   const pallet_id = id["id"];
 
   const printPalletLabel = (pallet_id) => {
-    fetch(`${process.env.REACT_APP_API_URL}/label/${pallet_id}`, {
+    fetch(`${process.env.REACT_APP_API_URL2}/label/${pallet_id}`, {
       method: "get",
       headers: {
         Accept: "application/json",
