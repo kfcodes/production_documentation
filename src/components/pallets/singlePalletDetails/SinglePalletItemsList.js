@@ -18,7 +18,6 @@ export default function CreatePallet() {
       );
       const result = await response.json();
       setPalletItems(result);
-      console.log("The state should be updated");
     };
     fetchData();
   }, [newPalletItems]);
