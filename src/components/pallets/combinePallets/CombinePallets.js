@@ -30,18 +30,24 @@ export default function CombinePallets() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 
   const addPallet = (id) => {
-    if (possiblePallets.includes(id)) console.log(possiblePallets);
-    fetch(`${process.env.REACT_APP_API_URL}/pallet_details/${id}`)
-      .then((res) => res.json())
-      .then((palletData) => {
-        setSelectePallets([...selectedPallets, id]);
-        setPalletDataArray([...palletDataArray, ...palletData]);
-      });
+    if (selectedPallets.includes(id)) setPalletId("");
+    else
+    // if (possiblePallets.includes(id)) console.log(possiblePallets);
+      fetch(`${process.env.REACT_APP_API_URL}/pallet_details/${id}`)
+        .then((res) => res.json())
+        .then((palletData) => {
+          setSelectePallets([...selectedPallets, id]);
+          setPalletDataArray([...palletDataArray, ...palletData]);
+          setPalletId("");
+          // if (selectedPallets.length > 2) 
+          //   // setPalletId("");
+          //   console.log(palletDataArray)
+        });
   };
 
   const saveAndPrintLabel = () => {
@@ -50,20 +56,16 @@ export default function CombinePallets() {
       height: height,
     };
     console.log(data);
-    fetch(
-      `${process.env.REACT_APP_API_URL}/combine_pallets`,
-      {
-        method: "put",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    ).then((result) => {
+    fetch(`${process.env.REACT_APP_API_URL}/combine_pallets`, {
+      method: "put",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((result) => {
       console.log(result);
     });
-    
   };
 
   return (
@@ -104,32 +106,21 @@ export default function CombinePallets() {
               </Table>
             </TableContainer>
           </Grid>
-
           <hr />
-
           <Grid container padding={2} spacing={4} justifyContent="center">
             <Grid item xs={6} md={8}>
               <TextField
+                autoFocus
                 label="PALLET ID"
                 type="number"
                 value={palletId}
-                onChange={(e) => setPalletId(e.target.value)}
-              />
-            </Grid>
-          </Grid>
-
-          <Grid container padding={2} spacing={4} justifyContent="center">
-            <Grid item xs={6} md={8}>
-              <Button
-                variant="contained"
-                color="primary"
-                size="Large"
-                onClick={() => {
-                  addPallet(palletId);
+                onChange={(e) => {
+                  setPalletId(e.target.value);
+                  if (e.target.value.length == 5) {
+                    addPallet(e.target.value);
+                  }
                 }}
-              >
-                ADD PALLET
-              </Button>
+              />
             </Grid>
           </Grid>
           {selectedPallets.length > 1 && (
