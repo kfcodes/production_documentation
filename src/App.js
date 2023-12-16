@@ -12,7 +12,6 @@ import LatestPallets from "./components/pallets/palletLists/LatestPallets";
 import SearchPallets from "./components/pallets/searchPalletModal/SearchPallet";
 import CombinePallets from "./components/pallets/combinePallets/CombinePallets";
 
-
 function App() {
   return (
     <>
