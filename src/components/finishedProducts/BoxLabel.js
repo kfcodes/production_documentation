@@ -87,7 +87,7 @@ export default function PrintBoxLabel(props) {
   //     );
   // }, []);
 
-  const onSubmit = () => {
+  const onSubmit = (eol_id) => {
     let label = {
       batch: batch,
       label_quantity: quantity,
