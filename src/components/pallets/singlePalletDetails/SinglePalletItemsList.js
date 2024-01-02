@@ -14,7 +14,7 @@ export default function CreatePallet() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL2}/pallet_items/${palletId}`
+        `${process.env.REACT_APP_API_URL}/pallet_items/${palletId}`
       );
       const result = await response.json();
       setPalletItems(result);

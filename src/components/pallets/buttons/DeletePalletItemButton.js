@@ -18,7 +18,7 @@ export default function DeletePalletItem(id, state) {
   const updateState = id["state"];
 
   const deletePalletItem = (item_id) => {
-    fetch(`${process.env.REACT_APP_API_URL}/pallet_item/${item_id}`, {
+    fetch(`${process.env.REACT_APP_API_URL2}/pallet_item/${item_id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",

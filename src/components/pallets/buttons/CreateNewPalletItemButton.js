@@ -12,7 +12,7 @@ export default function CreateNewPalletItem(id, state) {
     let palletItemData = {
       pallet_item_pallet_id: pallet,
     };
-    fetch(`${process.env.REACT_APP_API_URL}/pallet_item/${pallet}`, {
+    fetch(`${process.env.REACT_APP_API_URL2}/pallet_item/${pallet}`, {
       method: "post",
       headers: {
         Accept: "application/json",
