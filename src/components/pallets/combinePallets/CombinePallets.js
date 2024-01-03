@@ -15,38 +15,20 @@ import Paper from "@mui/material/Paper";
 import Header from "../../header/Header";
 
 export default function CombinePallets() {
-  const [possiblePallets, setPossiblePallets] = useState([]);
   const [palletId, setPalletId] = useState();
   const [palletDataArray, setPalletDataArray] = useState([]);
   const [selectedPallets, setSelectePallets] = useState([]);
   const [height, setHeight] = useState();
 
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/possible_pallets`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setPossiblePallets(result);
-        },
-        (error) => {
-          console.log(error);
-        },
-      );
-  }, []);
-
   const addPallet = (id) => {
     if (selectedPallets.includes(id)) setPalletId("");
     else
-    // if (possiblePallets.includes(id)) console.log(possiblePallets);
-      fetch(`${process.env.REACT_APP_API_URL}/pallet_details/${id}`)
+      fetch(`${process.env.REACT_APP_API_URL2}/pallet_details/${id}`)
         .then((res) => res.json())
         .then((palletData) => {
           setSelectePallets([...selectedPallets, id]);
           setPalletDataArray([...palletDataArray, ...palletData]);
           setPalletId("");
-          // if (selectedPallets.length > 2) 
-          //   // setPalletId("");
-          //   console.log(palletDataArray)
         });
   };
 
