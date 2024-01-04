@@ -39,7 +39,7 @@ export default function SinglePallet() {
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/pallet/${pId}`)
+    fetch(`${process.env.REACT_APP_API_URL2}/pallet_details/${pId}`)
       .then((res) => res.json())
       .then(
         (result) => {

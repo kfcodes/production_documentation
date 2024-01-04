@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 
 export default function PrintTemporaryLabels() {
   const handleClick = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/print_blank_labels`, {
+    fetch(`${process.env.REACT_APP_API_URL2}/print_blank_labels`, {
       method: "post",
       mode: "cors",
       headers: {

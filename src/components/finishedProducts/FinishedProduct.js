@@ -60,7 +60,7 @@ export default function FinsishedProduct() {
         if (res.status == 200) {
           return;
         } else {
-          setNo("No Lable found");
+          setNo("NO DATA FOUND");
           return;
         }
       },

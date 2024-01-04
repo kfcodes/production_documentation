@@ -38,7 +38,7 @@ export default function CombinePallets() {
       height: height,
     };
     console.log(data);
-    fetch(`${process.env.REACT_APP_API_URL}/combine_pallets`, {
+    fetch(`${process.env.REACT_APP_API_URL2}/combine_pallets`, {
       method: "put",
       headers: {
         Accept: "application/json",
