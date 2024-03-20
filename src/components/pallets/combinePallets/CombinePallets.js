@@ -15,6 +15,7 @@ import Paper from "@mui/material/Paper";
 import Header from "../../header/Header";
 
 export default function CombinePallets() {
+  const [pssiblePallets, setPossiblePallets] = useState([]);
   const [palletId, setPalletId] = useState();
   const [palletDataArray, setPalletDataArray] = useState([]);
   const [selectedPallets, setSelectePallets] = useState([]);
@@ -23,7 +24,7 @@ export default function CombinePallets() {
   const addPallet = (id) => {
     if (selectedPallets.includes(id)) setPalletId("");
     else
-      fetch(`${process.env.REACT_APP_API_URL2}/pallet_details/${id}`)
+      fetch(`${process.env.REACT_APP_API_URL}/pallet_details/${id}`)
         .then((res) => res.json())
         .then((palletData) => {
           setSelectePallets([...selectedPallets, id]);
@@ -33,12 +34,8 @@ export default function CombinePallets() {
   };
 
   const saveAndPrintLabel = () => {
-    const data = {
-      pallets: selectedPallets,
-      height: height,
-    };
-    console.log(data);
-    fetch(`${process.env.REACT_APP_API_URL2}/combine_pallets`, {
+    const data = { pallets: selectedPallets, height: height, };
+    fetch(`${process.env.REACT_APP_API_URL}/combine_pallets`, {
       method: "put",
       headers: {
         Accept: "application/json",
