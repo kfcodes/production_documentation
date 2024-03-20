@@ -40,7 +40,7 @@ function LatestPallets() {
   }
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/latest_pallet_data/`)
+    fetch(`${process.env.REACT_APP_API_URL2}/latest_pallet_data/`)
       .then((res) => res.json())
       .then(
         (result) => {

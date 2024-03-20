@@ -55,7 +55,7 @@ export default function FinsishedProduct() {
           console.log(error);
         },
       );
-    fetch(`${process.env.REACT_APP_API_URL}/label_info/${productId}`).then(
+    fetch(`${process.env.REACT_APP_API_URL2}/label_info/${productId}`).then(
       (res) => {
         if (res.status == 200) {
           return;
