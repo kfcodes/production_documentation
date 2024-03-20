@@ -15,7 +15,7 @@ function CurrentProduction() {
   const [production, setProduction] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/production`)
+    fetch(`${process.env.REACT_APP_API_URL3}/production`)
       .then((res) => res.json())
       .then(
         (result) => {

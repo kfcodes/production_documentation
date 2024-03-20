@@ -7,7 +7,7 @@ function ProductList() {
   let { brandid } = useParams();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/products_from_brand/${brandid}`)
+    fetch(`${process.env.REACT_APP_API_URL3}/products_from_brand/${brandid}`)
       .then((res) => res.json())
       .then(
         (result) => {

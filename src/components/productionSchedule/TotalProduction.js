@@ -49,7 +49,7 @@ function FullMps() {
   const [update, setUpdate] = useState("");
 
   const setMpsData = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/full_mps/`)
+    fetch(`${process.env.REACT_APP_API_URL3}/full_mps/`)
       .then((res) => res.json())
       .then(
         (result) => {
