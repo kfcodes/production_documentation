@@ -4,15 +4,15 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Container from "@mui/material/Container";
 
-export default function CreateNewPalletItem(id, state) {
-  const palletId = id["id"];
-  const updateState = id["state"];
+export default function CreateNewPalletItem(props) {
+  const palletId = props["pallet_id"];
+  const updateState = props["setNewPalletItemsFunction"]
 
   const createNewPalletItem = (pallet) => {
     let palletItemData = {
       pallet_item_pallet_id: pallet,
     };
-    fetch(`${process.env.REACT_APP_API_URL}/pallet_item/${pallet}`, {
+    fetch(`${process.env.REACT_APP_API_URL3}/pallet_item/${pallet}`, {
       method: "post",
       headers: {
         Accept: "application/json",
