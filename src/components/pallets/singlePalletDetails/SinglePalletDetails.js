@@ -11,35 +11,18 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import PrintLabeLButton from "../buttons/PrintPalletLabelButton";
 import Header from "../../header/Header";
-import Modal from "@mui/material/Modal";
-
-const style = {
-  width: "100%",
-  border: "none",
-  bgcolor: "#04AA6D",
-  color: "white",
-  padding: "14px 28px",
-  FontFace: "26px",
-  cursor: "pointer",
-  display: "flex",
-};
 
 export default function SinglePallet() {
+  const params_pallet_id = useParams()["palletid"];
   const [pallet_id, setPallet_id] = useState(0);
   const [palletType, setPalletType] = useState(0);
   const [emptyweight, setEmptyweight] = useState(0);
   const [weight, setWeight] = useState(0);
   const [height, setHeight] = useState(0);
   const [packing_list, setPacking_list] = useState(0);
-  const palletId = useParams();
-  const pId = palletId["palletid"];
-
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL2}/pallet_details/${pId}`)
+    fetch(`${process.env.REACT_APP_API_URL2}/pallet_details/${params_pallet_id}`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -52,7 +35,7 @@ export default function SinglePallet() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 
@@ -92,7 +75,7 @@ export default function SinglePallet() {
                 <TextField
                   fullWidth
                   disabled
-                  value={pId}
+                  value={pallet_id}
                   id="outlined-adornment-amount"
                   label="pallet_id"
                 />
@@ -167,7 +150,7 @@ export default function SinglePallet() {
             <Grid container padding={2} spacing={2} justifyContent="center">
               {weight != 0 && emptyweight != 0 && height != 0 && (
                 <Grid item xs={3}>
-                  <PrintLabeLButton id={pId} />
+                  <PrintLabeLButton id={pallet_id} />
                 </Grid>
               )}
               <Grid item xs={3}>
@@ -182,7 +165,7 @@ export default function SinglePallet() {
                 </Button>
               </Grid>
             </Grid>
-            <Outlet context={[pId]} />
+            <Outlet context={[pallet_id]} />
           </div>
         </Container>
       </Box>
