@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, redirect } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -22,7 +22,9 @@ export default function SinglePallet() {
   const [packing_list, setPacking_list] = useState(0);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL2}/pallet_details/${params_pallet_id}`)
+    fetch(
+      `${process.env.REACT_APP_API_URL3}/pallet_details/${params_pallet_id}`,
+    )
       .then((res) => res.json())
       .then(
         (result) => {
@@ -41,6 +43,7 @@ export default function SinglePallet() {
 
   const onSubmit = () => {
     let palletData = {
+      pallet_id: pallet_id,
       pallet_type: palletType,
       empty_weight: emptyweight,
       weight: weight,
@@ -48,7 +51,7 @@ export default function SinglePallet() {
       packing_list: packing_list,
     };
     console.log(palletData);
-    fetch(`${process.env.REACT_APP_API_URL}/pallet/${pallet_id}`, {
+    fetch(`${process.env.REACT_APP_API_URL3}/pallet/${pallet_id}`, {
       method: "put",
       mode: "cors",
       headers: {
