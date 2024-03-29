@@ -7,12 +7,12 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export default function DeletePalletItem(id, state) {
-  const item_id = id["id"];
-  const updateState = id["state"];
+export default function DeletePalletItem(props) {
+  const item_id = props["id"];
+  const updateState = props["state"];
 
   const deletePalletItem = (item_id) => {
-    fetch(`${process.env.REACT_APP_API_URL2}/pallet_item/${item_id}`, {
+    fetch(`${process.env.REACT_APP_API_URL3}/pallet_item/${item_id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
