@@ -6,7 +6,7 @@ export default function ExportPalletData() {
   const [fullPalletData, setFullPalletData] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL2}/pallet_data/`)
+    fetch(`${process.env.REACT_APP_API_URL3}/pallet_data/`)
       .then((res) => res.json())
       .then(
         (result) => {
