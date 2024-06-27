@@ -1,4 +1,3 @@
-import { useOutletContext } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -94,7 +93,7 @@ export default function PalletItem(props) {
                     type="text"
                     id="product_id"
                     name="product_id"
-                    value={pallet_item_product_id}
+                    value={pallet_item_product_id ? pallet_item_product_id : ''}
                     inputProps={{ style: { textAlign: "center" } }}
                     onChange={(e) => setpallet_item_product_id(e.target.value)}
                   />
@@ -106,7 +105,7 @@ export default function PalletItem(props) {
                     type="number"
                     id="quantity"
                     name="quantity"
-                    value={quantity}
+                    value={quantity ? quantity : ''}
                     inputProps={{ style: { textAlign: "center" } }}
                     onChange={(e) => setquantity(e.target.value)}
                   />
@@ -120,7 +119,7 @@ export default function PalletItem(props) {
                     type="text"
                     id="lot"
                     name="lot"
-                    value={lot}
+                    value={lot ? lot : ''}
                     inputProps={{ style: { textAlign: "center" } }}
                     onChange={(e) => setlot(e.target.value)}
                   />
@@ -132,7 +131,7 @@ export default function PalletItem(props) {
                     type="text"
                     id="bbe"
                     name="bbe"
-                    value={bbe}
+                    value={bbe ? bbe : ''}
                     inputProps={{ style: { textAlign: "center" } }}
                     onChange={(e) => setbbe(e.target.value)}
                   />
@@ -144,7 +143,7 @@ export default function PalletItem(props) {
                     type="text"
                     id="batch"
                     name="batch"
-                    value={batch}
+                    value={batch ? batch : ''}
                     inputProps={{ style: { textAlign: "center" } }}
                     onChange={(e) => setbatch(e.target.value)}
                   />
