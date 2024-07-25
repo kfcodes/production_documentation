@@ -292,6 +292,7 @@ export default function FinsishedProduct() {
                       onChange={(e) => setQty(e.target.value)}
                     />
                   </Grid>
+<<<<<<< HEAD
                   <Grid item xs={6} md={8}>
                     <TextField
                       label="Net Weight Per Bag"
@@ -308,6 +309,25 @@ export default function FinsishedProduct() {
                       onChange={(e) => setExp(e.target.value)}
                     />
                   </Grid>
+||||||| 3924539
+=======
+                  <Grid item xs={6} md={8}>
+                    <TextField
+                      label="Quantity Per Box"
+                      type="number"
+                      value={qtyPerBox}
+                      onChange={(e) => setQtyPerBox(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={6} md={8}>
+                    <TextField
+                      label="BBE yyyymmdd"
+                      type="text"
+                      value={exp}
+                      onChange={(e) => setExp(e.target.value)}
+                    />
+                  </Grid>
+>>>>>>> main
                   <br />
                   <Grid align="center" item xs={6} md={8}>
                     <Container maxWidth="sm">
