@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
@@ -15,48 +15,34 @@ import Paper from "@mui/material/Paper";
 import Header from "../../header/Header";
 
 export default function CombinePallets() {
-  const [possiblePallets, setPossiblePallets] = useState([]);
+  const [pssiblePallets, setPossiblePallets] = useState([]);
   const [palletId, setPalletId] = useState();
   const [palletDataArray, setPalletDataArray] = useState([]);
   const [selectedPallets, setSelectePallets] = useState([]);
   const [height, setHeight] = useState();
 
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/possible_pallets`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setPossiblePallets(result);
-        },
-        (error) => {
-          console.log(error);
-        },
-      );
-  }, []);
-
   const addPallet = (id) => {
+    console.log(palletDataArray)
+    palletDataArray.map((p) => {
+      console.log(`values for p id : ${p.pallet_id}`)
+      console.log(`values for p id : ${p.weight}`)
+      console.log(`values for p id : ${p.height}`)
+    })
     if (selectedPallets.includes(id)) setPalletId("");
     else
-    // if (possiblePallets.includes(id)) console.log(possiblePallets);
-      fetch(`${process.env.REACT_APP_API_URL}/pallet_details/${id}`)
+      fetch(`${process.env.REACT_APP_API_URL3}/pallet/${id}`)
         .then((res) => res.json())
+        .then((data) => JSON.parse(JSON.stringify(data)))
         .then((palletData) => {
-          setSelectePallets([...selectedPallets, id]);
-          setPalletDataArray([...palletDataArray, ...palletData]);
+          setSelectePallets([...selectedPallets, id])
+          setPalletDataArray([...palletDataArray, palletData])
           setPalletId("");
-          // if (selectedPallets.length > 2) 
-          //   // setPalletId("");
-          //   console.log(palletDataArray)
         });
   };
 
   const saveAndPrintLabel = () => {
-    const data = {
-      pallets: selectedPallets,
-      height: height,
-    };
-    console.log(data);
-    fetch(`${process.env.REACT_APP_API_URL}/combine_pallets`, {
+    const data = { id: selectedPallets, pallet_list: selectedPallets, height: height, };
+    fetch(`${process.env.REACT_APP_API_URL3}/combine_pallets`, {
       method: "put",
       headers: {
         Accept: "application/json",

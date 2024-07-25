@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, redirect } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -11,61 +11,44 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import PrintLabeLButton from "../buttons/PrintPalletLabelButton";
 import Header from "../../header/Header";
-import Modal from "@mui/material/Modal";
-
-const style = {
-  width: "100%",
-  border: "none",
-  bgcolor: "#04AA6D",
-  color: "white",
-  padding: "14px 28px",
-  FontFace: "26px",
-  cursor: "pointer",
-  display: "flex",
-};
+import SinglePalletItemsList from "./SinglePalletItemsList";
 
 export default function SinglePallet() {
-  const [pallet_id, setPallet_id] = useState(0);
-  const [palletType, setPalletType] = useState(0);
-  const [emptyweight, setEmptyweight] = useState(0);
-  const [weight, setWeight] = useState(0);
-  const [height, setHeight] = useState(0);
-  const [packing_list, setPacking_list] = useState(0);
-  const palletId = useParams();
-  const pId = palletId["palletid"];
-
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const params_pallet_id = useParams()["palletid"];
+  const [pallet_id, setPallet_id] = useState("");
+  const [palletType, setPalletType] = useState("");
+  const [emptyweight, setEmptyweight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/pallet/${pId}`)
+    fetch(
+      `${process.env.REACT_APP_API_URL3}/pallet_details/${params_pallet_id}`,
+    )
       .then((res) => res.json())
       .then(
         (result) => {
-          setPallet_id(result[0].pallet_id);
-          setPalletType(result[0].pallet_type);
-          setEmptyweight(result[0].empty_weight);
-          setWeight(result[0].weight);
-          setHeight(result[0].height);
-          setPacking_list(result[0].packing_list);
+          setPallet_id(result.pallet_id);
+          setPalletType(result.pallet_type);
+          setEmptyweight(result.empty_weight);
+          setWeight(result.weight);
+          setHeight(result.height);
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 
   const onSubmit = () => {
     let palletData = {
+      pallet_id: pallet_id,
       pallet_type: palletType,
       empty_weight: emptyweight,
       weight: weight,
       height: height,
-      packing_list: packing_list,
     };
-    console.log(palletData);
-    fetch(`${process.env.REACT_APP_API_URL}/pallet/${pallet_id}`, {
+    fetch(`${process.env.REACT_APP_API_URL3}/pallet/${pallet_id}`, {
       method: "put",
       mode: "cors",
       headers: {
@@ -92,7 +75,7 @@ export default function SinglePallet() {
                 <TextField
                   fullWidth
                   disabled
-                  value={pId}
+                  value={pallet_id}
                   id="outlined-adornment-amount"
                   label="pallet_id"
                 />
@@ -102,7 +85,6 @@ export default function SinglePallet() {
               <Grid item sm={6}>
                 <Select
                   fullWidth
-                  labelId="demo-simple-select-label"
                   label="Pallet Size"
                   id="demo-simple-select"
                   value={palletType}
@@ -119,7 +101,6 @@ export default function SinglePallet() {
                 <TextField
                   fullWidth
                   label="Empty Pallet Weight"
-                  id="outlined-end-adornment"
                   type="number"
                   value={emptyweight}
                   onChange={(e) => setEmptyweight(e.target.value)}
@@ -167,7 +148,7 @@ export default function SinglePallet() {
             <Grid container padding={2} spacing={2} justifyContent="center">
               {weight != 0 && emptyweight != 0 && height != 0 && (
                 <Grid item xs={3}>
-                  <PrintLabeLButton id={pId} />
+                  <PrintLabeLButton id={pallet_id} />
                 </Grid>
               )}
               <Grid item xs={3}>
@@ -182,7 +163,13 @@ export default function SinglePallet() {
                 </Button>
               </Grid>
             </Grid>
-            <Outlet context={[pId]} />
+            <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+              <>
+                <SinglePalletItemsList
+                  pallet_id={params_pallet_id}
+                />
+              </>
+            </Box>
           </div>
         </Container>
       </Box>

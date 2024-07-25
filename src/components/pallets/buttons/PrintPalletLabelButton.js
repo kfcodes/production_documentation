@@ -25,9 +25,7 @@ export default function PrintLabeLButton(id) {
         onClick={() => {
           printPalletLabel(pallet_id);
         }}
-      >
-        PRINT PALLET LABEL
-      </Button>
+      >PRINT PALLET LABEL</Button>
     </div>
   );
 }

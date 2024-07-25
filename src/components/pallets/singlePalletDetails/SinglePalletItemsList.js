@@ -6,15 +6,15 @@ import Container from "@mui/material/Container";
 import CreateNewPalletItem from "../buttons/CreateNewPalletItemButton";
 import PalletItem from "./SinglePalletItem";
 
-export default function CreatePallet() {
-  const palletId = useOutletContext();
+export default function SinglePalletItemsList(props) {
+  const palletId = props['pallet_id'];
   const [palletItems, setPalletItems] = useState([]);
   const [newPalletItems, setNewPalletItems] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL2}/pallet_items/${palletId}`
+        `${process.env.REACT_APP_API_URL3}/pallet_items/${palletId}`,
       );
       const result = await response.json();
       setPalletItems(result);
@@ -35,18 +35,24 @@ export default function CreatePallet() {
           </div>
         </Container>
       </Box>
-      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-        {palletItems.map((product) => (
-          <>
-            <PalletItem
-              product={product}
-              palletId={palletId}
-              setNewPalletItems={setNewPalletItems}
-            />
-          </>
-        ))}
-      </Box>
-      <CreateNewPalletItem id={palletId} state={setNewPalletItems} />
+      {palletItems != [] && palletItems != null &&
+        < Box sx={{ display: "flex", flexWrap: "wrap" }}>
+          {palletItems.map((product) => (
+            <>
+              <PalletItem
+                product={product}
+                item_id={product.item_id}
+                setNewPalletItemsFunction={setNewPalletItems}
+              />
+            </>
+          ))}
+        </Box >
+      }
+      <CreateNewPalletItem
+        pallet_id={palletId}
+        setNewPalletItemsFunction={setNewPalletItems}
+      />
     </>
   );
 }
+

@@ -29,6 +29,8 @@ export default function FinsishedProduct() {
   const [useId, setUseId] = useState();
   const [no, setNo] = useState();
   const [qty, setQty] = useState();
+  const [exp, setExp] = useState();
+  const [qtyPerBox, setQtyPerBox] = useState();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -41,11 +43,12 @@ export default function FinsishedProduct() {
     setUseId();
     setNo();
     setQty();
+    setQtyPerBox();
     setPoId();
   };
 
   const onSubmitId = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/product/${productId}`)
+    fetch(`${process.env.REACT_APP_API_URL3}/product/${productId}`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -55,12 +58,12 @@ export default function FinsishedProduct() {
           console.log(error);
         },
       );
-    fetch(`${process.env.REACT_APP_API_URL}/label_info/${productId}`).then(
+    fetch(`${process.env.REACT_APP_API_URL3}/label_info/${productId}`).then(
       (res) => {
         if (res.status == 200) {
           return;
         } else {
-          setNo("No Lable found");
+          setNo("NO DATA FOUND");
           return;
         }
       },
@@ -78,7 +81,7 @@ export default function FinsishedProduct() {
       eol_bbe: bbe,
       eol_batch: batch,
     };
-    fetch(`${process.env.REACT_APP_API_URL}/finished_product/`, {
+    fetch(`${process.env.REACT_APP_API_URL3}/finished_product/`, {
       method: "post",
       mode: "cors",
       headers: {
@@ -90,13 +93,13 @@ export default function FinsishedProduct() {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
-        setUseId("Product created");
+        setUseId(result);
       });
   };
 
   const onPrintLabels = () => {
-    let newnumber = { qty: qty };
-    fetch(`${process.env.REACT_APP_API_URL}/box_label/${useId}`, {
+    let newnumber = { qty: qty, qtyPerBox: qtyPerBox, exp: exp };
+    fetch(`${process.env.REACT_APP_API_URL3}/print_large_product_label/${useId}`, {
       method: "post",
       mode: "cors",
       headers: {
@@ -189,14 +192,6 @@ export default function FinsishedProduct() {
                     {productDescription}
                   </Typography>
                   <br />
-                  <Grid item xs={6} md={8}>
-                    <TextField
-                      label="PO NUMBER"
-                      type="number"
-                      value={poId}
-                      onChange={(e) => setPoId(e.target.value)}
-                    />
-                  </Grid>
                   <Grid item xs={6} md={8}>
                     <TextField
                       label="LOT"
@@ -295,6 +290,22 @@ export default function FinsishedProduct() {
                       type="number"
                       value={qty}
                       onChange={(e) => setQty(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={6} md={8}>
+                    <TextField
+                      label="Net Weight Per Bag"
+                      type="number"
+                      value={qtyPerBox}
+                      onChange={(e) => setQtyPerBox(e.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={6} md={8}>
+                    <TextField
+                      label="Manufacture Date"
+                      type="text"
+                      value={exp}
+                      onChange={(e) => setExp(e.target.value)}
                     />
                   </Grid>
                   <br />

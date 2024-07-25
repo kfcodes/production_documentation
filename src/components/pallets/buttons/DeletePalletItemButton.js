@@ -1,24 +1,18 @@
-import { useOutletContext } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Unstable_Grid2";
-import Card from "@mui/material/Card";
-import Container from "@mui/material/Container";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export default function DeletePalletItem(id, state) {
-  const item_id = id["id"];
-  const updateState = id["state"];
+export default function DeletePalletItem(props) {
+  const item_id = props["id"];
+  const updateState = props["state"];
 
   const deletePalletItem = (item_id) => {
-    fetch(`${process.env.REACT_APP_API_URL}/pallet_item/${item_id}`, {
+    fetch(`${process.env.REACT_APP_API_URL3}/pallet_item/${item_id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",

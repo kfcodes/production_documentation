@@ -6,7 +6,7 @@ function Singlebom() {
   let { productid } = useParams();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/bom/${productid}`)
+    fetch(`${process.env.REACT_APP_API_URL3}/bom/${productid}`)
       .then((res) => res.json())
       .then(
         (result) => {
