@@ -20,12 +20,31 @@ const style = {
 };
 
 export default function ThisWayUpLabels() {
+  const [poId, setPoId] = useState();
+  const [productId, setProductId] = useState();
+  const [productDescription, setProductDescription] = useState();
+  const [lot, setLot] = useState();
+  const [bbe, setBbe] = useState();
+  const [batch, setBatch] = useState();
+  const [useId, setUseId] = useState();
+  const [no, setNo] = useState();
   const [qty, setQty] = useState();
+  const [exp, setExp] = useState();
+  const [qtyPerBox, setQtyPerBox] = useState();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
+    setProductId();
+    setProductDescription();
+    setLot();
+    setBbe();
+    setBatch();
+    setUseId();
+    setNo();
     setQty();
+    setQtyPerBox();
+    setPoId();
   };
 
   const onPrintLabels = () => {
@@ -39,66 +58,66 @@ export default function ThisWayUpLabels() {
           console.log(error);
         },
       );
-
-    return (
-      <>
-        <Button
-          variant="contained"
-          color="primary"
-          size="Large"
-          onClick={handleOpen}
-        >
-          PRINT THIS WAY UP LABELS
-        </Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Container align="center" maxWidth="sm">
-            <Box sx={style}>
-              <Grid container align="center" spacing={3}>
-                <>
-                  <Grid align="center" item xs={6} md={8}>
-                    <Typography
-                      align="center"
-                      id="modal-modal-title"
-                      variant="h4"
-                      component="h2"
-                    >
-                      QUANTITY OF LABELS REQUIRED
-                    </Typography>
-                  </Grid>
-                  <Grid align="center" item xs={6} md={8}>
-                    <TextField
-                      label="NUMBER OF LABELS REQUIRED"
-                      type="number"
-                      value={qty}
-                      onChange={(e) => setQty(e.target.value)}
-                    />
-                  </Grid>
-                  <br />
-                  <Grid align="center" item xs={6} md={8}>
-                    <Container maxWidth="sm">
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        size="Large"
-                        onClick={() => {
-                          onPrintLabels();
-                        }}
-                      >
-                        PRINT LABELS
-                      </Button>
-                    </Container>
-                  </Grid>
-                </>
-              </Grid>
-            </Box>
-          </Container>
-        </Modal>
-      </>
-    );
   };
+
+  return (
+    <>
+      <Button
+        variant="contained"
+        color="primary"
+        size="Large"
+        onClick={handleOpen}
+      >
+        PRINT THIS WAY UP LABELS
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Container align="center" maxWidth="sm">
+          <Box sx={style}>
+            <Grid container align="center" spacing={3}>
+              <>
+                <Grid align="center" item xs={6} md={8}>
+                  <Typography
+                    align="center"
+                    id="modal-modal-title"
+                    variant="h4"
+                    component="h2"
+                  >
+                    QUANTITY REQUIRED
+                  </Typography>
+                </Grid>
+                <Grid align="center" item xs={6} md={8}>
+                  <TextField
+                    label="NUMBER OF LABELS REQUIRED"
+                    type="number"
+                    value={qty}
+                    onChange={(e) => setQty(e.target.value)}
+                  />
+                </Grid>
+                <br />
+                <Grid align="center" item xs={6} md={8}>
+                  <Container maxWidth="sm">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="Large"
+                      onClick={() => {
+                        onPrintLabels();
+                      }}
+                    >
+                      PRINT LABELS
+                    </Button>
+                  </Container>
+                </Grid>
+              </>
+            </Grid>
+          </Box>
+        </Container>
+      </Modal>
+    </>
+  );
 }
