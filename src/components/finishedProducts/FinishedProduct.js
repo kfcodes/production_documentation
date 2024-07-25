@@ -294,7 +294,7 @@ export default function FinsishedProduct() {
                   </Grid>
                   <Grid item xs={6} md={8}>
                     <TextField
-                      label="Net Weight Per Bag"
+                      label="Quantity Per Box"
                       type="number"
                       value={qtyPerBox}
                       onChange={(e) => setQtyPerBox(e.target.value)}
@@ -302,7 +302,7 @@ export default function FinsishedProduct() {
                   </Grid>
                   <Grid item xs={6} md={8}>
                     <TextField
-                      label="Manufacture Date"
+                      label="BBE yyyymmdd"
                       type="text"
                       value={exp}
                       onChange={(e) => setExp(e.target.value)}
