@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import PalletList from "./components/pallets/palletLists/RecentPalletsList";
-// import FullPalletList from "./components/pallets/palletLists/AllPalletsList";
-import CreatePalletItem from "./components/pallets/singlePalletDetails/SinglePalletItemsList";
-import SinglePallet from "./components/pallets/singlePalletDetails/SinglePalletDetails";
-import Header from "./components/header/Header"
+import PalletList from "../components/pallets/palletLists/RecentPalletsList";
+// import FullPalletList from "../components/pallets/palletLists/AllPalletsList";
+import CreatePalletItem from "../components/pallets/singlePalletDetails/SinglePalletItemsList";
+import SinglePallet from "../components/pallets/singlePalletDetails/SinglePalletDetails";
+import Header from "../components/header/Header"
 
 const RoutesComponent = () => {
   return (

@@ -28,11 +28,12 @@ export default function SinglePallet() {
       .then((res) => res.json())
       .then(
         (result) => {
-          setPallet_id(result.pallet_id);
-          setPalletType(result.pallet_type);
-          setEmptyweight(result.empty_weight);
-          setWeight(result.weight);
-          setHeight(result.height);
+          console.log(result[0]);
+          setPallet_id(result[0].pallet_id);
+          setPalletType(result[0].pallet_type);
+          setEmptyweight(result[0].empty_weight);
+          setWeight(result[0].weight);
+          setHeight(result[0].height);
         },
         (error) => {
           console.log(error);
