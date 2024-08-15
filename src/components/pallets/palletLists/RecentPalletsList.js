@@ -53,7 +53,6 @@ function PalletList() {
   return (
     <>
       <Box component="span" sx={{ p: 2, border: "1px dashed grey" }}>
-        <Header />
         <Container>
           <Grid container padding={2} spacing={3} justifyContent="center">
             <Grid item alignItems="center">
@@ -143,21 +142,21 @@ function PalletList() {
                                 <>
                                   {pallet.pallet_id ===
                                     item.pallet_item_pallet_id && (
-                                    <TableRow key={item.pallet_item_pallet_id}>
-                                      <TableCell component="th" scope="row">
-                                        {item.product_description}
-                                      </TableCell>
-                                      <TableCell align="right">
-                                        {item.lot}
-                                      </TableCell>
-                                      <TableCell align="right">
-                                        {item.bbe}
-                                      </TableCell>
-                                      <TableCell align="right">
-                                        {item.quantity}
-                                      </TableCell>
-                                    </TableRow>
-                                  )}
+                                      <TableRow key={item.pallet_item_pallet_id}>
+                                        <TableCell component="th" scope="row">
+                                          {item.product_description}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                          {item.lot}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                          {item.bbe}
+                                        </TableCell>
+                                        <TableCell align="right">
+                                          {item.quantity}
+                                        </TableCell>
+                                      </TableRow>
+                                    )}
                                 </>
                               ))}
                             </TableBody>
