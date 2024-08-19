@@ -3,36 +3,31 @@ import { useParams } from "react-router-dom";
 import SinglePalletDetails from "../components/pallets/singlePalletDetails/SinglePalletDetails";
 import SinglePalletItemsList from "../components/pallets/singlePalletDetails/SinglePalletItemsList";
 import { useFetchData } from "../hooks/useFetchData";
+import { useSubmitData } from "../hooks/useSubmitData";
 
 export default function SinglePalletPage() {
   const { palletid } = useParams();
 
-  const {
-    data: palletDetails,
-    loading: detailsLoading,
-    error: detailsError,
-  } = useFetchData(
+  const { data: palletDetails, loading: detailsLoading, error: detailsError } = useFetchData(
     `${process.env.REACT_APP_API_URL3}/pallet_details/${palletid}`,
-    [palletid],
+    [palletid]
   );
 
-  const {
-    data: palletItemsData,
-    loading: itemsLoading,
-    error: itemsError,
-  } = useFetchData(
+  const { data: palletItemsData, loading: itemsLoading, error: itemsError } = useFetchData(
     `${process.env.REACT_APP_API_URL3}/pallet_items/${palletid}`,
-    [palletid],
+    [palletid]
   );
 
-  // State management for pallet details
   const [palletType, setPalletType] = useState("");
   const [emptyweight, setEmptyweight] = useState("");
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
+  const [palletItems, setPalletItems] = useState([]);
 
-  // State management for pallet items
-  const [palletItems, setPalletItems] = useState([]); // Ensure this is defined
+  const { loading: submitLoading, error: submitError, success, submitData } = useSubmitData(
+    `${process.env.REACT_APP_API_URL3}/pallet/${palletid}`,
+    "PUT"
+  );
 
   useEffect(() => {
     if (palletDetails && palletDetails.length > 0) {
@@ -45,7 +40,7 @@ export default function SinglePalletPage() {
 
   useEffect(() => {
     if (palletItemsData) {
-      setPalletItems(palletItemsData); // Update the palletItems state with the fetched data
+      setPalletItems(palletItemsData);
     }
   }, [palletItemsData]);
 
@@ -57,24 +52,12 @@ export default function SinglePalletPage() {
       weight,
       height,
     };
-
-    fetch(`${process.env.REACT_APP_API_URL3}/pallet/${palletid}`, {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(palletData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Pallet details updated:", data);
-      })
-      .catch((error) => console.error("Error updating pallet details:", error));
+    console.log(palletData);
+    submitData(palletData);
   };
 
-  if (detailsLoading || itemsLoading) return <div>Loading...</div>;
-  if (detailsError || itemsError) return <div>Error loading data</div>;
+  if (detailsLoading || itemsLoading || submitLoading) return <div>Loading...</div>;
+  if (detailsError || itemsError || submitError) return <div>Error loading data</div>;
 
   return (
     <>
@@ -88,13 +71,14 @@ export default function SinglePalletPage() {
         setEmptyweight={setEmptyweight}
         setWeight={setWeight}
         setHeight={setHeight}
-        onSubmit={handleSavePalletDetails}
+        onSavePalletData={handleSavePalletDetails}
       />
       <SinglePalletItemsList
         pallet_id={palletid}
         palletItems={palletItems}
         setNewPalletItemsFunction={setPalletItems}
       />
+      {success && <div>Data saved successfully!</div>}
     </>
   );
 }
