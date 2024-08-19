@@ -7,22 +7,25 @@ export const useFetchData = (url, dependencies = []) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
+      setError(null); // Reset error state
+
       try {
         const response = await fetch(url);
         if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
+          throw new Error(`Error: ${response.statusText}`);
         }
         const result = await response.json();
         setData(result);
       } catch (err) {
-        setError(err);
+        setError(err.message || "Something went wrong");
       } finally {
         setLoading(false);
       }
     };
+
     fetchData();
   }, dependencies);
 
   return { data, loading, error };
 };
-
