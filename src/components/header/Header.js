@@ -55,7 +55,6 @@ function Header() {
         </AppBar>
       </Grid>
       <br />
-      <br />
     </>
   );
 }
