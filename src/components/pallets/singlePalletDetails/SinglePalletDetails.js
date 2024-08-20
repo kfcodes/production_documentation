@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import {
   Card,
   CardContent,
@@ -10,8 +10,10 @@ import {
   Button,
   Typography,
   Divider,
-} from "@mui/material";
-import PrintLabeLButton from "../buttons/PrintPalletLabelButton";
+  Box,
+  Alert,
+} from '@mui/material';
+import PrintLabeLButton from '../buttons/PrintPalletLabelButton';
 
 export default function SinglePalletDetails({
   pallet_id,
@@ -25,52 +27,54 @@ export default function SinglePalletDetails({
   setHeight,
   onSavePalletData,
 }) {
+  const [submitError, setSubmitError] = useState(null); // State for managing submission errors
+
+  const handleSave = () => {
+    try {
+      const palletData = {
+        pallet_id: pallet_id,
+        pallet_type: palletType,
+        empty_weight: emptyweight,
+        weight,
+        height,
+      };
+
+      onSavePalletData(palletData); // Assuming onSubmit is a function passed as a prop to save the data
+    } catch (error) {
+      setSubmitError(error.message); // Handle any errors and display them
+    }
+  };
+
   return (
-    <Card variant="outlined" sx={{ marginBottom: 3 }}>
+    <Card variant="outlined" sx={{ marginBottom: 3, padding: 2, boxShadow: 2, borderRadius: 2 }}>
       <CardContent>
-        {/* Centered Pallet ID as Header */}
-        <Typography
-          variant="h4"
-          component="div"
-          align="center"
-          fontWeight="bold"
-          gutterBottom
-        >
-          {pallet_id}
+        {/* Pallet ID Heading */}
+        <Typography variant="h5" align="center" fontWeight="bold" gutterBottom>
+          Pallet ID: {pallet_id}
         </Typography>
 
         <Divider sx={{ marginBottom: 3 }} />
 
-        {/* Pronounced Subheading for Pallet Dimensions */}
-        <Typography
-          variant="h5"
-          component="div"
-          align="center"
-          sx={{ fontWeight: "bold", marginBottom: 2 }}
-        >
+        {/* Pallet Dimensions Section */}
+        <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
           Pallet Dimensions
         </Typography>
-        <Grid
-          container
-          spacing={2}
-          justifyContent="center"
-          alignItems="center"
-          sx={{ marginBottom: 3 }}
-        >
-          <Grid item xs={12} sm={5}>
-            <Select
+        <Grid container spacing={3} sx={{ marginBottom: 3 }}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              select
               fullWidth
               label="Pallet Size"
               value={palletType}
               onChange={(e) => setPalletType(e.target.value)}
-              displayEmpty
+              variant="outlined"
             >
               <MenuItem value={1}>Standard Big Pallet</MenuItem>
               <MenuItem value={2}>Small Pallet</MenuItem>
               <MenuItem value={3}>Euro Pallet</MenuItem>
-            </Select>
+            </TextField>
           </Grid>
-          <Grid item xs={12} sm={5}>
+          <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               label="Height"
@@ -78,34 +82,21 @@ export default function SinglePalletDetails({
               value={height}
               onChange={(e) => setHeight(e.target.value)}
               InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">cm</InputAdornment>
-                ),
-                style: { textAlign: "center" },
+                endAdornment: <InputAdornment position="end">cm</InputAdornment>,
               }}
+              variant="outlined"
             />
           </Grid>
         </Grid>
 
         <Divider sx={{ marginBottom: 3 }} />
 
-        {/* Pronounced Subheading for Pallet Weights */}
-        <Typography
-          variant="h5"
-          component="div"
-          align="center"
-          sx={{ fontWeight: "bold", marginBottom: 2 }}
-        >
+        {/* Pallet Weights Section */}
+        <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
           Pallet Weights
         </Typography>
-        <Grid
-          container
-          spacing={2}
-          justifyContent="center"
-          alignItems="center"
-          sx={{ marginBottom: 3 }}
-        >
-          <Grid item xs={12} sm={5}>
+        <Grid container spacing={3} sx={{ marginBottom: 3 }}>
+          <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               label="Empty Weight"
@@ -113,14 +104,12 @@ export default function SinglePalletDetails({
               value={emptyweight}
               onChange={(e) => setEmptyweight(e.target.value)}
               InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">kg</InputAdornment>
-                ),
-                style: { textAlign: "center" },
+                endAdornment: <InputAdornment position="end">kg</InputAdornment>,
               }}
+              variant="outlined"
             />
           </Grid>
-          <Grid item xs={12} sm={5}>
+          <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               label="Full Weight"
@@ -128,36 +117,36 @@ export default function SinglePalletDetails({
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
               InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">kg</InputAdornment>
-                ),
-                style: { textAlign: "center" },
+                endAdornment: <InputAdornment position="end">kg</InputAdornment>,
               }}
+              variant="outlined"
             />
           </Grid>
         </Grid>
 
         <Divider sx={{ marginBottom: 3 }} />
 
-        {/* Centered Save Button and Print Label Button */}
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12} sm={4} sx={{ textAlign: "center" }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={onSavePalletData}
-              fullWidth
-              sx={{ maxWidth: 200 }}
-            >
-              Save
-            </Button>
-          </Grid>
+        {/* Action Buttons */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSave}
+            sx={{ minWidth: 150 }}
+          >
+            Save
+          </Button>
           {weight !== 0 && emptyweight !== 0 && height !== 0 && (
-            <Grid item xs={12} sm={4} sx={{ textAlign: "center" }}>
-              <PrintLabeLButton id={pallet_id} />
-            </Grid>
+            <PrintLabeLButton id={pallet_id} />
           )}
-        </Grid>
+        </Box>
+        {submitError && (
+          <Box sx={{ mt: 2 }}>
+            <Alert severity="error">
+              Error saving pallet details: {submitError}
+            </Alert>
+          </Box>
+        )}
       </CardContent>
     </Card>
   );
