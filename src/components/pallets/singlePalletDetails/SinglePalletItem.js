@@ -7,7 +7,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
   const [bbe, setBbe] = useState(product?.bbe || "");
   const [lot, setLot] = useState(product?.lot || "");
   const [batch, setBatch] = useState(product?.batch || "");
-  const [submitError, setSubmitError] = useState(null); // Define submitError
+  const [submitError, setSubmitError] = useState(null);
 
   const handleSave = () => {
     try {
@@ -21,19 +21,19 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
         lot: lot,
         batch: batch,
       };
-  
+
       onSave(itemData);
     } catch (error) {
-      setSubmitError(error.message); // Set the error message
+      setSubmitError(error.message);
     }
   };
 
   return (
-    <Box sx={{ mb: 3, p: 2, border: '1px solid #ddd', borderRadius: 2, boxShadow: 1 }}>
-      <Typography variant="subtitle1" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
+    <Box sx={{ mb: 3, p: 3, borderRadius: 2, boxShadow: 2, backgroundColor: '#f9f9f9' }}>
+      <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
         {product?.product_description || 'Product Item'}
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
@@ -41,6 +41,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             value={productDescription}
             onChange={(e) => setProductDescription(e.target.value)}
             variant="outlined"
+            sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -51,6 +52,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
             variant="outlined"
+            sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -64,6 +66,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
               shrink: true,
             }}
             variant="outlined"
+            sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -73,6 +76,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             value={lot}
             onChange={(e) => setLot(e.target.value)}
             variant="outlined"
+            sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -82,20 +86,22 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             value={batch}
             onChange={(e) => setBatch(e.target.value)}
             variant="outlined"
+            sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Button
             variant="contained"
             color="primary"
             onClick={handleSave}
             fullWidth
             disabled={submitLoading}
+            sx={{ mt: { xs: 2, sm: 0 } }}
           >
             {submitLoading ? 'Saving...' : 'Save Item'}
           </Button>
         </Grid>
-        {submitError && ( // Conditionally render error message
+        {submitError && (
           <Grid item xs={12}>
             <Alert severity="error" sx={{ mt: 2 }}>
               Error saving item: {submitError}
@@ -106,4 +112,3 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
     </Box>
   );
 }
-

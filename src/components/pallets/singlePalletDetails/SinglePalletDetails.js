@@ -4,10 +4,8 @@ import {
   CardContent,
   Grid,
   TextField,
-  Select,
   MenuItem,
   InputAdornment,
-  Button,
   Typography,
   Divider,
   Box,
@@ -78,20 +76,8 @@ export default function SinglePalletDetails({
     };
   }, [palletType, emptyweight, weight, height, pallet_id, debouncedSavePalletData]);
 
-  const handleSave = () => {
-    const palletData = {
-      pallet_id,
-      pallet_type: palletType,
-      empty_weight: emptyweight,
-      weight,
-      height,
-    };
-
-    debouncedSavePalletData(palletData); // Immediate save on button click
-  };
-
   return (
-    <Card variant="outlined" sx={{ marginBottom: 3, padding: 2, boxShadow: 2, borderRadius: 2 }}>
+    <Card variant="outlined" sx={{ marginBottom: 3, padding: 3, boxShadow: 3, borderRadius: 2 }}>
       <CardContent>
         <Typography variant="h5" align="center" fontWeight="bold" gutterBottom>
           Pallet ID: {pallet_id}
@@ -111,6 +97,7 @@ export default function SinglePalletDetails({
               value={palletType}
               onChange={(e) => setPalletType(e.target.value)}
               variant="outlined"
+              sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
             >
               <MenuItem value={1}>Standard Big Pallet</MenuItem>
               <MenuItem value={2}>Small Pallet</MenuItem>
@@ -128,6 +115,7 @@ export default function SinglePalletDetails({
                 endAdornment: <InputAdornment position="end">cm</InputAdornment>,
               }}
               variant="outlined"
+              sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
             />
           </Grid>
         </Grid>
@@ -149,6 +137,7 @@ export default function SinglePalletDetails({
                 endAdornment: <InputAdornment position="end">kg</InputAdornment>,
               }}
               variant="outlined"
+              sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -162,21 +151,14 @@ export default function SinglePalletDetails({
                 endAdornment: <InputAdornment position="end">kg</InputAdornment>,
               }}
               variant="outlined"
+              sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
             />
           </Grid>
         </Grid>
 
         <Divider sx={{ marginBottom: 3 }} />
 
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSave}
-            sx={{ minWidth: 150 }}
-          >
-            Save
-          </Button>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2 }}>
           {weight !== 0 && emptyweight !== 0 && height !== 0 && (
             <PrintLabeLButton id={pallet_id} />
           )}
