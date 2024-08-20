@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   Card,
   CardContent,
@@ -14,6 +14,7 @@ import {
   Alert,
 } from '@mui/material';
 import PrintLabeLButton from '../buttons/PrintPalletLabelButton';
+import _ from 'lodash';
 
 export default function SinglePalletDetails({
   pallet_id,
@@ -27,35 +28,77 @@ export default function SinglePalletDetails({
   setHeight,
   onSavePalletData,
 }) {
-  const [submitError, setSubmitError] = useState(null); // State for managing submission errors
+  const [submitError, setSubmitError] = useState(null);
 
-  const handleSave = () => {
-    try {
+  // Store previous values to compare with the current ones
+  const prevValues = useRef({
+    palletType,
+    emptyweight,
+    weight,
+    height,
+  });
+
+  // Debounced save function
+  const debouncedSavePalletData = useCallback(
+    _.debounce((palletData) => {
+      try {
+        onSavePalletData(palletData);
+      } catch (error) {
+        setSubmitError(error.message);
+      }
+    }, 500),
+    [] // Empty dependency array ensures that the debounce function is created only once
+  );
+
+  useEffect(() => {
+    // Check if any of the values have actually changed
+    if (
+      palletType !== prevValues.current.palletType ||
+      emptyweight !== prevValues.current.emptyweight ||
+      weight !== prevValues.current.weight ||
+      height !== prevValues.current.height
+    ) {
       const palletData = {
-        pallet_id: pallet_id,
+        pallet_id,
         pallet_type: palletType,
         empty_weight: emptyweight,
         weight,
         height,
       };
 
-      onSavePalletData(palletData); // Assuming onSubmit is a function passed as a prop to save the data
-    } catch (error) {
-      setSubmitError(error.message); // Handle any errors and display them
+      // Update the previous values ref
+      prevValues.current = { palletType, emptyweight, weight, height };
+
+      // Trigger the debounced save function
+      debouncedSavePalletData(palletData);
     }
+
+    return () => {
+      debouncedSavePalletData.cancel(); // Clean up the debounce on unmount
+    };
+  }, [palletType, emptyweight, weight, height, pallet_id, debouncedSavePalletData]);
+
+  const handleSave = () => {
+    const palletData = {
+      pallet_id,
+      pallet_type: palletType,
+      empty_weight: emptyweight,
+      weight,
+      height,
+    };
+
+    debouncedSavePalletData(palletData); // Immediate save on button click
   };
 
   return (
     <Card variant="outlined" sx={{ marginBottom: 3, padding: 2, boxShadow: 2, borderRadius: 2 }}>
       <CardContent>
-        {/* Pallet ID Heading */}
         <Typography variant="h5" align="center" fontWeight="bold" gutterBottom>
           Pallet ID: {pallet_id}
         </Typography>
 
         <Divider sx={{ marginBottom: 3 }} />
 
-        {/* Pallet Dimensions Section */}
         <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
           Pallet Dimensions
         </Typography>
@@ -91,7 +134,6 @@ export default function SinglePalletDetails({
 
         <Divider sx={{ marginBottom: 3 }} />
 
-        {/* Pallet Weights Section */}
         <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
           Pallet Weights
         </Typography>
@@ -126,7 +168,6 @@ export default function SinglePalletDetails({
 
         <Divider sx={{ marginBottom: 3 }} />
 
-        {/* Action Buttons */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Button
             variant="contained"
