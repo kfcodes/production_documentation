@@ -46,11 +46,17 @@ export default function SinglePalletDetails({
           variant="h5"
           component="div"
           align="center"
-          sx={{ fontWeight: 'bold', marginBottom: 2 }}
+          sx={{ fontWeight: "bold", marginBottom: 2 }}
         >
           Pallet Dimensions
         </Typography>
-        <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ marginBottom: 3 }}>
+        <Grid
+          container
+          spacing={2}
+          justifyContent="center"
+          alignItems="center"
+          sx={{ marginBottom: 3 }}
+        >
           <Grid item xs={12} sm={5}>
             <Select
               fullWidth
@@ -72,7 +78,9 @@ export default function SinglePalletDetails({
               value={height}
               onChange={(e) => setHeight(e.target.value)}
               InputProps={{
-                endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                endAdornment: (
+                  <InputAdornment position="end">cm</InputAdornment>
+                ),
                 style: { textAlign: "center" },
               }}
             />
@@ -86,11 +94,17 @@ export default function SinglePalletDetails({
           variant="h5"
           component="div"
           align="center"
-          sx={{ fontWeight: 'bold', marginBottom: 2 }}
+          sx={{ fontWeight: "bold", marginBottom: 2 }}
         >
           Pallet Weights
         </Typography>
-        <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{ marginBottom: 3 }}>
+        <Grid
+          container
+          spacing={2}
+          justifyContent="center"
+          alignItems="center"
+          sx={{ marginBottom: 3 }}
+        >
           <Grid item xs={12} sm={5}>
             <TextField
               fullWidth
@@ -99,7 +113,9 @@ export default function SinglePalletDetails({
               value={emptyweight}
               onChange={(e) => setEmptyweight(e.target.value)}
               InputProps={{
-                endAdornment: <InputAdornment position="end">kg</InputAdornment>,
+                endAdornment: (
+                  <InputAdornment position="end">kg</InputAdornment>
+                ),
                 style: { textAlign: "center" },
               }}
             />
@@ -112,7 +128,9 @@ export default function SinglePalletDetails({
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
               InputProps={{
-                endAdornment: <InputAdornment position="end">kg</InputAdornment>,
+                endAdornment: (
+                  <InputAdornment position="end">kg</InputAdornment>
+                ),
                 style: { textAlign: "center" },
               }}
             />
@@ -123,7 +141,7 @@ export default function SinglePalletDetails({
 
         {/* Centered Save Button and Print Label Button */}
         <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12} sm={4} sx={{ textAlign: 'center' }}>
+          <Grid item xs={12} sm={4} sx={{ textAlign: "center" }}>
             <Button
               variant="contained"
               color="primary"
@@ -135,7 +153,7 @@ export default function SinglePalletDetails({
             </Button>
           </Grid>
           {weight !== 0 && emptyweight !== 0 && height !== 0 && (
-            <Grid item xs={12} sm={4} sx={{ textAlign: 'center' }}>
+            <Grid item xs={12} sm={4} sx={{ textAlign: "center" }}>
               <PrintLabeLButton id={pallet_id} />
             </Grid>
           )}

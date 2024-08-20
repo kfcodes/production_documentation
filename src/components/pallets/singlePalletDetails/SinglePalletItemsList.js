@@ -2,10 +2,19 @@ import React from "react";
 import PalletItem from "./SinglePalletItem";
 import { useSubmitData } from "../../../hooks/useSubmitData";
 
-export default function SinglePalletItemsList({ pallet_id, palletItems, setNewPalletItemsFunction }) {
-  const { loading: submitLoading, error: submitError, success, submitData } = useSubmitData(
+export default function SinglePalletItemsList({
+  pallet_id,
+  palletItems,
+  setNewPalletItemsFunction,
+}) {
+  const {
+    loading: submitLoading,
+    error: submitError,
+    success,
+    submitData,
+  } = useSubmitData(
     `${process.env.REACT_APP_API_URL3}/pallet_item`,
-    "POST" // Or "PUT" depending on your use case
+    "POST", // Or "PUT" depending on your use case
   );
 
   const handleSavePalletItem = (itemData) => {

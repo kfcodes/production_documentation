@@ -8,14 +8,22 @@ import { useSubmitData } from "../hooks/useSubmitData";
 export default function SinglePalletPage() {
   const { palletid } = useParams();
 
-  const { data: palletDetails, loading: detailsLoading, error: detailsError } = useFetchData(
+  const {
+    data: palletDetails,
+    loading: detailsLoading,
+    error: detailsError,
+  } = useFetchData(
     `${process.env.REACT_APP_API_URL3}/pallet_details/${palletid}`,
-    [palletid]
+    [palletid],
   );
 
-  const { data: palletItemsData, loading: itemsLoading, error: itemsError } = useFetchData(
+  const {
+    data: palletItemsData,
+    loading: itemsLoading,
+    error: itemsError,
+  } = useFetchData(
     `${process.env.REACT_APP_API_URL3}/pallet_items/${palletid}`,
-    [palletid]
+    [palletid],
   );
 
   const [palletType, setPalletType] = useState("");
@@ -24,9 +32,14 @@ export default function SinglePalletPage() {
   const [height, setHeight] = useState("");
   const [palletItems, setPalletItems] = useState([]);
 
-  const { loading: submitLoading, error: submitError, success, submitData } = useSubmitData(
+  const {
+    loading: submitLoading,
+    error: submitError,
+    success,
+    submitData,
+  } = useSubmitData(
     `${process.env.REACT_APP_API_URL3}/pallet/${palletid}`,
-    "PUT"
+    "PUT",
   );
 
   useEffect(() => {
@@ -56,8 +69,10 @@ export default function SinglePalletPage() {
     submitData(palletData);
   };
 
-  if (detailsLoading || itemsLoading || submitLoading) return <div>Loading...</div>;
-  if (detailsError || itemsError || submitError) return <div>Error loading data</div>;
+  if (detailsLoading || itemsLoading || submitLoading)
+    return <div>Loading...</div>;
+  if (detailsError || itemsError || submitError)
+    return <div>Error loading data</div>;
 
   return (
     <>
