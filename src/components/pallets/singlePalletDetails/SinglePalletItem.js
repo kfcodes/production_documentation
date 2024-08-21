@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Button, Grid, TextField, Box, Typography, Alert } from '@mui/material';
+import _ from 'lodash';
 
 export default function PalletItem({ product = {}, onSave, submitLoading }) {
   const [quantity, setQuantity] = useState(product?.quantity || "");
@@ -9,8 +10,35 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
   const [batch, setBatch] = useState(product?.batch || "");
   const [submitError, setSubmitError] = useState(null);
 
-  const handleSave = () => {
-    try {
+  // Store previous values to compare with the current ones
+  const prevValues = useRef({
+    quantity,
+    productDescription,
+    bbe,
+    lot,
+    batch,
+  });
+
+  // Debounced save function
+  const debouncedSavePalletItem = useCallback(
+    _.debounce((itemData) => {
+      try {
+        onSave(itemData);
+      } catch (error) {
+        setSubmitError(error.message);
+      }
+    }, 5500),
+    [] // Empty dependency array ensures that the debounce function is created only once
+  );
+
+  useEffect(() => {
+    if (
+      quantity !== prevValues.current.quantity ||
+      productDescription !== prevValues.current.productDescription ||
+      bbe !== prevValues.current.bbe ||
+      lot !== prevValues.current.lot ||
+      batch !== prevValues.current.batch
+    ) {
       const itemData = {
         item_id: product?.item_id,
         pallet_item_pallet_id: product?.pallet_item_pallet_id,
@@ -22,11 +50,15 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
         batch: batch,
       };
 
-      onSave(itemData);
-    } catch (error) {
-      setSubmitError(error.message);
+      prevValues.current = { quantity, productDescription, bbe, lot, batch };
+
+      debouncedSavePalletItem(itemData);
     }
-  };
+
+    return () => {
+      debouncedSavePalletItem.cancel(); // Clean up the debounce on unmount
+    };
+  }, [quantity, productDescription, bbe, lot, batch, debouncedSavePalletItem]);
 
   return (
     <Box sx={{ mb: 3, p: 3, borderRadius: 2, boxShadow: 2, backgroundColor: '#f9f9f9' }}>
@@ -37,6 +69,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
+            type="text"
             label="Product Description"
             value={productDescription}
             onChange={(e) => setProductDescription(e.target.value)}
@@ -59,7 +92,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
           <TextField
             fullWidth
             label="BBE (Best Before End)"
-            type="date"
+            type="text"
             value={bbe}
             onChange={(e) => setBbe(e.target.value)}
             InputLabelProps={{
@@ -88,18 +121,6 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             variant="outlined"
             sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
-        </Grid>
-        <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleSave}
-            fullWidth
-            disabled={submitLoading}
-            sx={{ mt: { xs: 2, sm: 0 } }}
-          >
-            {submitLoading ? 'Saving...' : 'Save Item'}
-          </Button>
         </Grid>
         {submitError && (
           <Grid item xs={12}>

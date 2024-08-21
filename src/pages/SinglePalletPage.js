@@ -2,6 +2,11 @@ import React, { useState, useEffect, useCallback, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { useFetchData } from "../hooks/useFetchData";
 import { useSubmitData } from "../hooks/useSubmitData";
+import PrintLabeLButton from '../components/pallets/buttons/PrintPalletLabelButton';
+import {
+  Divider,
+  Box,
+} from '@mui/material';
 
 const SinglePalletDetails = React.lazy(() =>
   import("../components/pallets/singlePalletDetails/SinglePalletDetails")
@@ -66,11 +71,21 @@ export default function SinglePalletPage() {
   }, [palletItemsData]);
 
   const handleSavePalletDetails = useCallback(
-    (palletData) => {
-      console.log(palletData);
-      submitData(palletData);
+    (updatedFields) => {
+      const updatedPalletData = {
+        pallet_id: palletid,
+        pallet_type: updatedFields.palletType || palletState.palletType,
+        empty_weight: updatedFields.emptyweight || palletState.emptyweight,
+        weight: updatedFields.weight || palletState.weight,
+        height: updatedFields.height || palletState.height,
+      };
+      submitData(updatedPalletData);
+      setPalletState((prevState) => ({
+        ...prevState,
+        ...updatedFields,
+      }));
     },
-    [submitData]
+    [palletid, palletState, submitData]
   );
 
   if (detailsLoading || itemsLoading || submitLoading) return <div>Loading...</div>;
@@ -87,18 +102,6 @@ export default function SinglePalletPage() {
           emptyweight={palletState.emptyweight}
           weight={palletState.weight}
           height={palletState.height}
-          setPalletType={(type) =>
-            setPalletState((prevState) => ({ ...prevState, palletType: type }))
-          }
-          setEmptyweight={(weight) =>
-            setPalletState((prevState) => ({ ...prevState, emptyweight: weight }))
-          }
-          setWeight={(weight) =>
-            setPalletState((prevState) => ({ ...prevState, weight }))
-          }
-          setHeight={(height) =>
-            setPalletState((prevState) => ({ ...prevState, height }))
-          }
           onSavePalletData={handleSavePalletDetails}
         />
         <SinglePalletItemsList
@@ -106,6 +109,13 @@ export default function SinglePalletPage() {
           palletItems={palletItems}
           setNewPalletItemsFunction={setPalletItems}
         />
+        <Divider sx={{ marginBottom: 3 }} />
+
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2 }}>
+          {palletState.weight !== 0 && palletState.emptyweight !== 0 && palletState.height !== 0 && (
+            <PrintLabeLButton id={palletid} />
+          )}
+        </Box>
       </Suspense>
       {success && <div>Data saved successfully!</div>}
     </>

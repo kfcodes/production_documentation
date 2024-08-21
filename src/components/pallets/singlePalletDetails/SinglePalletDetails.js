@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React from 'react';
 import {
   Card,
   CardContent,
@@ -8,11 +8,7 @@ import {
   InputAdornment,
   Typography,
   Divider,
-  Box,
-  Alert,
 } from '@mui/material';
-import PrintLabeLButton from '../buttons/PrintPalletLabelButton';
-import _ from 'lodash';
 
 export default function SinglePalletDetails({
   pallet_id,
@@ -20,61 +16,25 @@ export default function SinglePalletDetails({
   emptyweight,
   weight,
   height,
-  setPalletType,
-  setEmptyweight,
-  setWeight,
-  setHeight,
   onSavePalletData,
 }) {
-  const [submitError, setSubmitError] = useState(null);
-
-  // Store previous values to compare with the current ones
-  const prevValues = useRef({
+  const [localState, setLocalState] = React.useState({
     palletType,
     emptyweight,
     weight,
     height,
   });
 
-  // Debounced save function
-  const debouncedSavePalletData = useCallback(
-    _.debounce((palletData) => {
-      try {
-        onSavePalletData(palletData);
-      } catch (error) {
-        setSubmitError(error.message);
-      }
-    }, 500),
-    [] // Empty dependency array ensures that the debounce function is created only once
-  );
+  const handleFieldChange = (fieldName, value) => {
+    setLocalState((prevState) => ({
+      ...prevState,
+      [fieldName]: value,
+    }));
+  };
 
-  useEffect(() => {
-    // Check if any of the values have actually changed
-    if (
-      palletType !== prevValues.current.palletType ||
-      emptyweight !== prevValues.current.emptyweight ||
-      weight !== prevValues.current.weight ||
-      height !== prevValues.current.height
-    ) {
-      const palletData = {
-        pallet_id,
-        pallet_type: palletType,
-        empty_weight: emptyweight,
-        weight,
-        height,
-      };
-
-      // Update the previous values ref
-      prevValues.current = { palletType, emptyweight, weight, height };
-
-      // Trigger the debounced save function
-      debouncedSavePalletData(palletData);
-    }
-
-    return () => {
-      debouncedSavePalletData.cancel(); // Clean up the debounce on unmount
-    };
-  }, [palletType, emptyweight, weight, height, pallet_id, debouncedSavePalletData]);
+  const handleBlur = () => {
+    onSavePalletData(localState);
+  };
 
   return (
     <Card variant="outlined" sx={{ marginBottom: 3, padding: 3, boxShadow: 3, borderRadius: 2 }}>
@@ -94,8 +54,9 @@ export default function SinglePalletDetails({
               select
               fullWidth
               label="Pallet Size"
-              value={palletType}
-              onChange={(e) => setPalletType(e.target.value)}
+              value={localState.palletType}
+              onChange={(e) => handleFieldChange('palletType', e.target.value)}
+              onBlur={handleBlur}
               variant="outlined"
               sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
             >
@@ -109,8 +70,9 @@ export default function SinglePalletDetails({
               fullWidth
               label="Height"
               type="number"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
+              value={localState.height}
+              onChange={(e) => handleFieldChange('height', e.target.value)}
+              onBlur={handleBlur}
               InputProps={{
                 endAdornment: <InputAdornment position="end">cm</InputAdornment>,
               }}
@@ -131,8 +93,9 @@ export default function SinglePalletDetails({
               fullWidth
               label="Empty Weight"
               type="number"
-              value={emptyweight}
-              onChange={(e) => setEmptyweight(e.target.value)}
+              value={localState.emptyweight}
+              onChange={(e) => handleFieldChange('emptyweight', e.target.value)}
+              onBlur={handleBlur}
               InputProps={{
                 endAdornment: <InputAdornment position="end">kg</InputAdornment>,
               }}
@@ -145,8 +108,9 @@ export default function SinglePalletDetails({
               fullWidth
               label="Full Weight"
               type="number"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
+              value={localState.weight}
+              onChange={(e) => handleFieldChange('weight', e.target.value)}
+              onBlur={handleBlur}
               InputProps={{
                 endAdornment: <InputAdornment position="end">kg</InputAdornment>,
               }}
@@ -155,22 +119,8 @@ export default function SinglePalletDetails({
             />
           </Grid>
         </Grid>
-
-        <Divider sx={{ marginBottom: 3 }} />
-
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2 }}>
-          {weight !== 0 && emptyweight !== 0 && height !== 0 && (
-            <PrintLabeLButton id={pallet_id} />
-          )}
-        </Box>
-        {submitError && (
-          <Box sx={{ mt: 2 }}>
-            <Alert severity="error">
-              Error saving pallet details: {submitError}
-            </Alert>
-          </Box>
-        )}
       </CardContent>
     </Card>
   );
 }
+
