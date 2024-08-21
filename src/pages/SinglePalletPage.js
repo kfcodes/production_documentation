@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, Suspense } from "react";
 import { useParams } from "react-router-dom";
-import SinglePalletDetails from "../components/pallets/singlePalletDetails/SinglePalletDetails";
-import SinglePalletItemsList from "../components/pallets/singlePalletDetails/SinglePalletItemsList";
 import { useFetchData } from "../hooks/useFetchData";
 import { useSubmitData } from "../hooks/useSubmitData";
+
+const SinglePalletDetails = React.lazy(() =>
+  import("../components/pallets/singlePalletDetails/SinglePalletDetails")
+);
+const SinglePalletItemsList = React.lazy(() =>
+  import("../components/pallets/singlePalletDetails/SinglePalletItemsList")
+);
 
 export default function SinglePalletPage() {
   const { palletid } = useParams();
@@ -14,7 +19,7 @@ export default function SinglePalletPage() {
     error: detailsError,
   } = useFetchData(
     `${process.env.REACT_APP_API_URL3}/pallet_details/${palletid}`,
-    [palletid],
+    [palletid]
   );
 
   const {
@@ -23,13 +28,16 @@ export default function SinglePalletPage() {
     error: itemsError,
   } = useFetchData(
     `${process.env.REACT_APP_API_URL3}/pallet_items/${palletid}`,
-    [palletid],
+    [palletid]
   );
 
-  const [palletType, setPalletType] = useState("");
-  const [emptyweight, setEmptyweight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [height, setHeight] = useState("");
+  const [palletState, setPalletState] = useState({
+    palletType: "",
+    emptyweight: "",
+    weight: "",
+    height: "",
+  });
+
   const [palletItems, setPalletItems] = useState([]);
 
   const {
@@ -37,17 +45,17 @@ export default function SinglePalletPage() {
     error: submitError,
     success,
     submitData,
-  } = useSubmitData(
-    `${process.env.REACT_APP_API_URL3}/pallet/${palletid}`,
-    "PUT",
-  );
+  } = useSubmitData(`${process.env.REACT_APP_API_URL3}/pallet/${palletid}`, "PUT");
 
   useEffect(() => {
     if (palletDetails && palletDetails.length > 0) {
-      setPalletType(palletDetails[0].pallet_type);
-      setEmptyweight(palletDetails[0].empty_weight);
-      setWeight(palletDetails[0].weight);
-      setHeight(palletDetails[0].height);
+      const { pallet_type, empty_weight, weight, height } = palletDetails[0];
+      setPalletState({
+        palletType: pallet_type,
+        emptyweight: empty_weight,
+        weight,
+        height,
+      });
     }
   }, [palletDetails]);
 
@@ -57,42 +65,48 @@ export default function SinglePalletPage() {
     }
   }, [palletItemsData]);
 
-  const handleSavePalletDetails = () => {
-    const palletData = {
-      pallet_id: palletid,
-      pallet_type: palletType,
-      empty_weight: emptyweight,
-      weight,
-      height,
-    };
-    console.log(palletData);
-    submitData(palletData);
-  };
+  const handleSavePalletDetails = useCallback(
+    (palletData) => {
+      console.log(palletData);
+      submitData(palletData);
+    },
+    [submitData]
+  );
 
-  if (detailsLoading || itemsLoading || submitLoading)
-    return <div>Loading...</div>;
-  if (detailsError || itemsError || submitError)
-    return <div>Error loading data</div>;
+  if (detailsLoading || itemsLoading || submitLoading) return <div>Loading...</div>;
+  if (detailsError) return <div>Error loading pallet details</div>;
+  if (itemsError) return <div>Error loading pallet items</div>;
+  if (submitError) return <div>Error saving pallet data</div>;
 
   return (
     <>
-      <SinglePalletDetails
-        pallet_id={palletid}
-        palletType={palletType}
-        emptyweight={emptyweight}
-        weight={weight}
-        height={height}
-        setPalletType={setPalletType}
-        setEmptyweight={setEmptyweight}
-        setWeight={setWeight}
-        setHeight={setHeight}
-        onSavePalletData={handleSavePalletDetails}
-      />
-      <SinglePalletItemsList
-        pallet_id={palletid}
-        palletItems={palletItems}
-        setNewPalletItemsFunction={setPalletItems}
-      />
+      <Suspense fallback={<div>Loading components...</div>}>
+        <SinglePalletDetails
+          pallet_id={palletid}
+          palletType={palletState.palletType}
+          emptyweight={palletState.emptyweight}
+          weight={palletState.weight}
+          height={palletState.height}
+          setPalletType={(type) =>
+            setPalletState((prevState) => ({ ...prevState, palletType: type }))
+          }
+          setEmptyweight={(weight) =>
+            setPalletState((prevState) => ({ ...prevState, emptyweight: weight }))
+          }
+          setWeight={(weight) =>
+            setPalletState((prevState) => ({ ...prevState, weight }))
+          }
+          setHeight={(height) =>
+            setPalletState((prevState) => ({ ...prevState, height }))
+          }
+          onSavePalletData={handleSavePalletDetails}
+        />
+        <SinglePalletItemsList
+          pallet_id={palletid}
+          palletItems={palletItems}
+          setNewPalletItemsFunction={setPalletItems}
+        />
+      </Suspense>
       {success && <div>Data saved successfully!</div>}
     </>
   );
