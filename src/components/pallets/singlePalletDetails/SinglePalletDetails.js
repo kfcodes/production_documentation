@@ -39,17 +39,11 @@ export default function SinglePalletDetails({
   return (
     <Card variant="outlined" sx={{ marginBottom: 3, padding: 3, boxShadow: 3, borderRadius: 2 }}>
       <CardContent>
-        <Typography variant="h5" align="center" fontWeight="bold" gutterBottom>
-          Pallet ID: {pallet_id}
-        </Typography>
-
-        <Divider sx={{ marginBottom: 3 }} />
-
-        <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-          Pallet Dimensions
+        <Typography variant="h2" align="center" fontWeight="bold" gutterBottom>
+          {pallet_id}
         </Typography>
         <Grid container spacing={3} sx={{ marginBottom: 3 }}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6} sm={3}>
             <TextField
               select
               fullWidth
@@ -65,7 +59,7 @@ export default function SinglePalletDetails({
               <MenuItem value={3}>Euro Pallet</MenuItem>
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6} sm={3}>
             <TextField
               fullWidth
               label="Height"
@@ -80,15 +74,7 @@ export default function SinglePalletDetails({
               sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
             />
           </Grid>
-        </Grid>
-
-        <Divider sx={{ marginBottom: 3 }} />
-
-        <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-          Pallet Weights
-        </Typography>
-        <Grid container spacing={3} sx={{ marginBottom: 3 }}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6} sm={3}>
             <TextField
               fullWidth
               label="Empty Weight"
@@ -103,7 +89,7 @@ export default function SinglePalletDetails({
               sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6} sm={3}>
             <TextField
               fullWidth
               label="Full Weight"
