@@ -13,6 +13,7 @@ const RoutesComponent = () => {
       <br />
       <br />
       <br />
+      <br />
       <Routes>
         <Route path="/" element={<PalletList />} />
         <Route path="pallet/:palletid" element={<SinglePalletPage />} />

@@ -110,7 +110,6 @@ export default function SinglePalletPage() {
           setNewPalletItemsFunction={setPalletItems}
         />
         <Divider sx={{ marginBottom: 3 }} />
-
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2 }}>
           {palletState.weight !== 0 && palletState.emptyweight !== 0 && palletState.height !== 0 && (
             <PrintLabeLButton id={palletid} />

@@ -7,7 +7,6 @@ import {
   MenuItem,
   InputAdornment,
   Typography,
-  Divider,
 } from '@mui/material';
 
 export default function SinglePalletDetails({
@@ -37,7 +36,7 @@ export default function SinglePalletDetails({
   };
 
   return (
-    <Card variant="outlined" sx={{ marginBottom: 3, padding: 3, boxShadow: 3, borderRadius: 2 }}>
+    <Card variant="outlined" sx={{ marginBottom: 1, padding: 1, boxShadow: 3, borderRadius: 2 }}>
       <CardContent>
         <Typography variant="h2" align="center" fontWeight="bold" gutterBottom>
           {pallet_id}
@@ -83,7 +82,7 @@ export default function SinglePalletDetails({
               onChange={(e) => handleFieldChange('emptyweight', e.target.value)}
               onBlur={handleBlur}
               InputProps={{
-                endAdornment: <InputAdornment position="end">kg</InputAdornment>,
+                endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
               }}
               variant="outlined"
               sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
@@ -98,7 +97,7 @@ export default function SinglePalletDetails({
               onChange={(e) => handleFieldChange('weight', e.target.value)}
               onBlur={handleBlur}
               InputProps={{
-                endAdornment: <InputAdornment position="end">kg</InputAdornment>,
+                endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
               }}
               variant="outlined"
               sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
