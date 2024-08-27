@@ -24,14 +24,26 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
     _.debounce((itemData) => {
       try {
         onSave(itemData);
+        setSubmitError(null);
       } catch (error) {
         setSubmitError(error.message);
       }
-    }, 5500),
-    [] // Empty dependency array ensures that the debounce function is created only once
+    }, 500),
+    [onSave]
   );
 
   useEffect(() => {
+    const itemData = {
+      item_id: product?.item_id,
+      pallet_item_pallet_id: product?.pallet_item_pallet_id,
+      pallet_item_product_id: product?.pallet_item_product_id,
+      quantity,
+      product_description: productDescription,
+      bbe,
+      lot,
+      batch,
+    };
+
     if (
       quantity !== prevValues.current.quantity ||
       productDescription !== prevValues.current.productDescription ||
@@ -39,26 +51,21 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
       lot !== prevValues.current.lot ||
       batch !== prevValues.current.batch
     ) {
-      const itemData = {
-        item_id: product?.item_id,
-        pallet_item_pallet_id: product?.pallet_item_pallet_id,
-        pallet_item_product_id: product?.pallet_item_product_id,
-        quantity: quantity,
-        product_description: productDescription,
-        bbe: bbe,
-        lot: lot,
-        batch: batch,
-      };
-
       prevValues.current = { quantity, productDescription, bbe, lot, batch };
-
       debouncedSavePalletItem(itemData);
     }
 
     return () => {
       debouncedSavePalletItem.cancel(); // Clean up the debounce on unmount
     };
-  }, [quantity, productDescription, bbe, lot, batch, debouncedSavePalletItem]);
+  }, [quantity, productDescription, bbe, lot, batch, debouncedSavePalletItem, product]);
+
+  const handleFieldChange = useCallback((setter) => (event) => {
+    const value = event.target.value;
+    setter(value);
+  }, []);
+
+  const isQuantityValid = quantity && !isNaN(quantity) && Number(quantity) > 0;
 
   return (
     <Box sx={{ mb: 3, p: 3, borderRadius: 2, boxShadow: 2, backgroundColor: '#f9f9f9' }}>
@@ -72,7 +79,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             type="text"
             label="Product Description"
             value={productDescription}
-            onChange={(e) => setProductDescription(e.target.value)}
+            onChange={handleFieldChange(setProductDescription)}
             variant="outlined"
             sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
@@ -83,7 +90,9 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             label="Quantity"
             type="number"
             value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
+            onChange={handleFieldChange(setQuantity)}
+            error={!isQuantityValid}
+            helperText={!isQuantityValid && "Please enter a valid quantity"}
             variant="outlined"
             sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
@@ -94,7 +103,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             label="BBE (Best Before End)"
             type="text"
             value={bbe}
-            onChange={(e) => setBbe(e.target.value)}
+            onChange={handleFieldChange(setBbe)}
             InputLabelProps={{
               shrink: true,
             }}
@@ -107,7 +116,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             fullWidth
             label="Lot Number"
             value={lot}
-            onChange={(e) => setLot(e.target.value)}
+            onChange={handleFieldChange(setLot)}
             variant="outlined"
             sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
@@ -117,7 +126,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             fullWidth
             label="Batch Number"
             value={batch}
-            onChange={(e) => setBatch(e.target.value)}
+            onChange={handleFieldChange(setBatch)}
             variant="outlined"
             sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
