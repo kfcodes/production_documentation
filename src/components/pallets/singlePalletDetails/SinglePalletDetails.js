@@ -36,76 +36,74 @@ export default function SinglePalletDetails({
   };
 
   return (
-    <Card variant="outlined" sx={{ marginBottom: 1, padding: 1, boxShadow: 3, borderRadius: 2 }}>
-      <CardContent>
-        <Typography variant="h2" align="center" fontWeight="bold" gutterBottom>
-          {pallet_id}
-        </Typography>
-        <Grid container spacing={3} sx={{ marginBottom: 3 }}>
-          <Grid item xs={6} sm={3}>
-            <TextField
-              select
-              fullWidth
-              label="Pallet Size"
-              value={localState.palletType}
-              onChange={(e) => handleFieldChange('palletType', e.target.value)}
-              onBlur={handleBlur}
-              variant="outlined"
-              sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
-            >
-              <MenuItem value={1}>Standard Big Pallet</MenuItem>
-              <MenuItem value={2}>Small Pallet</MenuItem>
-              <MenuItem value={3}>Euro Pallet</MenuItem>
-            </TextField>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <TextField
-              fullWidth
-              label="Height"
-              type="number"
-              value={localState.height}
-              onChange={(e) => handleFieldChange('height', e.target.value)}
-              onBlur={handleBlur}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">cm</InputAdornment>,
-              }}
-              variant="outlined"
-              sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
-            />
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <TextField
-              fullWidth
-              label="Empty Weight"
-              type="number"
-              value={localState.emptyweight}
-              onChange={(e) => handleFieldChange('emptyweight', e.target.value)}
-              onBlur={handleBlur}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
-              }}
-              variant="outlined"
-              sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
-            />
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <TextField
-              fullWidth
-              label="Full Weight"
-              type="number"
-              value={localState.weight}
-              onChange={(e) => handleFieldChange('weight', e.target.value)}
-              onBlur={handleBlur}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
-              }}
-              variant="outlined"
-              sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
-            />
-          </Grid>
+    <>
+      <Typography variant="h3" align="center" fontWeight="bold" gutterBottom>
+        {pallet_id}
+      </Typography>
+      <Grid container spacing={3} sx={{ marginBottom: 3 }}>
+        <Grid item xs={6} sm={3}>
+          <TextField
+            select
+            fullWidth
+            label="Pallet Size"
+            value={localState.palletType}
+            onChange={(e) => handleFieldChange('palletType', e.target.value)}
+            onBlur={handleBlur}
+            variant="outlined"
+            sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
+          >
+            <MenuItem value={1}>Standard Big Pallet</MenuItem>
+            <MenuItem value={2}>Small Pallet</MenuItem>
+            <MenuItem value={3}>Euro Pallet</MenuItem>
+          </TextField>
         </Grid>
-      </CardContent>
-    </Card>
+        <Grid item xs={6} sm={3}>
+          <TextField
+            fullWidth
+            label="Height"
+            type="number"
+            value={localState.height}
+            onChange={(e) => handleFieldChange('height', e.target.value)}
+            onBlur={handleBlur}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+            }}
+            variant="outlined"
+            sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
+          />
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <TextField
+            fullWidth
+            label="Empty Weight"
+            type="number"
+            value={localState.emptyweight}
+            onChange={(e) => handleFieldChange('emptyweight', e.target.value)}
+            onBlur={handleBlur}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
+            }}
+            variant="outlined"
+            sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
+          />
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <TextField
+            fullWidth
+            label="Full Weight"
+            type="number"
+            value={localState.weight}
+            onChange={(e) => handleFieldChange('weight', e.target.value)}
+            onBlur={handleBlur}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
+            }}
+            variant="outlined"
+            sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
+          />
+        </Grid>
+      </Grid>
+    </>
   );
 }
 

@@ -13,20 +13,16 @@ export default function SinglePalletItemsList({ pallet_id, palletItems, setNewPa
 
   return (
     <Box sx={{ marginBottom: 3, padding: 2 }}>
-      <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', marginBottom: 3 }}>
+      <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
         Pallet Items
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         {palletItems.map((item) => (
           <Grid item xs={12} key={item.item_id}>
-            <Card variant="outlined" sx={{ boxShadow: 3, borderRadius: 2 }}>
-              <CardContent sx={{ padding: 2 }}>
-                <PalletItem
-                  product={item}
-                  onSave={handleSavePalletItem}
-                />
-              </CardContent>
-            </Card>
+            <PalletItem
+              product={item}
+              onSave={handleSavePalletItem}
+            />
           </Grid>
         ))}
       </Grid>

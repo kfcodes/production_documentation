@@ -6,6 +6,8 @@ import PrintLabeLButton from '../components/pallets/buttons/PrintPalletLabelButt
 import {
   Divider,
   Box,
+  Card,
+  CardContent,
 } from '@mui/material';
 
 const SinglePalletDetails = React.lazy(() =>
@@ -66,6 +68,7 @@ export default function SinglePalletPage() {
 
   useEffect(() => {
     if (palletItemsData) {
+      console.log(palletItemsData)
       setPalletItems(palletItemsData);
     }
   }, [palletItemsData]);
@@ -95,25 +98,31 @@ export default function SinglePalletPage() {
 
   return (
     <>
-      <Suspense fallback={<div>Loading components...</div>}>
-        <SinglePalletDetails
-          pallet_id={palletid}
-          palletType={palletState.palletType}
-          emptyweight={palletState.emptyweight}
-          weight={palletState.weight}
-          height={palletState.height}
-          onSavePalletData={handleSavePalletDetails}
-        />
-        <SinglePalletItemsList
-          pallet_id={palletid}
-          palletItems={palletItems}
-          setNewPalletItemsFunction={setPalletItems}
-        />
-        <Divider sx={{ marginBottom: 3 }} />
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2 }}>
-          {palletState.weight !== 0 && palletState.emptyweight !== 0 && palletState.height !== 0 && (
-            <PrintLabeLButton id={palletid} />
-          )}
+      <Suspense fallback={<div>Loading Data...</div>}>
+        <Box sx={{ justifyContent: 'center', alignItems: 'center', marginRight: 5, marginLeft: 5, marginBottom: 10, marginTop: 5 }}>
+          <Card variant="outlined" sx={{ bgcolor: 'background.paper', minWidth: 300, marginBottom: 10, padding: 1, boxShadow: 5, borderRadius: 5 }}>
+            <CardContent>
+              <SinglePalletDetails
+                pallet_id={palletid}
+                palletType={palletState.palletType}
+                emptyweight={palletState.emptyweight}
+                weight={palletState.weight}
+                height={palletState.height}
+                onSavePalletData={handleSavePalletDetails}
+              />
+              <SinglePalletItemsList
+                pallet_id={palletid}
+                palletItems={palletItems}
+                setNewPalletItemsFunction={setPalletItems}
+              />
+              <Divider sx={{ marginBottom: 3 }} />
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2 }}>
+                {palletState.weight !== 0 && palletState.emptyweight !== 0 && palletState.height !== 0 && (
+                  <PrintLabeLButton id={palletid} />
+                )}
+              </Box>
+            </CardContent>
+          </Card>
         </Box>
       </Suspense>
       {success && <div>Data saved successfully!</div>}

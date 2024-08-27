@@ -3,11 +3,13 @@ import { Button, Grid, TextField, Box, Typography, Alert } from '@mui/material';
 import _ from 'lodash';
 
 export default function PalletItem({ product = {}, onSave, submitLoading }) {
-  const [quantity, setQuantity] = useState(product?.quantity || "");
-  const [productDescription, setProductDescription] = useState(product?.product_description || "");
+  const [itemId, setItemId] = useState(product?.item_id || "");
+  const [productCode, setProductCode] = useState(product?.pallet_item_product_id || "");
+  const [productDescription, setProductDescription] = useState(product?.pallet_item_product_id || "");
   const [bbe, setBbe] = useState(product?.bbe || "");
   const [lot, setLot] = useState(product?.lot || "");
   const [batch, setBatch] = useState(product?.batch || "");
+  const [quantity, setQuantity] = useState(product?.quantity || "");
   const [submitError, setSubmitError] = useState(null);
 
   // Store previous values to compare with the current ones
@@ -68,36 +70,33 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
   const isQuantityValid = quantity && !isNaN(quantity) && Number(quantity) > 0;
 
   return (
-    <Box sx={{ mb: 3, p: 3, borderRadius: 2, boxShadow: 2, backgroundColor: '#f9f9f9' }}>
-      <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-        {product?.product_description || 'Product Item'}
+    <Box sx={{ justifyContent: 'center', alignItems: 'center', mb: 3, p: 3, borderRadius: 2, boxShadow: 2, backgroundColor: '#f9f9f9' }}>
+      <Typography variant="h5" sx={{ justifyContent: 'center', alignItems: 'center', fontWeight: 'bold', mb: 3 }}>
+        {productDescription || 'New Product'}
       </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+      <Grid container spacing={2}>
+        <Grid item sm={6} md={2}>
           <TextField
             fullWidth
             type="text"
-            label="Product Description"
-            value={productDescription}
-            onChange={handleFieldChange(setProductDescription)}
+            label="Product ID"
+            value={productCode}
+            onChange={handleFieldChange(setProductCode)}
             variant="outlined"
             sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item sm={6} md={2}>
           <TextField
             fullWidth
-            label="Quantity"
-            type="number"
-            value={quantity}
-            onChange={handleFieldChange(setQuantity)}
-            error={!isQuantityValid}
-            helperText={!isQuantityValid && "Please enter a valid quantity"}
+            label="Lot Number"
+            value={lot}
+            onChange={handleFieldChange(setLot)}
             variant="outlined"
             sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item sm={6} md={2}>
           <TextField
             fullWidth
             label="BBE (Best Before End)"
@@ -111,22 +110,25 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            label="Lot Number"
-            value={lot}
-            onChange={handleFieldChange(setLot)}
-            variant="outlined"
-            sx={{ backgroundColor: '#fff', borderRadius: 1 }}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item sm={6} md={2}>
           <TextField
             fullWidth
             label="Batch Number"
             value={batch}
             onChange={handleFieldChange(setBatch)}
+            variant="outlined"
+            sx={{ backgroundColor: '#fff', borderRadius: 1 }}
+          />
+        </Grid>
+        <Grid item sm={6} md={2}>
+          <TextField
+            fullWidth
+            label="Quantity"
+            type="number"
+            value={quantity}
+            onChange={handleFieldChange(setQuantity)}
+            error={!isQuantityValid}
+            helperText={!isQuantityValid && "Please enter a valid quantity"}
             variant="outlined"
             sx={{ backgroundColor: '#fff', borderRadius: 1 }}
           />
