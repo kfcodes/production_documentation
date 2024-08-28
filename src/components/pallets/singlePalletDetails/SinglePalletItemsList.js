@@ -1,10 +1,13 @@
 import React from 'react';
 import { Grid, Typography, Box, Card, CardContent, Divider } from '@mui/material';
 import PalletItem from '../../../components/pallets/singlePalletDetails/SinglePalletItem';
+import CreateNewPalletItem from '../../../components/pallets/buttons/CreateNewPalletItemButton';
 
-export default function SinglePalletItemsList({ pallet_id, palletItems, setNewPalletItemsFunction }) {
+
+export default function SinglePalletItemsList({ palletId, palletItems, setNewPalletItemsFunction }) {
 
   const handleSavePalletItem = (itemData) => {
+    console.log(itemData)
     // Logic to save pallet item data
     setNewPalletItemsFunction((prevItems) =>
       prevItems.map(item => item.item_id === itemData.item_id ? itemData : item)
@@ -25,6 +28,9 @@ export default function SinglePalletItemsList({ pallet_id, palletItems, setNewPa
             />
           </Grid>
         ))}
+      </Grid>
+      <Grid container spacing={2}>
+        <CreateNewPalletItem palletId={palletId} reload={setNewPalletItemsFunction} />
       </Grid>
     </Box>
   );

@@ -4,11 +4,13 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Container from "@mui/material/Container";
 
-export default function CreateNewPalletItem(props) {
-  const palletId = props["pallet_id"];
-  const updateState = props["setNewPalletItemsFunction"]
+export default function CreateNewPalletItem({ palletId, reload }) {
+  // const palletId = props["pallet_id"];
+  // const reload = useState("");
 
   const createNewPalletItem = (pallet) => {
+    console.log(palletId)
+    console.log(pallet)
     let palletItemData = {
       pallet_item_pallet_id: pallet,
     };
@@ -20,7 +22,8 @@ export default function CreateNewPalletItem(props) {
       },
       body: JSON.stringify(palletItemData),
     }).then((result) => {
-      updateState(result);
+      console.log(result)
+      reload(result);
     });
   };
 

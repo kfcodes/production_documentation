@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Button, Grid, TextField, Box, Typography, Alert } from '@mui/material';
+import { Button, Grid, TextField, Box, Typography, Alert, CircularProgress } from '@mui/material';
 import _ from 'lodash';
 
 export default function PalletItem({ product = {}, onSave, submitLoading }) {
@@ -11,6 +11,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
   const [batch, setBatch] = useState(product?.batch || "");
   const [quantity, setQuantity] = useState(product?.quantity || "");
   const [submitError, setSubmitError] = useState(null);
+  const [isDirty, setIsDirty] = useState(false); // Tracks if there are unsaved changes
 
   // Store previous values to compare with the current ones
   const prevValues = useRef({
@@ -27,6 +28,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
       try {
         onSave(itemData);
         setSubmitError(null);
+        setIsDirty(false); // Reset the dirty flag after successful save
       } catch (error) {
         setSubmitError(error.message);
       }
@@ -54,6 +56,7 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
       batch !== prevValues.current.batch
     ) {
       prevValues.current = { quantity, productDescription, bbe, lot, batch };
+      setIsDirty(true); // Mark the form as dirty (unsaved changes)
       debouncedSavePalletItem(itemData);
     }
 
@@ -65,7 +68,29 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
   const handleFieldChange = useCallback((setter) => (event) => {
     const value = event.target.value;
     setter(value);
+    setIsDirty(true); // Mark the form as dirty (unsaved changes)
   }, []);
+
+  const handleSave = () => {
+    const itemData = {
+      item_id: product?.item_id,
+      pallet_item_pallet_id: product?.pallet_item_pallet_id,
+      pallet_item_product_id: product?.pallet_item_product_id,
+      quantity,
+      product_description: productDescription,
+      bbe,
+      lot,
+      batch,
+    };
+
+    try {
+      onSave(itemData);
+      setIsDirty(false); // Reset the dirty flag after saving
+      setSubmitError(null);
+    } catch (error) {
+      setSubmitError(error.message);
+    }
+  };
 
   const isQuantityValid = quantity && !isNaN(quantity) && Number(quantity) > 0;
 
@@ -140,6 +165,18 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             </Alert>
           </Grid>
         )}
+        <Grid item xs={12}>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSave}
+              disabled={!isDirty || !isQuantityValid || submitLoading}
+            >
+              {submitLoading ? <CircularProgress size={24} /> : "Save"}
+            </Button>
+          </Box>
+        </Grid>
       </Grid>
     </Box>
   );

@@ -68,6 +68,7 @@ export default function SinglePalletPage() {
 
   useEffect(() => {
     if (palletItemsData) {
+      console.log("palletItemsData")
       console.log(palletItemsData)
       setPalletItems(palletItemsData);
     }
@@ -111,7 +112,7 @@ export default function SinglePalletPage() {
                 onSavePalletData={handleSavePalletDetails}
               />
               <SinglePalletItemsList
-                pallet_id={palletid}
+                palletId={palletid}
                 palletItems={palletItems}
                 setNewPalletItemsFunction={setPalletItems}
               />
