@@ -46,6 +46,7 @@ export default function SinglePalletPage() {
   });
 
   const [palletItems, setPalletItems] = useState([]);
+  const [updateItems, setUpdateItems] = useState([]);
 
   const {
     loading: submitLoading,
@@ -68,11 +69,9 @@ export default function SinglePalletPage() {
 
   useEffect(() => {
     if (palletItemsData) {
-      console.log("palletItemsData")
-      console.log(palletItemsData)
       setPalletItems(palletItemsData);
     }
-  }, [palletItemsData]);
+  }, [palletItemsData, updateItems]);
 
   const handleSavePalletDetails = useCallback(
     (updatedFields) => {
@@ -114,7 +113,7 @@ export default function SinglePalletPage() {
               <SinglePalletItemsList
                 palletId={palletid}
                 palletItems={palletItems}
-                setNewPalletItemsFunction={setPalletItems}
+                setNewPalletItemsFunction={setUpdateItems}
               />
               <Divider sx={{ marginBottom: 3 }} />
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2 }}>
