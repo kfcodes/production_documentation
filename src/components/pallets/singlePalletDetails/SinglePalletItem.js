@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Button, Grid, TextField, Box, Typography, Alert, CircularProgress } from '@mui/material';
+import { Grid, TextField, Box, Typography, Alert, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import _ from 'lodash';
 
-export default function PalletItem({ product = {}, onSave, submitLoading }) {
+export default function PalletItem({ product = {}, onSave, onDelete, submitLoading }) {
   const [itemId, setItemId] = useState(product?.item_id || "");
   const [productCode, setProductCode] = useState(product?.pallet_item_product_id || "");
   const [productDescription, setProductDescription] = useState(product?.pallet_item_product_id || "");
@@ -12,6 +12,8 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
   const [quantity, setQuantity] = useState(product?.quantity || "");
   const [submitError, setSubmitError] = useState(null);
   const [isDirty, setIsDirty] = useState(false); // Tracks if there are unsaved changes
+  const [open, setOpen] = useState(false); // Modal open state
+  const holdTimeout = useRef(null); // Ref to track the hold timeout
 
   // Store previous values to compare with the current ones
   const prevValues = useRef({
@@ -71,35 +73,56 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
     setIsDirty(true); // Mark the form as dirty (unsaved changes)
   }, []);
 
-  const handleSave = () => {
-    const itemData = {
-      item_id: product?.item_id,
-      pallet_item_pallet_id: product?.pallet_item_pallet_id,
-      pallet_item_product_id: product?.pallet_item_product_id,
-      quantity,
-      product_description: productDescription,
-      bbe,
-      lot,
-      batch,
-    };
+  const isQuantityValid = quantity && !isNaN(quantity) && Number(quantity) > 0;
 
-    try {
-      onSave(itemData);
-      setIsDirty(false); // Reset the dirty flag after saving
-      setSubmitError(null);
-    } catch (error) {
-      setSubmitError(error.message);
+  // Handle press and hold event to open the modal
+  const handleStartHold = () => {
+    holdTimeout.current = setTimeout(() => {
+      setOpen(true);
+    }, 1000); // 1 second hold time
+  };
+
+  const handleEndHold = () => {
+    if (holdTimeout.current) {
+      clearTimeout(holdTimeout.current);
+      holdTimeout.current = null;
     }
   };
 
-  const isQuantityValid = quantity && !isNaN(quantity) && Number(quantity) > 0;
+  // Handle closing the modal
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // Handle delete action
+  const handleDelete = () => {
+    onDelete(product?.item_id);
+    setOpen(false);
+  };
 
   return (
-    <Box sx={{ justifyContent: 'center', alignItems: 'center', mb: 3, p: 3, borderRadius: 2, boxShadow: 2, backgroundColor: '#f9f9f9' }}>
-      <Typography variant="h5" sx={{ justifyContent: 'center', alignItems: 'center', fontWeight: 'bold', mb: 3 }}>
+    <Box
+      onMouseDown={handleStartHold}
+      onMouseUp={handleEndHold}
+      onMouseLeave={handleEndHold} // Handle case where mouse leaves the component
+      onTouchStart={handleStartHold} // For touch devices
+      onTouchEnd={handleEndHold} // For touch devices
+      sx={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        mb: 3,
+        p: 3,
+        borderRadius: 2,
+        boxShadow: 2,
+        backgroundColor: isDirty ? '#ffebee' : '#f9f9f9', // Red background when isDirty is true
+      }}
+    >
+      <Typography variant="h5" sx={{ justifyContent: 'center', marginLeft: 15, alignItems: 'center', fontWeight: 'bold', mb: 3 }}>
         {productDescription || 'New Product'}
       </Typography>
       <Grid container spacing={2}>
+        <Grid item sm={1}>
+        </Grid>
         <Grid item sm={6} md={2}>
           <TextField
             fullWidth
@@ -165,19 +188,25 @@ export default function PalletItem({ product = {}, onSave, submitLoading }) {
             </Alert>
           </Grid>
         )}
-        <Grid item xs={12}>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSave}
-              disabled={!isDirty || !isQuantityValid || submitLoading}
-            >
-              {submitLoading ? <CircularProgress size={24} /> : "Save"}
-            </Button>
-          </Box>
-        </Grid>
       </Grid>
+
+      {/* Modal for Delete Confirmation */}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Delete Pallet Item</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this pallet item?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="secondary" autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
