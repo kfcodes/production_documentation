@@ -1,0 +1,8 @@
+# docker-compose.yml
+services:
+  web_app:
+    build: .
+    container_name: react
+    ports:
+    - '3001:3000'
+    restart: unless-stopped
