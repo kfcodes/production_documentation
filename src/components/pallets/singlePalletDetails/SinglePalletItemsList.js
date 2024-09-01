@@ -65,9 +65,7 @@ export default function SinglePalletItemsList({
   };
 
   return (
-    <Box sx={{ marginTop: 5, marginBottom: 3, padding: 2 }}>
-      <hr />
-      <br />
+    <Box sx={{ marginTop: 2, marginBottom: 2, padding: 1 }}>
       <Grid container spacing={2}>
         {palletItems.map((item) => (
           <Grid item xs={12} key={item.item_id}>

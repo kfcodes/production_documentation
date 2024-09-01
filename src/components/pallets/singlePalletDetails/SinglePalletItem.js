@@ -21,7 +21,7 @@ export default function PalletItem({
   submitLoading,
 }) {
   const [productCode, setProductCode] = useState(product?.pallet_item_product_id || "");
-  const [productDescription, setProductDescription] = useState(product?.product_description || "NOT SAVED");
+  const [productDescription, setProductDescription] = useState(product?.product_description || "NOT SAVED!!");
   const [bbe, setBbe] = useState(product?.bbe || "");
   const [lot, setLot] = useState(product?.lot || "");
   const [batch, setBatch] = useState(product?.batch || "");
@@ -33,7 +33,7 @@ export default function PalletItem({
 
   // Reset productDescription on every render
   useEffect(() => {
-    setProductDescription(product?.product_description || "PRODUCT NOT SAVED !!");
+    setProductDescription(product?.product_description || "NOT SAVED!!");
   }, [product?.product_description]);
 
   // Store previous values to compare with the current ones

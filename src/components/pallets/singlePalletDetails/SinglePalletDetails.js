@@ -75,7 +75,7 @@ export default function SinglePalletDetails({
         p: 3,
         borderRadius: 2,
         boxShadow: 2,
-        backgroundColor: isDirty ? "#ffebee" : "#f9f9f9", // Red background when isDirty is true
+        backgroundColor: isDirty ? "#ffebee" : "#e3f2fd", // Light blue background
       }}
     >
       <Typography variant="h3" align="center" fontWeight="bold" gutterBottom>
@@ -91,7 +91,7 @@ export default function SinglePalletDetails({
             onChange={(e) => handleFieldChange("palletType", e.target.value)}
             onBlur={() => debouncedSavePalletData(localState)}
             variant="outlined"
-            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
+            sx={{ backgroundColor: "#f5f5f5", borderRadius: 1 }} // Very light grey background for inputs
           >
             <MenuItem value={1}>Standard Big Pallet</MenuItem>
             <MenuItem value={2}>Small Pallet</MenuItem>
@@ -110,7 +110,7 @@ export default function SinglePalletDetails({
               endAdornment: <InputAdornment position="end">cm</InputAdornment>,
             }}
             variant="outlined"
-            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
+            sx={{ backgroundColor: "#f5f5f5", borderRadius: 1 }}
           />
         </Grid>
         <Grid item xs={6} sm={3}>
@@ -125,7 +125,7 @@ export default function SinglePalletDetails({
               endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
             }}
             variant="outlined"
-            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
+            sx={{ backgroundColor: "#f5f5f5", borderRadius: 1 }}
           />
         </Grid>
         <Grid item xs={6} sm={3}>
@@ -140,7 +140,7 @@ export default function SinglePalletDetails({
               endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
             }}
             variant="outlined"
-            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
+            sx={{ backgroundColor: "#f5f5f5", borderRadius: 1 }}
           />
         </Grid>
       </Grid>

@@ -129,7 +129,7 @@ export default function SinglePalletPage() {
             alignItems: "center",
             marginRight: 5,
             marginLeft: 5,
-            marginBottom: 10,
+            marginBottom: 1,
             marginTop: 5,
           }}
         >
@@ -138,7 +138,7 @@ export default function SinglePalletPage() {
             sx={{
               bgcolor: "background.paper",
               minWidth: 300,
-              marginBottom: 10,
+              marginBottom: 2,
               padding: 1,
               boxShadow: 5,
               borderRadius: 5,
@@ -153,6 +153,7 @@ export default function SinglePalletPage() {
                 height={palletState.height}
                 onSavePalletData={handleSavePalletDetails}
               />
+              <hr />
               <SinglePalletItemsList
                 palletId={palletid}
                 palletItems={palletItems}
