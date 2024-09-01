@@ -1,10 +1,27 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Grid, TextField, Box, Typography, Alert, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
-import _ from 'lodash';
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import {
+  Grid,
+  TextField,
+  Box,
+  Typography,
+  Alert,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+} from "@mui/material";
+import _ from "lodash";
 
-export default function PalletItem({ product = {}, onSave, onDelete, submitLoading }) {
+export default function PalletItem({
+  product = {},
+  onSave,
+  onDelete,
+  submitLoading,
+}) {
   const [productCode, setProductCode] = useState(product?.pallet_item_product_id || "");
-  const [productDescription] = useState(product?.pallet_item_product_id || "");
+  const [productDescription] = useState(product?.product_description || "");
   const [bbe, setBbe] = useState(product?.bbe || "");
   const [lot, setLot] = useState(product?.lot || "");
   const [batch, setBatch] = useState(product?.batch || "");
@@ -17,7 +34,7 @@ export default function PalletItem({ product = {}, onSave, onDelete, submitLoadi
   // Store previous values to compare with the current ones
   const prevValues = useRef({
     quantity,
-    productDescription,
+    productCode,
     bbe,
     lot,
     batch,
@@ -34,14 +51,14 @@ export default function PalletItem({ product = {}, onSave, onDelete, submitLoadi
         setSubmitError(error.message);
       }
     }, 500),
-    [onSave]
+    [onSave],
   );
 
   useEffect(() => {
     const itemData = {
       item_id: product?.item_id,
       pallet_item_pallet_id: product?.pallet_item_pallet_id,
-      pallet_item_product_id: product?.pallet_item_product_id,
+      pallet_item_product_id: productCode, // Include productCode
       quantity,
       product_description: productDescription,
       bbe,
@@ -51,12 +68,12 @@ export default function PalletItem({ product = {}, onSave, onDelete, submitLoadi
 
     if (
       quantity !== prevValues.current.quantity ||
-      productDescription !== prevValues.current.productDescription ||
+      productCode !== prevValues.current.productCode ||
       bbe !== prevValues.current.bbe ||
       lot !== prevValues.current.lot ||
       batch !== prevValues.current.batch
     ) {
-      prevValues.current = { quantity, productDescription, bbe, lot, batch };
+      prevValues.current = { quantity, productCode, bbe, lot, batch };
       setIsDirty(true); // Mark the form as dirty (unsaved changes)
       debouncedSavePalletItem(itemData);
     }
@@ -64,13 +81,25 @@ export default function PalletItem({ product = {}, onSave, onDelete, submitLoadi
     return () => {
       debouncedSavePalletItem.cancel(); // Clean up the debounce on unmount
     };
-  }, [quantity, productDescription, bbe, lot, batch, debouncedSavePalletItem, product]);
+  }, [
+    quantity,
+    productCode, // Include productCode as a dependency
+    productDescription,
+    bbe,
+    lot,
+    batch,
+    debouncedSavePalletItem,
+    product,
+  ]);
 
-  const handleFieldChange = useCallback((setter) => (event) => {
-    const value = event.target.value;
-    setter(value);
-    setIsDirty(true); // Mark the form as dirty (unsaved changes)
-  }, []);
+  const handleFieldChange = useCallback(
+    (setter) => (event) => {
+      const value = event.target.value;
+      setter(value);
+      setIsDirty(true); // Mark the form as dirty (unsaved changes)
+    },
+    [],
+  );
 
   const isQuantityValid = quantity && !isNaN(quantity) && Number(quantity) > 0;
 
@@ -107,21 +136,30 @@ export default function PalletItem({ product = {}, onSave, onDelete, submitLoadi
       onTouchStart={handleStartHold} // For touch devices
       onTouchEnd={handleEndHold} // For touch devices
       sx={{
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         mb: 3,
         p: 3,
         borderRadius: 2,
         boxShadow: 2,
-        backgroundColor: isDirty ? '#ffebee' : '#f9f9f9', // Red background when isDirty is true
+        backgroundColor: isDirty ? "#ffebee" : "#f9f9f9", // Red background when isDirty is true
       }}
     >
-      <Typography variant="h5" align="center" sx={{ justifyContent: 'center', marginLeft: 15, alignItems: 'center', fontWeight: 'bold', mb: 2 }}>
-        {productDescription || 'New Product'}
+      <Typography
+        variant="h5"
+        align="center"
+        sx={{
+          justifyContent: "center",
+          marginLeft: 15,
+          alignItems: "center",
+          fontWeight: "bold",
+          mb: 2,
+        }}
+      >
+        {productDescription || "New Product"}
       </Typography>
       <Grid container spacing={2}>
-        <Grid item sm={1}>
-        </Grid>
+        <Grid item sm={1}></Grid>
         <Grid item sm={6} md={2}>
           <TextField
             fullWidth
@@ -130,7 +168,7 @@ export default function PalletItem({ product = {}, onSave, onDelete, submitLoadi
             value={productCode}
             onChange={handleFieldChange(setProductCode)}
             variant="outlined"
-            sx={{ backgroundColor: '#fff', borderRadius: 1 }}
+            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
           />
         </Grid>
         <Grid item sm={6} md={2}>
@@ -140,7 +178,7 @@ export default function PalletItem({ product = {}, onSave, onDelete, submitLoadi
             value={lot}
             onChange={handleFieldChange(setLot)}
             variant="outlined"
-            sx={{ backgroundColor: '#fff', borderRadius: 1 }}
+            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
           />
         </Grid>
         <Grid item sm={6} md={2}>
@@ -154,7 +192,7 @@ export default function PalletItem({ product = {}, onSave, onDelete, submitLoadi
               shrink: true,
             }}
             variant="outlined"
-            sx={{ backgroundColor: '#fff', borderRadius: 1 }}
+            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
           />
         </Grid>
         <Grid item sm={6} md={2}>
@@ -164,7 +202,7 @@ export default function PalletItem({ product = {}, onSave, onDelete, submitLoadi
             value={batch}
             onChange={handleFieldChange(setBatch)}
             variant="outlined"
-            sx={{ backgroundColor: '#fff', borderRadius: 1 }}
+            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
           />
         </Grid>
         <Grid item sm={6} md={2}>
@@ -177,7 +215,7 @@ export default function PalletItem({ product = {}, onSave, onDelete, submitLoadi
             error={!isQuantityValid}
             helperText={!isQuantityValid && "Please enter a valid quantity"}
             variant="outlined"
-            sx={{ backgroundColor: '#fff', borderRadius: 1 }}
+            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
           />
         </Grid>
         {submitError && (

@@ -2,18 +2,13 @@ import React, { useState, useEffect, useCallback, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { useFetchData } from "../hooks/useFetchData";
 import { useSubmitData } from "../hooks/useSubmitData";
-import {
-  Divider,
-  Box,
-  Card,
-  CardContent,
-} from '@mui/material';
+import { Divider, Box, Card, CardContent } from "@mui/material";
 
 const SinglePalletDetails = React.lazy(() =>
-  import("../components/pallets/singlePalletDetails/SinglePalletDetails")
+  import("../components/pallets/singlePalletDetails/SinglePalletDetails"),
 );
 const SinglePalletItemsList = React.lazy(() =>
-  import("../components/pallets/singlePalletDetails/SinglePalletItemsList")
+  import("../components/pallets/singlePalletDetails/SinglePalletItemsList"),
 );
 
 export default function SinglePalletPage() {
@@ -25,9 +20,8 @@ export default function SinglePalletPage() {
     error: detailsError,
   } = useFetchData(
     `${process.env.REACT_APP_API_URL3}/pallet_details/${palletid}`,
-    [palletid]
+    [palletid],
   );
-
 
   const {
     data: palletItemsData,
@@ -36,11 +30,13 @@ export default function SinglePalletPage() {
     refetch: refetchPalletItems = async () => {
       try {
         // Send a GET request to fetch the latest pallet items for the given palletId
-        const response = await fetch(`${process.env.REACT_APP_API_URL3}/pallet_items/${palletid}`);
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL3}/pallet_items/${palletid}`,
+        );
 
         // Check if the response is successful
         if (!response.ok) {
-          throw new Error('Failed to fetch pallet items');
+          throw new Error("Failed to fetch pallet items");
         }
 
         // Parse the response JSON data
@@ -49,15 +45,18 @@ export default function SinglePalletPage() {
         // Update the local state with the fetched items
         setPalletItems(updatedItems);
 
-        console.log('Pallet items successfully fetched and updated:', updatedItems);
+        console.log(
+          "Pallet items successfully fetched and updated:",
+          updatedItems,
+        );
       } catch (error) {
         // Handle any errors that occurred during the fetch
-        console.error('Error fetching pallet items:', error);
+        console.error("Error fetching pallet items:", error);
       }
-    }
+    },
   } = useFetchData(
     `${process.env.REACT_APP_API_URL3}/pallet_items/${palletid}`,
-    [palletid]
+    [palletid],
   );
 
   const [palletState, setPalletState] = useState({
@@ -74,7 +73,10 @@ export default function SinglePalletPage() {
     error: submitError,
     success,
     submitData,
-  } = useSubmitData(`${process.env.REACT_APP_API_URL3}/pallet/${palletid}`, "PUT");
+  } = useSubmitData(
+    `${process.env.REACT_APP_API_URL3}/pallet/${palletid}`,
+    "PUT",
+  );
 
   useEffect(() => {
     if (palletDetails && palletDetails.length > 0) {
@@ -109,10 +111,11 @@ export default function SinglePalletPage() {
         ...updatedFields,
       }));
     },
-    [palletid, palletState, submitData]
+    [palletid, palletState, submitData],
   );
 
-  if (detailsLoading || itemsLoading || submitLoading) return <div>Loading...</div>;
+  if (detailsLoading || itemsLoading || submitLoading)
+    return <div>Loading...</div>;
   if (detailsError) return <div>Error loading pallet details</div>;
   if (itemsError) return <div>Error loading pallet items</div>;
   if (submitError) return <div>Error saving pallet data</div>;
@@ -120,8 +123,27 @@ export default function SinglePalletPage() {
   return (
     <>
       <Suspense fallback={<div>Loading Data...</div>}>
-        <Box sx={{ justifyContent: 'center', alignItems: 'center', marginRight: 5, marginLeft: 5, marginBottom: 10, marginTop: 5 }}>
-          <Card variant="outlined" sx={{ bgcolor: 'background.paper', minWidth: 300, marginBottom: 10, padding: 1, boxShadow: 5, borderRadius: 5 }}>
+        <Box
+          sx={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginRight: 5,
+            marginLeft: 5,
+            marginBottom: 10,
+            marginTop: 5,
+          }}
+        >
+          <Card
+            variant="outlined"
+            sx={{
+              bgcolor: "background.paper",
+              minWidth: 300,
+              marginBottom: 10,
+              padding: 1,
+              boxShadow: 5,
+              borderRadius: 5,
+            }}
+          >
             <CardContent>
               <SinglePalletDetails
                 pallet_id={palletid}

@@ -1,30 +1,40 @@
-import React from 'react';
-import { Grid, Typography, Box } from '@mui/material';
-import PalletItem from '../../../components/pallets/singlePalletDetails/SinglePalletItem';
-import CreateNewPalletItem from '../../../components/pallets/buttons/CreateNewPalletItemButton';
+import React from "react";
+import { Grid, Typography, Box } from "@mui/material";
+import PalletItem from "../../../components/pallets/singlePalletDetails/SinglePalletItem";
+import CreateNewPalletItem from "../../../components/pallets/buttons/CreateNewPalletItemButton";
 
-export default function SinglePalletItemsList({ palletId, palletItems, reloadPalletItems }) {
-
+export default function SinglePalletItemsList({
+  palletId,
+  palletItems,
+  reloadPalletItems,
+}) {
   const handleSavePalletItem = async (itemData) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL3}/pallet_item/${itemData.item_id}`, {
-        method: 'PUT',  // or 'POST' if it's a new item
-        headers: {
-          'Content-Type': 'application/json',
+      console.log("THIS IS THE DATA BEING SUBMITTED");
+      console.log(itemData);
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL3}/pallet_item/${itemData.item_id}`,
+        {
+          method: "PUT", // or 'POST' if it's a new item
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(itemData),
         },
-        body: JSON.stringify(itemData),
-      });
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to save pallet item');
+        throw new Error("Failed to save pallet item");
       }
 
       const updatedItem = await response.json();
       reloadPalletItems((prevItems) =>
-        prevItems.map(item => item.item_id === updatedItem.item_id ? updatedItem : item)
+        prevItems.map((item) =>
+          item.item_id === updatedItem.item_id ? updatedItem : item,
+        ),
       );
     } catch (error) {
-      console.error('Error saving pallet item:', error);
+      console.error("Error saving pallet item:", error);
     }
     console.log(itemData);
     reloadPalletItems();
@@ -32,18 +42,23 @@ export default function SinglePalletItemsList({ palletId, palletItems, reloadPal
 
   const handleDeletePalletItem = async (item_id) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL3}/pallet_item/${item_id}`, {
-        method: 'DELETE',  // or 'POST' if it's a new item
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL3}/pallet_item/${item_id}`,
+        {
+          method: "DELETE", // or 'POST' if it's a new item
+        },
+      );
       if (!response.ok) {
-        throw new Error('Failed to delete pallet item');
+        throw new Error("Failed to delete pallet item");
       }
       const updatedItem = await response.json();
       reloadPalletItems((prevItems) =>
-        prevItems.map(item => item.item_id === updatedItem.item_id ? updatedItem : item)
+        prevItems.map((item) =>
+          item.item_id === updatedItem.item_id ? updatedItem : item,
+        ),
       );
     } catch (error) {
-      console.error('Error saving pallet item:', error);
+      console.error("Error saving pallet item:", error);
     }
     console.log(item_id);
     reloadPalletItems();

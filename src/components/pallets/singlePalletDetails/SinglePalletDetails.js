@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Card,
   CardContent,
@@ -7,7 +7,7 @@ import {
   MenuItem,
   InputAdornment,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 
 export default function SinglePalletDetails({
   pallet_id,
@@ -47,10 +47,10 @@ export default function SinglePalletDetails({
             fullWidth
             label="Pallet Size"
             value={localState.palletType}
-            onChange={(e) => handleFieldChange('palletType', e.target.value)}
+            onChange={(e) => handleFieldChange("palletType", e.target.value)}
             onBlur={handleBlur}
             variant="outlined"
-            sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
+            sx={{ backgroundColor: "#f9f9f9", borderRadius: 1 }}
           >
             <MenuItem value={1}>Standard Big Pallet</MenuItem>
             <MenuItem value={2}>Small Pallet</MenuItem>
@@ -63,13 +63,13 @@ export default function SinglePalletDetails({
             label="Height"
             type="number"
             value={localState.height}
-            onChange={(e) => handleFieldChange('height', e.target.value)}
+            onChange={(e) => handleFieldChange("height", e.target.value)}
             onBlur={handleBlur}
             InputProps={{
               endAdornment: <InputAdornment position="end">cm</InputAdornment>,
             }}
             variant="outlined"
-            sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
+            sx={{ backgroundColor: "#f9f9f9", borderRadius: 1 }}
           />
         </Grid>
         <Grid item xs={6} sm={3}>
@@ -78,13 +78,13 @@ export default function SinglePalletDetails({
             label="Empty Weight"
             type="number"
             value={localState.emptyweight}
-            onChange={(e) => handleFieldChange('emptyweight', e.target.value)}
+            onChange={(e) => handleFieldChange("emptyweight", e.target.value)}
             onBlur={handleBlur}
             InputProps={{
               endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
             }}
             variant="outlined"
-            sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
+            sx={{ backgroundColor: "#f9f9f9", borderRadius: 1 }}
           />
         </Grid>
         <Grid item xs={6} sm={3}>
@@ -93,17 +93,16 @@ export default function SinglePalletDetails({
             label="Full Weight"
             type="number"
             value={localState.weight}
-            onChange={(e) => handleFieldChange('weight', e.target.value)}
+            onChange={(e) => handleFieldChange("weight", e.target.value)}
             onBlur={handleBlur}
             InputProps={{
               endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
             }}
             variant="outlined"
-            sx={{ backgroundColor: '#f9f9f9', borderRadius: 1 }}
+            sx={{ backgroundColor: "#f9f9f9", borderRadius: 1 }}
           />
         </Grid>
       </Grid>
     </>
   );
 }
-
