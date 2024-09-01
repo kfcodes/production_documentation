@@ -1,31 +1,58 @@
 import React from 'react';
-import { Grid, Typography, Box, Card, CardContent, Divider } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
 import PalletItem from '../../../components/pallets/singlePalletDetails/SinglePalletItem';
 import CreateNewPalletItem from '../../../components/pallets/buttons/CreateNewPalletItemButton';
-import DeletePalletItemButton from '../../../components/pallets/buttons/DeletePalletItemButton';
 
+export default function SinglePalletItemsList({ palletId, palletItems, reloadPalletItems }) {
 
-export default function SinglePalletItemsList({ palletId, palletItems, setNewPalletItemsFunction }) {
+  const handleSavePalletItem = async (itemData) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL3}/pallet_item/${itemData.item_id}`, {
+        method: 'PUT',  // or 'POST' if it's a new item
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(itemData),
+      });
 
-  const handleSavePalletItem = (itemData) => {
-    console.log(itemData)
-    // Logic to save pallet item data
-    setNewPalletItemsFunction((prevItems) =>
-      prevItems.map(item => item.item_id === itemData.item_id ? itemData : item)
-    );
+      if (!response.ok) {
+        throw new Error('Failed to save pallet item');
+      }
+
+      const updatedItem = await response.json();
+      reloadPalletItems((prevItems) =>
+        prevItems.map(item => item.item_id === updatedItem.item_id ? updatedItem : item)
+      );
+    } catch (error) {
+      console.error('Error saving pallet item:', error);
+    }
+    console.log(itemData);
+    reloadPalletItems();
   };
 
-  const handleDeletePalletItem = (item) => {
-    console.log(item)
-    DeletePalletItemButton(item)
-    setNewPalletItemsFunction(item)
+  const handleDeletePalletItem = async (item_id) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL3}/pallet_item/${item_id}`, {
+        method: 'DELETE',  // or 'POST' if it's a new item
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete pallet item');
+      }
+      const updatedItem = await response.json();
+      reloadPalletItems((prevItems) =>
+        prevItems.map(item => item.item_id === updatedItem.item_id ? updatedItem : item)
+      );
+    } catch (error) {
+      console.error('Error saving pallet item:', error);
+    }
+    console.log(item_id);
+    reloadPalletItems();
   };
 
   return (
-    <Box sx={{ marginBottom: 3, padding: 2 }}>
-      <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-        Pallet Items
-      </Typography>
+    <Box sx={{ marginTop: 5, marginBottom: 3, padding: 2 }}>
+      <hr />
+      <br />
       <Grid container spacing={2}>
         {palletItems.map((item) => (
           <Grid item xs={12} key={item.item_id}>
@@ -38,7 +65,7 @@ export default function SinglePalletItemsList({ palletId, palletItems, setNewPal
         ))}
       </Grid>
       <Grid container spacing={2}>
-        <CreateNewPalletItem palletId={palletId} reload={setNewPalletItemsFunction} />
+        <CreateNewPalletItem palletId={palletId} reload={reloadPalletItems} />
       </Grid>
     </Box>
   );

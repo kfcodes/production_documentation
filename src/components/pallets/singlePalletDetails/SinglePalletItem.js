@@ -3,9 +3,8 @@ import { Grid, TextField, Box, Typography, Alert, Dialog, DialogActions, DialogC
 import _ from 'lodash';
 
 export default function PalletItem({ product = {}, onSave, onDelete, submitLoading }) {
-  const [itemId, setItemId] = useState(product?.item_id || "");
   const [productCode, setProductCode] = useState(product?.pallet_item_product_id || "");
-  const [productDescription, setProductDescription] = useState(product?.pallet_item_product_id || "");
+  const [productDescription] = useState(product?.pallet_item_product_id || "");
   const [bbe, setBbe] = useState(product?.bbe || "");
   const [lot, setLot] = useState(product?.lot || "");
   const [batch, setBatch] = useState(product?.batch || "");
@@ -117,7 +116,7 @@ export default function PalletItem({ product = {}, onSave, onDelete, submitLoadi
         backgroundColor: isDirty ? '#ffebee' : '#f9f9f9', // Red background when isDirty is true
       }}
     >
-      <Typography variant="h5" sx={{ justifyContent: 'center', marginLeft: 15, alignItems: 'center', fontWeight: 'bold', mb: 3 }}>
+      <Typography variant="h5" align="center" sx={{ justifyContent: 'center', marginLeft: 15, alignItems: 'center', fontWeight: 'bold', mb: 2 }}>
         {productDescription || 'New Product'}
       </Typography>
       <Grid container spacing={2}>
