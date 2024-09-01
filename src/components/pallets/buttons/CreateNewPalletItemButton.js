@@ -1,8 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Unstable_Grid2";
-import Container from "@mui/material/Container";
 
 export default function CreateNewPalletItem({ palletId, reload }) {
   const createNewPalletItem = async (pallet) => {
@@ -38,21 +36,34 @@ export default function CreateNewPalletItem({ palletId, reload }) {
   };
 
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-      <Container>
-        <Grid container padding={10} spacing={10} justifyContent="center">
-          <Grid>
-            <Button
-              variant="contained"
-              size="large"
-              onClick={() => createNewPalletItem(palletId)}
-            >
-              ADD PRODUCT TO PALLET
-            </Button>
-          </Grid>
-        </Grid>
-      </Container>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        mt: 2, // Margin top to create space from the component above
+        width: "100%",
+      }}
+    >
+      <Button
+        onClick={() => createNewPalletItem(palletId)}
+        sx={{
+          width: "100%",
+          maxWidth: 400, // Limit the button width to 400px
+          padding: 3,
+          borderRadius: 2,
+          boxShadow: 2,
+          backgroundColor: "#ECB98C", // Light blue background
+          color: "#000",
+          textAlign: "center",
+          fontSize: "1.2rem",
+          fontWeight: "bold",
+          "&:hover": {
+            backgroundColor: "#b0bec5", // Darker blue-grey on hover
+          },
+        }}
+      >
+        ADD PRODUCT TO PALLET
+      </Button>
     </Box>
   );
 }
-

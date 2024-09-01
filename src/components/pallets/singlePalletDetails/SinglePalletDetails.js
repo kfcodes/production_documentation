@@ -39,7 +39,7 @@ export default function SinglePalletDetails({
       } catch (error) {
         setSubmitError("Error saving data");
       }
-    }, 1000), // Adjust debounce time as needed
+    }, 2000), // Adjust debounce time as needed
     [onSavePalletData]
   );
 

@@ -60,7 +60,7 @@ export default function PalletItem({
       } catch (error) {
         setSubmitError(error.message);
       }
-    }, 1000),
+    }, 2000),
     [onSave]
   );
 
@@ -150,9 +150,10 @@ export default function PalletItem({
         alignItems: "center",
         mb: 3,
         p: 3,
-        borderRadius: 2,
+        borderRadius: 4,
         boxShadow: 2,
-        backgroundColor: isDirty ? "#ffebee" : "#f9f9f9", // Red background when isDirty is true
+        backgroundColor: isDirty ? "#ffebee" : "#DDF8ED", // Slightly darker grey background when not dirty
+        border: ".5px solid black", // Black border
       }}
     >
       <Typography
@@ -160,7 +161,6 @@ export default function PalletItem({
         align="center"
         sx={{
           justifyContent: "center",
-          marginLeft: 15,
           alignItems: "center",
           fontWeight: "bold",
           mb: 2,
@@ -169,7 +169,7 @@ export default function PalletItem({
         {productDescription}
       </Typography>
       <Grid container spacing={2}>
-        <Grid item sm={1}></Grid>
+        <Grid item sm={false} md={1}></Grid>
         <Grid item sm={6} md={2}>
           <TextField
             fullWidth
@@ -178,7 +178,7 @@ export default function PalletItem({
             value={productCode}
             onChange={handleFieldChange(setProductCode)}
             variant="outlined"
-            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
+            sx={{ backgroundColor: "#FFFFFF", borderRadius: 1 }} // Slightly darker grey background for input fields
           />
         </Grid>
         <Grid item sm={6} md={2}>
@@ -188,7 +188,7 @@ export default function PalletItem({
             value={lot}
             onChange={handleFieldChange(setLot)}
             variant="outlined"
-            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
+            sx={{ backgroundColor: "#FFFFFF", borderRadius: 1 }} // Slightly darker grey background for input fields
           />
         </Grid>
         <Grid item sm={6} md={2}>
@@ -202,7 +202,7 @@ export default function PalletItem({
               shrink: true,
             }}
             variant="outlined"
-            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
+            sx={{ backgroundColor: "#FFFFFF", borderRadius: 1 }} // Slightly darker grey background for input fields
           />
         </Grid>
         <Grid item sm={6} md={2}>
@@ -212,7 +212,7 @@ export default function PalletItem({
             value={batch}
             onChange={handleFieldChange(setBatch)}
             variant="outlined"
-            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
+            sx={{ backgroundColor: "#FFFFFF", borderRadius: 1 }} // Slightly darker grey background for input fields
           />
         </Grid>
         <Grid item sm={6} md={2}>
@@ -225,7 +225,7 @@ export default function PalletItem({
             error={!isQuantityValid}
             helperText={!isQuantityValid && "Please enter a valid quantity"}
             variant="outlined"
-            sx={{ backgroundColor: "#fff", borderRadius: 1 }}
+            sx={{ backgroundColor: "#FFFFFF", borderRadius: 1 }} // Slightly darker grey background for input fields
           />
         </Grid>
         {submitError && (
