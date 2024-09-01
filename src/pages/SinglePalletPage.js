@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { useFetchData } from "../hooks/useFetchData";
 import { useSubmitData } from "../hooks/useSubmitData";
-import PrintLabeLButton from '../components/pallets/buttons/PrintPalletLabelButton';
 import {
   Divider,
   Box,
@@ -29,10 +28,33 @@ export default function SinglePalletPage() {
     [palletid]
   );
 
+
   const {
     data: palletItemsData,
     loading: itemsLoading,
     error: itemsError,
+    refetch: refetchPalletItems = async () => {
+      try {
+        // Send a GET request to fetch the latest pallet items for the given palletId
+        const response = await fetch(`${process.env.REACT_APP_API_URL3}/pallet_items/${palletid}`);
+
+        // Check if the response is successful
+        if (!response.ok) {
+          throw new Error('Failed to fetch pallet items');
+        }
+
+        // Parse the response JSON data
+        const updatedItems = await response.json();
+
+        // Update the local state with the fetched items
+        setPalletItems(updatedItems);
+
+        console.log('Pallet items successfully fetched and updated:', updatedItems);
+      } catch (error) {
+        // Handle any errors that occurred during the fetch
+        console.error('Error fetching pallet items:', error);
+      }
+    }
   } = useFetchData(
     `${process.env.REACT_APP_API_URL3}/pallet_items/${palletid}`,
     [palletid]
@@ -46,7 +68,6 @@ export default function SinglePalletPage() {
   });
 
   const [palletItems, setPalletItems] = useState([]);
-  const [updateItems, setUpdateItems] = useState([]);
 
   const {
     loading: submitLoading,
@@ -71,7 +92,7 @@ export default function SinglePalletPage() {
     if (palletItemsData) {
       setPalletItems(palletItemsData);
     }
-  }, [palletItemsData, updateItems]);
+  }, [palletItemsData]);
 
   const handleSavePalletDetails = useCallback(
     (updatedFields) => {
@@ -113,14 +134,9 @@ export default function SinglePalletPage() {
               <SinglePalletItemsList
                 palletId={palletid}
                 palletItems={palletItems}
-                setNewPalletItemsFunction={setUpdateItems}
+                reloadPalletItems={refetchPalletItems} // Pass refetch function to reload items
               />
               <Divider sx={{ marginBottom: 3 }} />
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2 }}>
-                {palletState.weight !== 0 && palletState.emptyweight !== 0 && palletState.height !== 0 && (
-                  <PrintLabeLButton id={palletid} />
-                )}
-              </Box>
             </CardContent>
           </Card>
         </Box>
