@@ -150,10 +150,12 @@ export default function PalletItem({
         alignItems: "center",
         mb: 3,
         p: 3,
-        borderRadius: 4,
-        boxShadow: 2,
+        borderRadius: 2,
+        boxShadow: 1,
         backgroundColor: isDirty ? "#ffebee" : "#DDF8ED", // Slightly darker grey background when not dirty
-        border: ".5px solid black", // Black border
+        borderColor: '#9C9894',
+        borderStyle: 'solid',
+        borderWidth: '.1px'
       }}
     >
       <Typography
