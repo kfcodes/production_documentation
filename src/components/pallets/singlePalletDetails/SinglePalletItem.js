@@ -50,7 +50,7 @@ export default function PalletItem({
       } catch (error) {
         setSubmitError(error.message);
       }
-    }, 500),
+    }, 1000),
     [onSave],
   );
 
@@ -156,7 +156,7 @@ export default function PalletItem({
           mb: 2,
         }}
       >
-        {productDescription || "New Product"}
+        {productDescription || "PRODUCT NOT SAVED !!"}
       </Typography>
       <Grid container spacing={2}>
         <Grid item sm={1}></Grid>
