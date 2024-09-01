@@ -21,7 +21,7 @@ export default function PalletItem({
   submitLoading,
 }) {
   const [productCode, setProductCode] = useState(product?.pallet_item_product_id || "");
-  const [productDescription] = useState(product?.product_description || "");
+  const [productDescription, setProductDescription] = useState(product?.product_description || "NOT SAVED");
   const [bbe, setBbe] = useState(product?.bbe || "");
   const [lot, setLot] = useState(product?.lot || "");
   const [batch, setBatch] = useState(product?.batch || "");
@@ -30,6 +30,11 @@ export default function PalletItem({
   const [isDirty, setIsDirty] = useState(false); // Tracks if there are unsaved changes
   const [open, setOpen] = useState(false); // Modal open state
   const holdTimeout = useRef(null); // Ref to track the hold timeout
+
+  // Reset productDescription on every render
+  useEffect(() => {
+    setProductDescription(product?.product_description || "PRODUCT NOT SAVED !!");
+  }, [product?.product_description]);
 
   // Store previous values to compare with the current ones
   const prevValues = useRef({
@@ -42,16 +47,21 @@ export default function PalletItem({
 
   // Debounced save function
   const debouncedSavePalletItem = useCallback(
-    _.debounce((itemData) => {
+    _.debounce(async (itemData) => {
       try {
-        onSave(itemData);
+        const updatedItem = await onSave(itemData);
         setSubmitError(null);
         setIsDirty(false); // Reset the dirty flag after successful save
+
+        // Update productDescription if returned by the API
+        if (updatedItem && updatedItem.product_description) {
+          setProductDescription(updatedItem.product_description);
+        }
       } catch (error) {
         setSubmitError(error.message);
       }
     }, 1000),
-    [onSave],
+    [onSave]
   );
 
   useEffect(() => {
@@ -98,7 +108,7 @@ export default function PalletItem({
       setter(value);
       setIsDirty(true); // Mark the form as dirty (unsaved changes)
     },
-    [],
+    []
   );
 
   const isQuantityValid = quantity && !isNaN(quantity) && Number(quantity) > 0;
@@ -156,7 +166,7 @@ export default function PalletItem({
           mb: 2,
         }}
       >
-        {productDescription || "PRODUCT NOT SAVED !!"}
+        {productDescription}
       </Typography>
       <Grid container spacing={2}>
         <Grid item sm={1}></Grid>
