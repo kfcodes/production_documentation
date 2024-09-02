@@ -48,21 +48,21 @@ export default function CreateNewPalletItem({ palletId, reload }) {
         onClick={() => createNewPalletItem(palletId)}
         sx={{
           width: "100%",
-          maxWidth: 400, // Limit the button width to 400px
-          padding: 3,
+          maxWidth: 200, // Limit the button width to 400px
+          padding: 2,
           borderRadius: 2,
           boxShadow: 2,
-          backgroundColor: "#ECB98C", // Light blue background
+          backgroundColor: "#F6A6BA", // Light blue background
           color: "#000",
           textAlign: "center",
-          fontSize: "1.2rem",
+          fontSize: "1rem",
           fontWeight: "bold",
           "&:hover": {
             backgroundColor: "#b0bec5", // Darker blue-grey on hover
           },
         }}
       >
-        ADD PRODUCT TO PALLET
+        NEW ITEM
       </Button>
     </Box>
   );

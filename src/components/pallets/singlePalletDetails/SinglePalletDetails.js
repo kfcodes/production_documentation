@@ -75,7 +75,7 @@ export default function SinglePalletDetails({
         p: 3,
         borderRadius: 2,
         boxShadow: 2,
-        backgroundColor: isDirty ? "#ffebee" : "#e3f2fd", // Light blue background
+        backgroundColor: isDirty ? "#FF1C3E" : "#e3f2fd", // Light blue background
       }}
     >
       <Typography variant="h3" align="center" fontWeight="bold" gutterBottom>

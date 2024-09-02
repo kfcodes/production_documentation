@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import {
+import React, { useState, useEffect, useCallback, useRef } from "react"; import {
   Grid,
   TextField,
   Box,
@@ -152,7 +151,7 @@ export default function PalletItem({
         p: 3,
         borderRadius: 2,
         boxShadow: 1,
-        backgroundColor: isDirty ? "#ffebee" : "#DDF8ED", // Slightly darker grey background when not dirty
+        backgroundColor: isDirty ? "#FF1C3E" : "#F7F5B6", // Slightly darker grey background when not dirty
         borderColor: '#9C9894',
         borderStyle: 'solid',
         borderWidth: '.1px'
