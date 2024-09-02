@@ -1,178 +1,154 @@
-import { Outlet } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Box from "@mui/material/Box";
-import InputAdornment from "@mui/material/InputAdornment";
-import Container from "@mui/material/Container";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import PrintLabeLButton from "../buttons/PrintPalletLabelButton";
-import Header from "../../header/Header";
-import SinglePalletItemsList from "./SinglePalletItemsList";
+import React, { useState, useCallback, useEffect, useRef } from "react";
+import {
+  Grid,
+  TextField,
+  MenuItem,
+  InputAdornment,
+  Typography,
+  Box,
+} from "@mui/material";
+import _ from "lodash";
 
-export default function SinglePallet() {
-  const params_pallet_id = useParams()["palletid"];
-  const [pallet_id, setPallet_id] = useState("");
-  const [palletType, setPalletType] = useState("");
-  const [emptyweight, setEmptyweight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [height, setHeight] = useState("");
+export default function SinglePalletDetails({
+  pallet_id,
+  palletType,
+  emptyweight,
+  weight,
+  height,
+  onSavePalletData,
+}) {
+  const [localState, setLocalState] = useState({
+    palletType,
+    emptyweight,
+    weight,
+    height,
+  });
+
+  const [isDirty, setIsDirty] = useState(false); // Tracks if there are unsaved changes
+  const [submitError, setSubmitError] = useState(null);
+
+  const prevValues = useRef(localState);
+
+  // Debounced save function
+  const debouncedSavePalletData = useCallback(
+    _.debounce((data) => {
+      try {
+        onSavePalletData(data);
+        setSubmitError(null);
+        setIsDirty(false); // Reset the dirty flag after successful save
+      } catch (error) {
+        setSubmitError("Error saving data");
+      }
+    }, 2000), // Adjust debounce time as needed
+    [onSavePalletData]
+  );
 
   useEffect(() => {
-    fetch(
-      `${process.env.REACT_APP_API_URL3}/pallet_details/${params_pallet_id}`,
-    )
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setPallet_id(result.pallet_id);
-          setPalletType(result.pallet_type);
-          setEmptyweight(result.empty_weight);
-          setWeight(result.weight);
-          setHeight(result.height);
-        },
-        (error) => {
-          console.log(error);
-        },
-      );
-  }, []);
+    if (
+      localState.palletType !== prevValues.current.palletType ||
+      localState.emptyweight !== prevValues.current.emptyweight ||
+      localState.weight !== prevValues.current.weight ||
+      localState.height !== prevValues.current.height
+    ) {
+      prevValues.current = localState;
+      setIsDirty(true); // Mark the form as dirty (unsaved changes)
+      debouncedSavePalletData(localState);
+    }
 
-  const onSubmit = () => {
-    let palletData = {
-      pallet_id: pallet_id,
-      pallet_type: palletType,
-      empty_weight: emptyweight,
-      weight: weight,
-      height: height,
+    return () => {
+      debouncedSavePalletData.cancel(); // Clean up the debounce on unmount
     };
-    fetch(`${process.env.REACT_APP_API_URL3}/pallet/${pallet_id}`, {
-      method: "put",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(palletData),
-    }).then((res) => res.json());
+  }, [localState, debouncedSavePalletData]);
+
+  const handleFieldChange = (fieldName, value) => {
+    setLocalState((prevState) => ({
+      ...prevState,
+      [fieldName]: value,
+    }));
+    setIsDirty(true);
   };
 
   return (
-    <>
-      <Header />
-      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-        <Container>
-          <Grid container padding={1} spacing={1} justifyContent="center">
-            <Grid item>
-              <h1>PALLET {pallet_id} DATA</h1>
-            </Grid>
-          </Grid>
-          <div>
-            <Grid container padding={2} spacing={2} justifyContent="center">
-              <Grid item xs={8} sOffset={3}>
-                <TextField
-                  fullWidth
-                  disabled
-                  value={pallet_id}
-                  id="outlined-adornment-amount"
-                  label="pallet_id"
-                />
-              </Grid>
-            </Grid>
-            <Grid container padding={2} spacing={2} justifyContent="center">
-              <Grid item sm={6}>
-                <Select
-                  fullWidth
-                  label="Pallet Size"
-                  id="demo-simple-select"
-                  value={palletType}
-                  onChange={(e) => setPalletType(e.target.value)}
-                >
-                  <MenuItem value={1}>Standard Big Pallet</MenuItem>
-                  <MenuItem value={2}>Small Pallet</MenuItem>
-                  <MenuItem value={3}>Euro Pallet</MenuItem>
-                </Select>
-              </Grid>
-            </Grid>
-            <Grid container padding={2} spacing={2} justifyContent="center">
-              <Grid item sm={4}>
-                <TextField
-                  fullWidth
-                  label="Empty Pallet Weight"
-                  type="number"
-                  value={emptyweight}
-                  onChange={(e) => setEmptyweight(e.target.value)}
-                  inputProps={{ style: { textAlign: "center" } }}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end"> kg</InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-              <Grid item sm={4}>
-                <TextField
-                  label="Full Pallet Weight"
-                  id="outlined-end-adornment"
-                  type="number"
-                  value={weight}
-                  onChange={(e) => setWeight(e.target.value)}
-                  fullWidth
-                  inputProps={{ style: { textAlign: "center" } }}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end"> kg</InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-              <Grid item sm={4}>
-                <TextField
-                  label="Pallet Height"
-                  id="outlined-end-adornment"
-                  type="number"
-                  value={height}
-                  onChange={(e) => setHeight(e.target.value)}
-                  fullWidth
-                  inputProps={{ style: { textAlign: "center" } }}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end"> cm</InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-            </Grid>
-            <Grid container padding={2} spacing={2} justifyContent="center">
-              {weight != 0 && emptyweight != 0 && height != 0 && (
-                <Grid item xs={3}>
-                  <PrintLabeLButton id={pallet_id} />
-                </Grid>
-              )}
-              <Grid item xs={3}>
-                <Button
-                  variant="contained"
-                  size="small"
-                  onClick={() => {
-                    onSubmit();
-                  }}
-                >
-                  SAVE DATA
-                </Button>
-              </Grid>
-            </Grid>
-            <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-              <>
-                <SinglePalletItemsList
-                  pallet_id={params_pallet_id}
-                />
-              </>
-            </Box>
-          </div>
-        </Container>
-      </Box>
-    </>
+    <Box
+      sx={{
+        mb: 3,
+        p: 3,
+        borderRadius: 2,
+        boxShadow: 2,
+        backgroundColor: isDirty ? "#FF1C3E" : "#e3f2fd", // Light blue background
+      }}
+    >
+      <Typography variant="h3" align="center" fontWeight="bold" gutterBottom>
+        {pallet_id}
+      </Typography>
+      <Grid container spacing={3} sx={{ marginBottom: 3 }}>
+        <Grid item xs={6} sm={3}>
+          <TextField
+            select
+            fullWidth
+            label="Pallet Size"
+            value={localState.palletType}
+            onChange={(e) => handleFieldChange("palletType", e.target.value)}
+            onBlur={() => debouncedSavePalletData(localState)}
+            variant="outlined"
+            sx={{ backgroundColor: "#f5f5f5", borderRadius: 1 }} // Very light grey background for inputs
+          >
+            <MenuItem value={1}>Standard Big Pallet</MenuItem>
+            <MenuItem value={2}>Small Pallet</MenuItem>
+            <MenuItem value={3}>Euro Pallet</MenuItem>
+          </TextField>
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <TextField
+            fullWidth
+            label="Height"
+            type="number"
+            value={localState.height}
+            onChange={(e) => handleFieldChange("height", e.target.value)}
+            onBlur={() => debouncedSavePalletData(localState)}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+            }}
+            variant="outlined"
+            sx={{ backgroundColor: "#f5f5f5", borderRadius: 1 }}
+          />
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <TextField
+            fullWidth
+            label="Empty Weight"
+            type="number"
+            value={localState.emptyweight}
+            onChange={(e) => handleFieldChange("emptyweight", e.target.value)}
+            onBlur={() => debouncedSavePalletData(localState)}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
+            }}
+            variant="outlined"
+            sx={{ backgroundColor: "#f5f5f5", borderRadius: 1 }}
+          />
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <TextField
+            fullWidth
+            label="Full Weight"
+            type="number"
+            value={localState.weight}
+            onChange={(e) => handleFieldChange("weight", e.target.value)}
+            onBlur={() => debouncedSavePalletData(localState)}
+            InputProps={{
+              endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
+            }}
+            variant="outlined"
+            sx={{ backgroundColor: "#f5f5f5", borderRadius: 1 }}
+          />
+        </Grid>
+      </Grid>
+      {submitError && (
+        <Typography variant="body2" color="error" align="center">
+          {submitError}
+        </Typography>
+      )}
+    </Box>
   );
 }

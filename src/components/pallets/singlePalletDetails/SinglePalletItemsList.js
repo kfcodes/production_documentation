@@ -1,58 +1,85 @@
-import { useOutletContext } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Unstable_Grid2";
-import Container from "@mui/material/Container";
-import CreateNewPalletItem from "../buttons/CreateNewPalletItemButton";
-import PalletItem from "./SinglePalletItem";
+import React from "react";
+import { Grid, Typography, Box } from "@mui/material";
+import PalletItem from "../../../components/pallets/singlePalletDetails/SinglePalletItem";
+import CreateNewPalletItem from "../../../components/pallets/buttons/CreateNewPalletItemButton";
 
-export default function SinglePalletItemsList(props) {
-  const palletId = props['pallet_id'];
-  const [palletItems, setPalletItems] = useState([]);
-  const [newPalletItems, setNewPalletItems] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
+export default function SinglePalletItemsList({
+  palletId,
+  palletItems,
+  reloadPalletItems,
+}) {
+  const handleSavePalletItem = async (itemData) => {
+    try {
+      console.log("THIS IS THE DATA BEING SUBMITTED");
+      console.log(itemData);
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL3}/pallet_items/${palletId}`,
+        `${process.env.REACT_APP_API_URL3}/pallet_item/${itemData.item_id}`,
+        {
+          method: "PUT", // or 'POST' if it's a new item
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(itemData),
+        },
       );
-      const result = await response.json();
-      setPalletItems(result);
-    };
-    fetchData();
-  }, [newPalletItems]);
+
+      if (!response.ok) {
+        throw new Error("Failed to save pallet item");
+      }
+
+      const updatedItem = await response.json();
+      reloadPalletItems((prevItems) =>
+        prevItems.map((item) =>
+          item.item_id === updatedItem.item_id ? updatedItem : item,
+        ),
+      );
+    } catch (error) {
+      console.error("Error saving pallet item:", error);
+    }
+    console.log(itemData);
+    reloadPalletItems();
+  };
+
+  const handleDeletePalletItem = async (item_id) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL3}/pallet_item/${item_id}`,
+        {
+          method: "DELETE", // or 'POST' if it's a new item
+        },
+      );
+      if (!response.ok) {
+        throw new Error("Failed to delete pallet item");
+      }
+      const updatedItem = await response.json();
+      reloadPalletItems((prevItems) =>
+        prevItems.map((item) =>
+          item.item_id === updatedItem.item_id ? updatedItem : item,
+        ),
+      );
+    } catch (error) {
+      console.error("Error saving pallet item:", error);
+    }
+    console.log(item_id);
+    reloadPalletItems();
+  };
 
   return (
-    <>
-      <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-        <Container>
-          <div>
-            <Grid container padding={1} spacing={1} justifyContent="center">
-              <Grid item>
-                <h1>PALLET ITEMS</h1>
-              </Grid>
-            </Grid>
-          </div>
-        </Container>
-      </Box>
-      {palletItems != [] && palletItems != null &&
-        < Box sx={{ display: "flex", flexWrap: "wrap" }}>
-          {palletItems.map((product) => (
-            <>
-              <PalletItem
-                product={product}
-                item_id={product.item_id}
-                setNewPalletItemsFunction={setNewPalletItems}
-              />
-            </>
-          ))}
-        </Box >
-      }
-      <CreateNewPalletItem
-        pallet_id={palletId}
-        setNewPalletItemsFunction={setNewPalletItems}
-      />
-    </>
+    <Box sx={{ marginTop: 4, marginBottom: 2, padding: 1 }}>
+      <Grid container spacing={2}>
+        {palletItems.map((item) => (
+          <Grid item xs={12} key={item.item_id}>
+            <PalletItem
+              product={item}
+              onSave={handleSavePalletItem}
+              onDelete={handleDeletePalletItem}
+            />
+          </Grid>
+        ))}
+      </Grid>
+      <Grid container spacing={2}>
+        <CreateNewPalletItem palletId={palletId} reload={reloadPalletItems} />
+      </Grid>
+    </Box>
   );
 }
-
