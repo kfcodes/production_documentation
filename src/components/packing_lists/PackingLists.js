@@ -1,27 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
-import Header from "../../header/Header.js";
-import CreateNewPalletButton from "../buttons/CreateNewPalletButton";
-import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 
@@ -162,8 +147,6 @@ function LatestPallets() {
 
   return (
     <>
-      <Header />
-      <br />
       <Container>
         <Grid container padding={2} spacing={3} justifyContent="center">
           <Grid item alignItems="center">
@@ -182,7 +165,6 @@ function LatestPallets() {
               >
                 ALL PALLETS
               </Button>
-              <CreateNewPalletButton />
             </Stack>
           </Grid>
         </Grid>

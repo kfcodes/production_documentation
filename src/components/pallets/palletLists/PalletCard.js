@@ -1,74 +1,77 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Typography from "@mui/material/Typography";
+import React, { useMemo } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { grey } from "@mui/material/colors";
+import Paper from "@mui/material/Paper";
+import { useNavigate } from "react-router-dom";
 
-function PalletCard({ pallet, palletItems }) {
+const PalletCard = React.memo(({ pallet, palletItems }) => {
+  const { pallet_id, pallet_type_letter, weight, height } = pallet;
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/pallet/${pallet_id}`);
+  };
+
+  const filteredItems = useMemo(() => {
+    return palletItems.filter(
+      (item) => item.pallet_item_pallet_id === pallet_id
+    );
+  }, [palletItems, pallet_id]);
+
   return (
     <Card
+      onClick={handleCardClick}
       sx={{
-        marginBottom: 2,
-        width: "100%",
-        backgroundColor: grey[100], // Light grey background
-        border: "1px solid black",  // Black border
-        padding: 2,
-        textDecoration: "none",
-        transition: "0.3s",
-        '&:hover': {
+        cursor: "pointer",
+        width: "100%", // Make the card span the full width
+        boxSizing: "border-box",
+        "&:hover": {
           boxShadow: 6,
         },
       }}
-      component={Link}
-      to={`/pallet/${pallet.pallet_id}/pallet_item/`}
     >
       <CardContent>
-        <Typography variant="h6" component="div" gutterBottom>
-          Pallet ID: {pallet.pallet_id}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Type: {pallet.pallet_type_letter}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Weight: {pallet.weight} kg
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Height: {pallet.height} cm
-        </Typography>
+        <Typography variant="h6">Pallet ID: {pallet_id}</Typography>
+        <Typography variant="body1">Type: {pallet_type_letter}</Typography>
+        <Typography variant="body1">Weight: {weight} kg</Typography>
+        <Typography variant="body1">Height: {height} cm</Typography>
 
-        <Table size="small" aria-label="pallet-items">
-          <TableHead>
-            <TableRow>
-              <TableCell>Product Description</TableCell>
-              <TableCell align="right">LOT</TableCell>
-              <TableCell align="right">BBE</TableCell>
-              <TableCell align="right">Quantity</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {palletItems
-              .filter((item) => pallet.pallet_id === item.pallet_item_pallet_id)
-              .map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell component="th" scope="row">
-                    {item.product_description}
-                  </TableCell>
-                  <TableCell align="right">{item.lot}</TableCell>
-                  <TableCell align="right">{item.bbe}</TableCell>
-                  <TableCell align="right">{item.quantity}</TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
+        <TableContainer component={Paper} sx={{ mt: 2 }}>
+          <Table size="small" aria-label="pallet items table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Product Description</TableCell>
+                <TableCell align="right">LOT</TableCell>
+                <TableCell align="right">BBE</TableCell>
+                <TableCell align="right">Quantity</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredItems.map(
+                ({ id, product_description, lot, bbe, quantity }) => (
+                  <TableRow key={id}>
+                    <TableCell component="th" scope="row">
+                      {product_description}
+                    </TableCell>
+                    <TableCell align="right">{lot}</TableCell>
+                    <TableCell align="right">{bbe}</TableCell>
+                    <TableCell align="right">{quantity}</TableCell>
+                  </TableRow>
+                )
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </CardContent>
     </Card>
   );
-}
+});
 
 export default PalletCard;

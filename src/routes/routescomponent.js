@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import PalletList from "../components/pallets/palletLists/RecentPalletsList";
+// import PalletList from "../components/pallets/palletLists/RecentPalletsList";
+import PalletList from "../pages/PalletListPage"
 // import FullPalletList from "../components/pallets/palletLists/AllPalletsList";
 import CreatePalletItem from "../components/pallets/singlePalletDetails/SinglePalletItemsList";
 // import SinglePallet from "../components/pallets/singlePalletDetails/SinglePalletDetails";
