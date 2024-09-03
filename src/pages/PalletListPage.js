@@ -38,7 +38,7 @@ function PalletList() {
   }, []);
 
   return (
-    <Box sx={{ p: 2, width: "99%", bgcolor: "#f5f5f5" }}> {/* Light grey background */}
+    <Box sx={{ p: 2, width: "100%", bgcolor: "#f5f5f5" }}> {/* Light grey background */}
       <Container sx={{ mb: 4 }}>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <CreateNewPalletButton />
@@ -50,15 +50,15 @@ function PalletList() {
           <Typography variant="h6">No pallets available</Typography>
         </Box>
       ) : (
-        <Box sx={{ width: "100%" }}>
+        <Container maxWidth="md"> {/* Limit max width and center content */}
           {pallets.map((pallet) => (
-            <Box key={pallet.pallet_id} sx={{ mb: 2 }}>
+            <Box key={pallet.pallet_id} sx={{ mb: 2, mx: "auto", px: 2 }}> {/* Adding margin and padding */}
               <Suspense fallback={<div>Loading...</div>}>
                 <PalletCard pallet={pallet} palletItems={palletItems} />
               </Suspense>
             </Box>
           ))}
-        </Box>
+        </Container>
       )}
     </Box>
   );

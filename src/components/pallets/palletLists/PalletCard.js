@@ -9,7 +9,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
+
+// Importing icons
+import Inventory2Icon from '@mui/icons-material/Inventory2';  // Pallet Type/Icon
+import HeightIcon from '@mui/icons-material/Height';  // Height Icon
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';  // Weight Icon
 
 const PalletCard = React.memo(({ pallet, palletItems }) => {
   const { pallet_id, pallet_type_letter, weight, height } = pallet;
@@ -30,19 +37,48 @@ const PalletCard = React.memo(({ pallet, palletItems }) => {
       onClick={handleCardClick}
       sx={{
         cursor: "pointer",
-        width: "100%", // Make the card span the full width
+        width: "100%",
         boxSizing: "border-box",
+        backgroundColor: "#e0f7fa",  // Light teal background color
         "&:hover": {
-          boxShadow: 6,
+          boxShadow: 8,
+          backgroundColor: "#ffecb3",  // Light orange background color on hover
         },
+        borderRadius: 2,
+        transition: "0.3s",  // Smooth transition for hover effect
       }}
     >
-      <CardContent>
-        <Typography variant="h6">Pallet ID: {pallet_id}</Typography>
-        <Typography variant="body1">Type: {pallet_type_letter}</Typography>
-        <Typography variant="body1">Weight: {weight} kg</Typography>
-        <Typography variant="body1">Height: {height} cm</Typography>
+      <CardContent sx={{ padding: 3 }}>
+        {/* Pallet Details centered horizontally */}
+        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Grid container spacing={2} alignItems="center" justifyContent="center">
+            {/* Pallet Type and ID */}
+            <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Inventory2Icon sx={{ marginRight: 1, color: '#757575' }} />
+              <Typography variant="h6" component="div" sx={{ color: '#333' }}>
+                {pallet_type_letter} - {pallet_id}
+              </Typography>
+            </Grid>
 
+            {/* Pallet Height */}
+            <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <HeightIcon sx={{ marginRight: 1, color: '#757575' }} />
+              <Typography variant="h6" component="div" sx={{ color: '#333' }}>
+                Height: {height} cm
+              </Typography>
+            </Grid>
+
+            {/* Pallet Weight */}
+            <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <FitnessCenterIcon sx={{ marginRight: 1, color: '#757575' }} />
+              <Typography variant="h6" component="div" sx={{ color: '#333' }}>
+                Weight: {weight} kg
+              </Typography>
+            </Grid>
+          </Grid>
+        </Box>
+
+        {/* Pallet Items listed below */}
         <TableContainer component={Paper} sx={{ mt: 2 }}>
           <Table size="small" aria-label="pallet items table">
             <TableHead>
