@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
-import Button from "@mui/material/Button";
+import Button from "@mui/material/Button"; // Ensure Button is imported
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -16,11 +15,13 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
+import { useNavigate } from "react-router-dom"; // Use useNavigate instead of useHistory
 import CreateNewPalletButton from "../components/pallets/buttons/CreateNewPalletButton";
 
 function PalletList() {
   const [pallets, setPallets] = useState([]);
   const [palletItems, setPalletItems] = useState([]);
+  const navigate = useNavigate(); // useNavigate instead of useHistory
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL2}/new_pallets/`)
@@ -47,6 +48,10 @@ function PalletList() {
         }
       );
   }, []);
+
+  const handleCardClick = (palletId) => {
+    navigate(`/pallet/${palletId}`); // Use navigate function
+  };
 
   return (
     <Box sx={{ p: 2, border: "1px dashed grey" }}>
@@ -89,7 +94,15 @@ function PalletList() {
 
             return (
               <Grid item xs={12} md={6} key={pallet_id}>
-                <Card>
+                <Card
+                  onClick={() => handleCardClick(pallet_id)}
+                  sx={{
+                    cursor: "pointer",
+                    "&:hover": {
+                      boxShadow: 6,
+                    },
+                  }}
+                >
                   <CardContent>
                     <Typography variant="h6">Pallet ID: {pallet_id}</Typography>
                     <Typography variant="body1">
@@ -129,16 +142,6 @@ function PalletList() {
                       </Table>
                     </TableContainer>
                   </CardContent>
-                  <CardActions>
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      color="secondary"
-                      href={`/pallet/${pallet_id}/pallet_item/`}
-                    >
-                      Change pallet Details
-                    </Button>
-                  </CardActions>
                 </Card>
               </Grid>
             );
