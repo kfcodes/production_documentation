@@ -32,64 +32,28 @@ function PalletList() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch the packing lists from the API
-    const fetchPackingLists = async () => {
+    // Fetch all data from the API concurrently
+    const fetchData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL3}/open_packing_lists/`);
-        const data = await response.json();
-        const listArray = Object.values(data); // Convert the object to an array
-        setPackingLists(listArray);
+        const palletsResponse = await fetch(`${process.env.REACT_APP_API_URL2}/new_pallets/`);
+        const palletItemsResponse = await fetch(`${process.env.REACT_APP_API_URL2}/new_pallet_items/`);
+        const packingListsResponse = await fetch(`${process.env.REACT_APP_API_URL3}/open_packing_lists/`);
+
+        const palletsData = await palletsResponse.json();
+        const palletItemsData = await palletItemsResponse.json();
+        const packingListsData = await packingListsResponse.json();
+
+        setPallets(palletsData);
+        setPalletItems(palletItemsData);
+        setPackingLists(Object.values(packingListsData)); // Convert the object to an array
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching packing lists:', error);
+        console.error('Error fetching data:', error);
         setLoading(false);
       }
     };
 
-    fetchPackingLists();
-  }, []);
-
-  useEffect(() => {
-    // Fetch pallets from the API
-    fetch(`${process.env.REACT_APP_API_URL2}/new_pallets/`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setPallets(result);
-          setLoading(false);  // Set loading to false once data is fetched
-        },
-        (error) => {
-          console.error("Error fetching pallets:", error);
-        }
-      );
-  }, []);
-
-  useEffect(() => {
-    // Fetch pallet items from the API
-    fetch(`${process.env.REACT_APP_API_URL2}/new_pallet_items/`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setPalletItems(result);
-        },
-        (error) => {
-          console.error("Error fetching pallet items:", error);
-        }
-      );
-  }, []);
-
-  useEffect(() => {
-    // Fetch packing lists from the API
-    fetch(`${process.env.REACT_APP_API_URL2}/open_packing_lists/`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setPackingLists(result);
-        },
-        (error) => {
-          console.error("Error fetching packing lists:", error);
-        }
-      );
+    fetchData();
   }, []);
 
   const handlePackingListSelection = async (palletId, packingListId) => {
@@ -103,6 +67,9 @@ function PalletList() {
       });
 
       if (response.ok) {
+        // Log the pallet ID to the console when selected
+        console.log(`Pallet ID: ${palletId}`);
+
         // Remove the pallet from the list after it has been assigned to a packing list
         setPallets(pallets.filter(pallet => pallet.pallet_id !== palletId));
       } else {
@@ -147,14 +114,31 @@ function PalletList() {
         <CardContent sx={{ padding: 2 }}>
           {/* Dropdown menu for selecting packing list */}
           <FormControl fullWidth sx={{ mb: 2 }}>
-            <InputLabel id={`select-packing-list-${pallet_id}`}>Assign Packing List</InputLabel>
+            <InputLabel id={`select-packing-list-${pallet_id}`} sx={{ textAlign: 'center' }}>Assign Packing List</InputLabel>
             <Select
               labelId={`select-packing-list-${pallet_id}`}
               value={selectedPackingList}
               onChange={handleSelectChange}
+              sx={{
+                textAlign: 'center',  // Center the text in the dropdown
+                backgroundColor: "#e0f7fa",  // Match the card's background color
+                color: '#333',  // Dark text for contrast
+                "& .MuiSelect-select": {
+                  padding: "12px",
+                  textAlign: "center",  // Center the text inside the dropdown input
+                },
+              }}
+              MenuProps={{
+                PaperProps: {
+                  sx: {
+                    backgroundColor: "#e0f7fa",  // Match the dropdown's background with the card
+                    color: '#333',  // Dark text for dropdown items
+                  }
+                }
+              }}
             >
               {packingLists.map((list) => (
-                <MenuItem key={list.packing_list_id} value={list.packing_list_id}>
+                <MenuItem key={list.packing_list_id} value={list.packing_list_id} sx={{ textAlign: 'center' }}>
                   {list.packing_list_name}
                 </MenuItem>
               ))}
@@ -223,7 +207,9 @@ function PalletList() {
   };
 
   if (loading) {
-    return <CircularProgress />;
+    return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <CircularProgress />
+    </Box>;
   }
 
   return (
