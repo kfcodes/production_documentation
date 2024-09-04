@@ -29,6 +29,10 @@ const cardStyle = {
   borderRadius: '12px', // Rounded corners for cards
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Shadow for modern effect
   transition: 'transform 0.2s, background-color 0.3s', // Smooth hover effect
+  display: 'flex', // Enables Flexbox for centering
+  alignItems: 'center', // Centers items vertically
+  justifyContent: 'center', // Centers items horizontally
+  textAlign: 'center', // Center text in the card
   '&:hover': {
     backgroundColor: '#b7e4c7', // Darker green on hover
     transform: 'scale(1.05)', // Slightly scale the card on hover
