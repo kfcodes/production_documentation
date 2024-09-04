@@ -1,327 +1,117 @@
-import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import Grid from "@mui/material/Unstable_Grid2";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import IconButton from "@mui/material/IconButton";
-import Divider from "@mui/material/Divider";
-import Stack from "@mui/material/Stack";
-import Container from "@mui/material/Container";
-import Header from "../../header/Header.js";
-import CreateNewPalletButton from "../buttons/CreateNewPalletButton";
-import TextField from "@mui/material/TextField";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import React, { useState, useEffect } from 'react';
+import { Container, Typography, CircularProgress, Card, CardContent, Grid, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 
-const style = {
-  width: "90%",
-  bgcolor: "background.paper",
-  margin: 2,
-};
-
-function LatestPallets() {
+// Component to display a list of pallets not on any packing list
+const PalletsNotOnList = () => {
   const [pallets, setPallets] = useState([]);
-  const navigate = useNavigate();
-
-  function navigateFunction(palletid) {
-    navigate(`/pallet/${palletid}/pallet_item/`);
-  }
+  const [packingLists, setPackingLists] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/latest_pallet_data/`)
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          setPallets(result);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    // Fetch the list of open packing lists
+    const fetchPackingLists = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL3}/open_packing_lists/`);
+        const data = await response.json();
+        setPackingLists(Object.values(data)); // Convert the object to an array
+      } catch (error) {
+        console.error('Error fetching packing lists:', error);
+      }
+    };
+
+    // Fetch the list of pallets not on any packing list
+    const fetchPallets = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL3}/pallets_not_on_list/`);
+        const data = await response.json();
+        setPallets(Object.values(data)); // Convert the object to an array
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching pallets:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchPackingLists();
+    fetchPallets();
   }, []);
 
-  const listItemsNew = pallets.map((pallet) => (
-    <Card>
-      <CardActionArea>
-        <CardContent>
-          <Grid container padding={0} spacing={3} justifyContent="center">
-            <Grid item xs={4}>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                align="center"
-                fontWeight="bold"
-              >
-                {pallet.pallet_id}
-              </Typography>
-            </Grid>
-            <Grid item xs={8}>
-              <Typography variant="body2" color="text.secondary">
-                {pallet.DESCRIPTION}
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  ));
+  const handlePackingListSelection = async (palletId, packingListId) => {
+    try {
+      // Update the pallet with the selected packing list
+      const response = await fetch(`${process.env.REACT_APP_API_URL3}/update_pallet/${palletId}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ packing_list_id: packingListId }),
+      });
 
-  const listItems = pallets.map((pallet) => (
-    <Card>
-      <CardActionArea>
-        <CardContent>
-          <Grid container padding={2} spacing={3} justifyContent="center">
-            <Grid item xs={4}>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                align="center"
-                fontWeight="bold"
-              >
-                {pallet.PALLET}
-              </Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography
-                gutterBottom
-                variant="body1"
-                component="div"
-                align="center"
-              >
-                {pallet.DIMENSIONS}
-              </Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography
-                gutterBottom
-                variant="body1"
-                component="div"
-                align="center"
-              >
-                {pallet.WEIGHT}
-              </Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography variant="body2" color="text.secondary">
-                {pallet.ID}
-              </Typography>
-            </Grid>
-            <Grid item xs={8}>
-              <Typography variant="body2" color="text.secondary">
-                {pallet.DESCRIPTION}
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography variant="body2" color="text.secondary">
-                {pallet.LOT_BBE}
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography variant="body2" color="text.secondary">
-                {pallet.BATCH}
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography
-                variant="body1"
-                color="text.secondary"
-                fontWeight="bold"
-              >
-                {pallet.QTY}
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-      </CardActions>
-    </Card>
-  ));
-
-  const actionClick = (id) => {
-    console.log(`You clicked the card with id of ${id}`);
-    navigateFunction(id);
+      if (response.ok) {
+        // If successful, remove the pallet from the list
+        setPallets(pallets.filter(pallet => pallet.pallet_id !== palletId));
+      } else {
+        console.error('Error updating pallet');
+      }
+    } catch (error) {
+      console.error('Error updating pallet:', error);
+    }
   };
 
-  return (
-    <>
-      <Header />
-      <br />
-      <Container>
-        <Grid container padding={2} spacing={3} justifyContent="center">
-          <Grid item alignItems="center">
-            <Stack
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-              spacing={4}
-              divider={<Divider orientation="vertical" flexItem />}
-            >
-              <Button
-                href="/all_pallets"
-                size="small"
-                color="success"
-                variant="contained"
-              >
-                ALL PALLETS
-              </Button>
-              <CreateNewPalletButton />
-            </Stack>
-          </Grid>
-        </Grid>
-      </Container>
-      <Box
-        sx={{ backgroundColor: "lightgrey", display: "flex", flexWrap: "wrap" }}
-      >
-        <Container maxWidth="md">
-          <br />
-          {pallets.map((pallet, index) => (
-            <>
-              <Card
-                sx={{
-                  width: "90%",
-                  margin: 2,
-                  bgcolor:
-                    pallet.height && pallet.products[0]
-                      ? "paper"
-                      : "lightsalmon",
-                }}
-              >
-                {" "}
-                <CardActionArea onClick={() => actionClick(pallet.pallet)}>
-                  {" "}
-                  <CardContent>
-                    {" "}
-                    <Grid container padding={0} spacing={3}>
-                      {" "}
-                      <Grid item xs={3}>
-                        {" "}
-                        <Typography
-                          variant="subtitle1"
-                          component="div"
-                          align="left"
-                          fontWeight="bold"
-                        >
-                          {" "}
-                          {pallet.pallet}{" "}
-                        </Typography>{" "}
-                      </Grid>{" "}
-                      <Grid item xs={3}>
-                        {" "}
-                        <Typography
-                          gutterBottom
-                          variant="subtitle1"
-                          component="div"
-                          align="left"
-                        >
-                          {" "}
-                          {pallet.type}{" "}
-                        </Typography>{" "}
-                      </Grid>{" "}
-                      <Grid item xs={3}>
-                        {" "}
-                        <Typography
-                          gutterBottom
-                          variant="subtitle1"
-                          component="div"
-                          align="left"
-                        >
-                          {" "}
-                          Height: {pallet.height} CM{" "}
-                        </Typography>{" "}
-                      </Grid>{" "}
-                      <Grid item xs={3}>
-                        {" "}
-                        <Typography
-                          gutterBottom
-                          variant="subtitle1"
-                          component="div"
-                          align="left"
-                        >
-                          {" "}
-                          Weight: {pallet.weight} KG{" "}
-                        </Typography>{" "}
-                      </Grid>{" "}
-                    </Grid>{" "}
-                    <Divider />
-                    {pallet.products.map((product) => (
-                      <Grid
-                        container
-                        padding={0}
-                        spacing={5}
-                        justifyContent="center"
-                      >
-                        {" "}
-                        <Grid item xs={2}>
-                          {" "}
-                          <Typography variant="body2" color="text.secondary">
-                            {" "}
-                            {product.ID}{" "}
-                          </Typography>{" "}
-                        </Grid>{" "}
-                        <Grid item xs={5}>
-                          {" "}
-                          <Typography variant="body2" color="text.secondary">
-                            {" "}
-                            {product.DESCRIPTION}{" "}
-                          </Typography>{" "}
-                        </Grid>{" "}
-                        <Grid item xs={1}>
-                          {" "}
-                          <Typography variant="body2" color="text.secondary">
-                            {" "}
-                            {product.LOT}{" "}
-                          </Typography>{" "}
-                        </Grid>{" "}
-                        <Grid item xs={1}>
-                          {" "}
-                          <Typography variant="body2" color="text.secondary">
-                            {" "}
-                            {product.BBE}{" "}
-                          </Typography>{" "}
-                        </Grid>{" "}
-                        <Grid item xs={2}>
-                          {" "}
-                          <Typography variant="body2" color="text.secondary">
-                            {" "}
-                            {product.BATCH}{" "}
-                          </Typography>{" "}
-                        </Grid>{" "}
-                        <Grid item xs={1}>
-                          {" "}
-                          <Typography variant="body2" color="text.secondary">
-                            {" "}
-                            {product.QTY}{" "}
-                          </Typography>{" "}
-                        </Grid>{" "}
-                      </Grid>
-                    ))}
-                  </CardContent>{" "}
-                </CardActionArea>{" "}
-              </Card>{" "}
-            </>
-          ))}
-        </Container>
-      </Box>
-    </>
-  );
-}
+  if (loading) {
+    return <CircularProgress />;
+  }
 
-export default LatestPallets;
+  return (
+    <Container sx={{ padding: '32px 16px', backgroundColor: '#f9f9f9', borderRadius: '16px' }}>
+      <Typography variant="h4" component="h1" gutterBottom align="center">
+        Pallets Not On Any Packing List
+      </Typography>
+      <Grid container spacing={4}>
+        {pallets.length === 0 ? (
+          <Typography variant="h6" component="p" align="center">
+            All pallets have been assigned to a packing list.
+          </Typography>
+        ) : (
+          pallets.map((pallet) => (
+            <Grid item xs={12} sm={6} md={4} key={pallet.pallet_id}>
+              <Card sx={{ backgroundColor: '#e0f7fa', padding: '16px', borderRadius: '12px' }}>
+                <CardContent>
+                  <Typography variant="h5" component="div">
+                    Pallet ID: {pallet.pallet_id}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Weight: {pallet.weight}kg
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Destination: {pallet.destination}
+                  </Typography>
+
+                  {/* Dropdown to select the packing list */}
+                  <FormControl fullWidth sx={{ marginTop: '16px' }}>
+                    <InputLabel id={`packing-list-select-label-${pallet.pallet_id}`}>Select Packing List</InputLabel>
+                    <Select
+                      labelId={`packing-list-select-label-${pallet.pallet_id}`}
+                      id={`packing-list-select-${pallet.pallet_id}`}
+                      label="Select Packing List"
+                      onChange={(e) => handlePackingListSelection(pallet.pallet_id, e.target.value)}
+                    >
+                      {packingLists.map((list) => (
+                        <MenuItem key={list.packing_list_id} value={list.packing_list_id}>
+                          {list.packing_list_name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))
+        )}
+      </Grid>
+    </Container>
+  );
+};
+
+export default PalletsNotOnList;
+
