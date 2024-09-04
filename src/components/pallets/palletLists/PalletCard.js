@@ -44,14 +44,14 @@ const PalletCard = React.memo(({ pallet, palletItems }) => {
           boxShadow: 8,
           backgroundColor: "#ffecb3",  // Light orange background color on hover
         },
-        borderRadius: 2,
+        borderRadius: 3,
         transition: "0.3s",  // Smooth transition for hover effect
       }}
     >
-      <CardContent sx={{ padding: 3 }}>
+      <CardContent sx={{ padding: 2 }}>
         {/* Pallet Details centered horizontally */}
         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <Grid container spacing={2} alignItems="center" justifyContent="center">
+          <Grid container spacing={4} alignItems="center" justifyContent="center">
             {/* Pallet Type and ID */}
             <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Inventory2Icon sx={{ marginRight: 1, color: '#757575' }} />

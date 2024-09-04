@@ -38,8 +38,8 @@ function PalletList() {
   }, []);
 
   return (
-    <Box sx={{ p: 2, width: "100%", bgcolor: "#f5f5f5" }}> {/* Light grey background */}
-      <Container sx={{ mb: 4 }}>
+    <Box sx={{ p: 2, width: "100%", bgcolor: "#D0D0D0" }}> {/* Light grey background */}
+      <Container sx={{ mb: 1 }}>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
           <CreateNewPalletButton />
         </Box>

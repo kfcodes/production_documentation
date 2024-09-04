@@ -33,6 +33,9 @@ export default function PalletItem({
   // Reset productDescription on every render
   useEffect(() => {
     setProductDescription(product?.product_description || "NOT SAVED!!");
+    if (!product?.product_description || product?.product_description === "" || product?.product_description === "NOT SAVED!!") {
+      setIsDirty(true);
+    }
   }, [product?.product_description]);
 
   // Store previous values to compare with the current ones
@@ -151,7 +154,7 @@ export default function PalletItem({
         p: 3,
         borderRadius: 2,
         boxShadow: 1,
-        backgroundColor: isDirty ? "#FF1C3E" : "#F7F5B6", // Slightly darker grey background when not dirty
+        backgroundColor: isDirty ? "#FF0026" : "#F7F5B6", // Slightly darker grey background when not dirty
         borderColor: '#9C9894',
         borderStyle: 'solid',
         borderWidth: '.1px'
@@ -169,9 +172,13 @@ export default function PalletItem({
       >
         {productDescription}
       </Typography>
-      <Grid container spacing={2}>
-        <Grid item sm={false} md={1}></Grid>
-        <Grid item sm={6} md={2}>
+      <Grid
+        container
+        spacing={2}
+        justifyContent="center" // Center the fields horizontally
+        alignItems="center"  // Align the fields vertically if needed
+      >
+        <Grid item sm={4} md={2}>
           <TextField
             fullWidth
             type="text"
@@ -182,7 +189,7 @@ export default function PalletItem({
             sx={{ backgroundColor: "#FFFFFF", borderRadius: 1 }} // Slightly darker grey background for input fields
           />
         </Grid>
-        <Grid item sm={6} md={2}>
+        <Grid item sm={4} md={2}>
           <TextField
             fullWidth
             label="Lot Number"
@@ -192,7 +199,7 @@ export default function PalletItem({
             sx={{ backgroundColor: "#FFFFFF", borderRadius: 1 }} // Slightly darker grey background for input fields
           />
         </Grid>
-        <Grid item sm={6} md={2}>
+        <Grid item sm={4} md={2}>
           <TextField
             fullWidth
             label="BBE (Best Before End)"
@@ -206,7 +213,7 @@ export default function PalletItem({
             sx={{ backgroundColor: "#FFFFFF", borderRadius: 1 }} // Slightly darker grey background for input fields
           />
         </Grid>
-        <Grid item sm={6} md={2}>
+        <Grid item sm={4} md={2}>
           <TextField
             fullWidth
             label="Batch Number"
@@ -216,7 +223,7 @@ export default function PalletItem({
             sx={{ backgroundColor: "#FFFFFF", borderRadius: 1 }} // Slightly darker grey background for input fields
           />
         </Grid>
-        <Grid item sm={6} md={2}>
+        <Grid item sm={4} md={2}>
           <TextField
             fullWidth
             label="Quantity"
