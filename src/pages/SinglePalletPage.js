@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { useFetchData } from "../hooks/useFetchData";
 import { useSubmitData } from "../hooks/useSubmitData";
-import { Divider, Box, Card, CardContent } from "@mui/material";
+import { Divider, Box, Card, CardContent, Button } from "@mui/material";
+import PrintLabelButton from "../components/pallets/buttons/PrintPalletLabelButton"; // Import the PrintLabelButton
 
 const SinglePalletDetails = React.lazy(() =>
   import("../components/pallets/singlePalletDetails/SinglePalletDetails"),
@@ -29,28 +30,19 @@ export default function SinglePalletPage() {
     error: itemsError,
     refetch: refetchPalletItems = async () => {
       try {
-        // Send a GET request to fetch the latest pallet items for the given palletId
         const response = await fetch(
           `${process.env.REACT_APP_API_URL3}/pallet_items/${palletid}`,
         );
 
-        // Check if the response is successful
         if (!response.ok) {
           throw new Error("Failed to fetch pallet items");
         }
 
-        // Parse the response JSON data
         const updatedItems = await response.json();
-
-        // Update the local state with the fetched items
         setPalletItems(updatedItems);
 
-        console.log(
-          "Pallet items successfully fetched and updated:",
-          updatedItems,
-        );
+        console.log("Pallet items successfully fetched and updated:", updatedItems);
       } catch (error) {
-        // Handle any errors that occurred during the fetch
         console.error("Error fetching pallet items:", error);
       }
     },
@@ -114,8 +106,10 @@ export default function SinglePalletPage() {
     [palletid, palletState, submitData],
   );
 
-  if (detailsLoading || itemsLoading || submitLoading)
-    return <div>Loading...</div>;
+  // Condition to show PrintLabelButton (valid values for height, weight, and empty weight)
+  const canShowPrintLabelButton = palletState.height && palletState.weight && palletState.emptyweight;
+
+  if (detailsLoading || itemsLoading || submitLoading) return <div>Loading...</div>;
   if (detailsError) return <div>Error loading pallet details</div>;
   if (itemsError) return <div>Error loading pallet items</div>;
   if (submitError) return <div>Error saving pallet data</div>;
@@ -160,6 +154,13 @@ export default function SinglePalletPage() {
                 reloadPalletItems={refetchPalletItems} // Pass refetch function to reload items
               />
               <Divider sx={{ marginBottom: 3 }} />
+
+              {/* Conditionally render the PrintLabelButton */}
+              {canShowPrintLabelButton && (
+                <Box sx={{ textAlign: "center", mt: 2 }}>
+                  <PrintLabelButton id={palletid} />
+                </Box>
+              )}
             </CardContent>
           </Card>
         </Box>
