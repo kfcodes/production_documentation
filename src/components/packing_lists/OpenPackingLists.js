@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, CircularProgress, Card, CardContent, Grid } from '@mui/material';
+import { Container, Typography, CircularProgress, Card, CardContent, Grid, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom'; // React Router for navigation
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -44,6 +44,7 @@ const cardStyle = {
 const PackingListCards = () => {
   const [packingLists, setPackingLists] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false); // State for error handling
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,23 +55,37 @@ const PackingListCards = () => {
         const data = await response.json();
         const listArray = Object.values(data); // Convert the object to an array
         setPackingLists(listArray);
-        setLoading(false);
+        console.log(listArray);
       } catch (error) {
         console.error('Error fetching packing lists:', error);
-        setLoading(false);
+        setError(true); // Set error state
+      } finally {
+        setLoading(false); // Ensure loading state is turned off
       }
     };
 
     fetchPackingLists();
   }, []);
 
-  if (loading) {
-    return <CircularProgress />;
-  }
-
   const handleCardClick = (packingListId) => {
     navigate(`/packing_list/${packingListId}`);
   };
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
+        <Typography variant="h6" color="error">Error loading packing lists. Please try again later.</Typography>
+      </Box>
+    );
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -81,11 +96,24 @@ const PackingListCards = () => {
         </Typography>
         <Grid container spacing={4}>
           {packingLists.map((list) => (
-            <Grid item xs={12} sm={6} md={4} key={list.packing_list_id}>
-              <Card sx={cardStyle} onClick={() => handleCardClick(list.packing_list_id)}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={list.id}>
+              <Card sx={cardStyle} onClick={() => handleCardClick(list.id)}>
                 <CardContent>
                   <Typography variant="h5" component="div">
-                    {list.packing_list_name}
+                    {list.name}
+                  </Typography>
+                  <hr />
+                  <Typography variant="body1">
+                    Big: {list.big}
+                  </Typography>
+                  <Typography variant="body1">
+                    Small: {list.small}
+                  </Typography>
+                  <Typography variant="body1">
+                    Pallets: {list.pallets}
+                  </Typography>
+                  <Typography variant="body1">
+                    Weight: {list.weight} kg
                   </Typography>
                 </CardContent>
               </Card>
