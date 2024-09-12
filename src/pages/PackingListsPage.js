@@ -21,7 +21,6 @@ const PackingListsPage = () => {
         <Typography variant="h3" component="h1" gutterBottom>
           Packing Lists
         </Typography>
-        <PalletsNotOnList />
         <OpenPackingLists />
       </Box>
     </Container>

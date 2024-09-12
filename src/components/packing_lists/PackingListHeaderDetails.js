@@ -1,113 +1,235 @@
-import React, { useState, useEffect } from 'react';
-import { Typography, Grid, Box, Container } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { styled } from "@mui/material/styles";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
+  Collapse,
+  IconButton,
+  Typography,
+  Menu,
+  MenuItem,
+  Box,
+  CircularProgress,
+  Grid,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PackingListPalletList from './PackingListPalletList'; // Import the new component
 
-// Custom theme
-const theme = createTheme({
-  palette: {
-    background: {
-      default: '#f5f5f5', // Lighter grey background
-    },
-    text: {
-      primary: '#000000', // Black text for contrast
-    },
-  },
-});
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+  marginLeft: "auto",
+  transition: theme.transitions.create("transform", {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
-const containerStyle = {
-  backgroundColor: '#ffffff', // White background for contrast
-  borderRadius: '8px', // Slightly rounded corners
-  padding: '16px',
-  marginTop: '20px', // Add space at the top
-  marginBottom: '20px', // Add space at the bottom
-  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)', // Soft shadow for better appearance
-};
-
-const PackingListHeaderDetails = ({ id }) => {
+export default function PackingListCard({ id }) {
   const [packingList, setPackingList] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null); // State for menu
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
+  const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
-  // Fetch the packing list data based on the passed id
+  // Fetch the packing list data from the API
   useEffect(() => {
     const fetchPackingListById = async () => {
       try {
         const response = await fetch(`${process.env.REACT_APP_API_URL3}/packing_list_summary/${id}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch packing list');
+          throw new Error("Failed to fetch packing list");
         }
         const data = await response.json();
         setPackingList(data);
       } catch (error) {
-        console.error('Error fetching packing list:', error);
-        setError(true);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    if (id) {
-      fetchPackingListById();
-    }
+    fetchPackingListById();
   }, [id]);
 
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget); // Opens the menu
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null); // Closes the menu
+  };
+
+  const handleLoadPackingList = () => {
+    navigate(`/picklist/${id}`); // Navigates to /picklist/id
+  };
+
+  const handlePrintPicklist = () => {
+    window.print(); // Simple print functionality
+  };
+
   if (loading) {
-    return (
-      <Typography variant="h6" align="center" color="text.secondary">
-        Loading...
-      </Typography>
-    );
+    return <CircularProgress style={{ display: "block", margin: "20px auto" }} />;
   }
 
   if (error) {
     return (
-      <Typography variant="h6" align="center" color="error">
-        Error loading packing list. Please try again later.
+      <Typography variant="h6" color="error" align="center">
+        Error loading packing list: {error}
       </Typography>
     );
   }
 
   if (!packingList) {
     return (
-      <Typography variant="h6" align="center" color="text.secondary">
+      <Typography variant="h6" align="center">
         No packing list found.
       </Typography>
     );
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container sx={containerStyle}>
-        <Box mb={2}>
-          <Typography variant="h4" component="h1" align="center" color="text.primary" gutterBottom>
-            {packingList.name}
-          </Typography>
-        </Box>
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12} md={3}>
-            <Typography variant="body1" color="text.secondary">
-              Big: {packingList.big}
-            </Typography>
+    <Box
+      sx={{
+        backgroundColor: "#f0faff", // Much lighter, more faded blue background
+        width: "100%",
+        padding: "20px 0", // Space above and below the card
+        display: "flex",
+        justifyContent: "center", // Center the card horizontally
+        position: "sticky", // Keep the card at the top of the page
+        top: 0, // Stick the card to the top
+        zIndex: 1000, // Ensure it stays above other content
+      }}
+    >
+      <Card
+        sx={{
+          width: "100%",
+          maxWidth: 1800, // Set a max width for the card to avoid stretching too wide
+          backgroundColor: "#95d8f5", // Lighter blue background for the card itself
+          border: "1px solid grey", // Narrow grey border
+          borderRadius: "8px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Soft shadow
+        }}
+      >
+        <CardHeader
+          action={
+            <>
+              <IconButton aria-label="settings" onClick={handleMenuClick}>
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleMenuClose}
+                PaperProps={{
+                  style: {
+                    width: "200px",
+                  },
+                }}
+              >
+                <MenuItem onClick={handleLoadPackingList}>Load Packing List</MenuItem>
+                <MenuItem onClick={handlePrintPicklist}>Print Picklist</MenuItem>
+              </Menu>
+            </>
+          }
+          title={
+            <Box sx={{ textAlign: "center", width: "100%" }}>
+              <Typography variant="h2" sx={{ fontWeight: "bold" }}>
+                {packingList.name || "Unknown Packing List"}
+              </Typography>
+            </Box>
+          }
+        />
+        <CardContent>
+          <Grid container spacing={2} justifyContent="center"> {/* Increased spacing */}
+            <Grid
+              item
+              xs={9}
+              md={4}
+              sx={{
+                backgroundColor: "#d5e6ed", // Slight grey background for the grid item
+                padding: "10px",
+                borderRadius: "8px",
+              }}
+            >
+              <Typography variant="h3" color="text.secondary">
+                TOTAL PALLETS: {packingList.pallets || 0}
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={8}
+              md={3}
+              sx={{
+                backgroundColor: "#d5e6ed", // Slight grey background for the grid item
+                padding: "10px",
+                borderRadius: "8px",
+              }}
+            >
+              <Typography variant="h3" color="text.secondary">
+                SMALL: {packingList.small || 0}
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={8}
+              md={3}
+              sx={{
+                backgroundColor: "#d5e6ed", // Slight grey background for the grid item
+                padding: "10px",
+                borderRadius: "8px",
+              }}
+            >
+              <Typography variant="h3" color="text.secondary">
+                BIG: {packingList.big || 0}
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={3}>
-            <Typography variant="body1" color="text.secondary">
-              Small: {packingList.small}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Typography variant="body1" color="text.secondary">
-              Pallets: {packingList.pallets}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Typography variant="body1" color="text.secondary">
-              Weight: {packingList.weight} kg
-            </Typography>
-          </Grid>
-        </Grid>
-      </Container>
-    </ThemeProvider>
-  );
-};
 
-export default PackingListHeaderDetails;
+          <Grid container padding="30px" spacing={2} justifyContent="center"> {/* Increased spacing */}
+            <Grid
+              item
+              xs={6}
+              sx={{
+                backgroundColor: "#d5e6ed", // Slight grey background for the grid item
+                padding: "10px",
+                borderRadius: "8px",
+              }}
+            >
+              <Typography variant="h4" color="text.secondary">
+                GROSS WEIGHT FOR PACKING LIST: {packingList.weight || 0} Kg
+              </Typography>
+            </Grid>
+          </Grid>
+        </CardContent>
+        <CardActions disableSpacing>
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent sx={{ backgroundColor: "#f9f9f9" }}>
+            {/* Use the new PackingListPalletList component */}
+            <PackingListPalletList packingList={packingList} />
+          </CardContent>
+        </Collapse>
+      </Card>
+    </Box >
+  );
+}
