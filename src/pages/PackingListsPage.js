@@ -22,6 +22,7 @@ const PackingListsPage = () => {
           Packing Lists
         </Typography>
         <OpenPackingLists />
+        <PalletsNotOnList />
       </Box>
     </Container>
   );

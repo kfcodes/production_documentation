@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import PackingListPalletList from './PackingListPalletList'; // Import the new component
+import PackingListPalletList from './PackingListPalletList'; // Import the component
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -60,7 +60,7 @@ export default function PackingListCard({ id }) {
   }, [id]);
 
   const handleExpandClick = () => {
-    setExpanded(!expanded);
+    setExpanded(!expanded); // Toggle expanded state
   };
 
   const handleMenuClick = (event) => {
@@ -164,7 +164,7 @@ export default function PackingListCard({ id }) {
               }}
             >
               <Typography variant="h3" color="text.secondary">
-                TOTAL PALLETS: {packingList.pallets || 0}
+                TOTAL PALLETS: <b>{packingList.pallets || 0}</b>
               </Typography>
             </Grid>
             <Grid
@@ -178,7 +178,7 @@ export default function PackingListCard({ id }) {
               }}
             >
               <Typography variant="h3" color="text.secondary">
-                SMALL: {packingList.small || 0}
+                SMALL: <b>{packingList.small || 0}</b>
               </Typography>
             </Grid>
             <Grid
@@ -192,7 +192,7 @@ export default function PackingListCard({ id }) {
               }}
             >
               <Typography variant="h3" color="text.secondary">
-                BIG: {packingList.big || 0}
+                BIG: <b>{packingList.big || 0}</b>
               </Typography>
             </Grid>
           </Grid>
@@ -208,7 +208,7 @@ export default function PackingListCard({ id }) {
               }}
             >
               <Typography variant="h4" color="text.secondary">
-                GROSS WEIGHT FOR PACKING LIST: {packingList.weight || 0} Kg
+                GROSS WEIGHT FOR PACKING LIST: <b>{packingList.weight || 0} Kg </b>
               </Typography>
             </Grid>
           </Grid>
@@ -225,8 +225,8 @@ export default function PackingListCard({ id }) {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent sx={{ backgroundColor: "#f9f9f9" }}>
-            {/* Use the new PackingListPalletList component */}
-            <PackingListPalletList packingList={packingList} />
+            {/* Conditionally render PackingListPalletList only when expanded */}
+            {expanded && <PackingListPalletList packingList={packingList} />}
           </CardContent>
         </Collapse>
       </Card>
