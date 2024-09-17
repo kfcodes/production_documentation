@@ -57,7 +57,7 @@ function FullMps() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   };
 

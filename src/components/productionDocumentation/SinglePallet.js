@@ -18,7 +18,7 @@ function SinglePallet() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 

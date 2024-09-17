@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import PackingListPalletList from './PackingListPalletList'; // Import the component
+import PackingListPalletList from "./PackingListPalletList"; // Import the component
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -43,7 +43,9 @@ export default function PackingListCard({ id }) {
   useEffect(() => {
     const fetchPackingListById = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL3}/packing_list_summary/${id}`);
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL3}/packing_list_summary/${id}`,
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch packing list");
         }
@@ -80,7 +82,9 @@ export default function PackingListCard({ id }) {
   };
 
   if (loading) {
-    return <CircularProgress style={{ display: "block", margin: "20px auto" }} />;
+    return (
+      <CircularProgress style={{ display: "block", margin: "20px auto" }} />
+    );
   }
 
   if (error) {
@@ -138,8 +142,12 @@ export default function PackingListCard({ id }) {
                   },
                 }}
               >
-                <MenuItem onClick={handleLoadPackingList}>Load Packing List</MenuItem>
-                <MenuItem onClick={handlePrintPicklist}>Print Picklist</MenuItem>
+                <MenuItem onClick={handleLoadPackingList}>
+                  Load Packing List
+                </MenuItem>
+                <MenuItem onClick={handlePrintPicklist}>
+                  Print Picklist
+                </MenuItem>
               </Menu>
             </>
           }
@@ -152,7 +160,9 @@ export default function PackingListCard({ id }) {
           }
         />
         <CardContent>
-          <Grid container spacing={2} justifyContent="center"> {/* Increased spacing */}
+          <Grid container spacing={2} justifyContent="center">
+            {" "}
+            {/* Increased spacing */}
             <Grid
               item
               xs={9}
@@ -197,7 +207,9 @@ export default function PackingListCard({ id }) {
             </Grid>
           </Grid>
 
-          <Grid container padding="30px" spacing={2} justifyContent="center"> {/* Increased spacing */}
+          <Grid container padding="30px" spacing={2} justifyContent="center">
+            {" "}
+            {/* Increased spacing */}
             <Grid
               item
               xs={6}
@@ -208,7 +220,8 @@ export default function PackingListCard({ id }) {
               }}
             >
               <Typography variant="h4" color="text.secondary">
-                GROSS WEIGHT FOR PACKING LIST: <b>{packingList.weight || 0} Kg </b>
+                GROSS WEIGHT FOR PACKING LIST:{" "}
+                <b>{packingList.weight || 0} Kg </b>
               </Typography>
             </Grid>
           </Grid>
@@ -230,6 +243,6 @@ export default function PackingListCard({ id }) {
           </CardContent>
         </Collapse>
       </Card>
-    </Box >
+    </Box>
   );
 }

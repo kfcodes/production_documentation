@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef } from "react"; import {
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import {
   Grid,
   TextField,
   Box,
@@ -19,8 +20,12 @@ export default function PalletItem({
   onDelete,
   submitLoading,
 }) {
-  const [productCode, setProductCode] = useState(product?.pallet_item_product_id || "");
-  const [productDescription, setProductDescription] = useState(product?.product_description || "NOT SAVED!!");
+  const [productCode, setProductCode] = useState(
+    product?.pallet_item_product_id || "",
+  );
+  const [productDescription, setProductDescription] = useState(
+    product?.product_description || "NOT SAVED!!",
+  );
   const [bbe, setBbe] = useState(product?.bbe || "");
   const [lot, setLot] = useState(product?.lot || "");
   const [batch, setBatch] = useState(product?.batch || "");
@@ -33,7 +38,11 @@ export default function PalletItem({
   // Reset productDescription on every render
   useEffect(() => {
     setProductDescription(product?.product_description || "NOT SAVED!!");
-    if (!product?.product_description || product?.product_description === "" || product?.product_description === "NOT SAVED!!") {
+    if (
+      !product?.product_description ||
+      product?.product_description === "" ||
+      product?.product_description === "NOT SAVED!!"
+    ) {
       setIsDirty(true);
     }
   }, [product?.product_description]);
@@ -63,7 +72,7 @@ export default function PalletItem({
         setSubmitError(error.message);
       }
     }, 2000),
-    [onSave]
+    [onSave],
   );
 
   useEffect(() => {
@@ -110,7 +119,7 @@ export default function PalletItem({
       setter(value);
       setIsDirty(true); // Mark the form as dirty (unsaved changes)
     },
-    []
+    [],
   );
 
   const isQuantityValid = quantity && !isNaN(quantity) && Number(quantity) > 0;
@@ -155,9 +164,9 @@ export default function PalletItem({
         borderRadius: 2,
         boxShadow: 1,
         backgroundColor: isDirty ? "#FF0026" : "#F7F5B6", // Slightly darker grey background when not dirty
-        borderColor: '#9C9894',
-        borderStyle: 'solid',
-        borderWidth: '.1px'
+        borderColor: "#9C9894",
+        borderStyle: "solid",
+        borderWidth: ".1px",
       }}
     >
       <Typography
@@ -176,7 +185,7 @@ export default function PalletItem({
         container
         spacing={2}
         justifyContent="center" // Center the fields horizontally
-        alignItems="center"  // Align the fields vertically if needed
+        alignItems="center" // Align the fields vertically if needed
       >
         <Grid item sm={4} md={2}>
           <TextField

@@ -36,7 +36,7 @@ export default function SavePalletDetails(pallet, item, state) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(palletItemData),
-      }
+      },
     ).then((result) => {
       updateState(result);
     });

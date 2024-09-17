@@ -14,9 +14,15 @@ const PackingListPalletList = ({ packingListId }) => {
     const fetchData = async () => {
       try {
         // Fetch pallets, pallet items, and packing lists data
-        const palletsResponse = await fetch(`${process.env.REACT_APP_API_URL2}/new_pallets/`);
-        const palletItemsResponse = await fetch(`${process.env.REACT_APP_API_URL2}/new_pallet_items/`);
-        const packingListsResponse = await fetch(`${process.env.REACT_APP_API_URL3}/open_packing_lists/`);
+        const palletsResponse = await fetch(
+          `${process.env.REACT_APP_API_URL2}/new_pallets/`,
+        );
+        const palletItemsResponse = await fetch(
+          `${process.env.REACT_APP_API_URL2}/new_pallet_items/`,
+        );
+        const packingListsResponse = await fetch(
+          `${process.env.REACT_APP_API_URL3}/open_packing_lists/`,
+        );
 
         const palletsData = await palletsResponse.json();
         const palletItemsData = await palletItemsResponse.json();
@@ -36,13 +42,22 @@ const PackingListPalletList = ({ packingListId }) => {
   }, []);
 
   const handlePackingListSelection = (palletId, packingListId) => {
-    console.log(`Pallet ID: ${palletId} assigned to packing list: ${packingListId}`);
+    console.log(
+      `Pallet ID: ${palletId} assigned to packing list: ${packingListId}`,
+    );
     // Handle the logic for packing list selection here
   };
 
   if (loading) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <CircularProgress />
       </Box>
     );

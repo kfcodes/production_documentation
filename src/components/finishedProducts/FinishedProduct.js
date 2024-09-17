@@ -99,15 +99,18 @@ export default function FinsishedProduct() {
 
   const onPrintLabels = () => {
     let newnumber = { qty: qty, qtyPerBox: qtyPerBox, exp: exp };
-    fetch(`${process.env.REACT_APP_API_URL3}/print_large_product_label/${useId}`, {
-      method: "post",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+    fetch(
+      `${process.env.REACT_APP_API_URL3}/print_large_product_label/${useId}`,
+      {
+        method: "post",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newnumber),
       },
-      body: JSON.stringify(newnumber),
-    })
+    )
       .then((res) => res.json())
       .then((result) => {
         console.log(result);

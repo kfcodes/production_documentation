@@ -52,7 +52,7 @@ export default function SinglePallet() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 

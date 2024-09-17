@@ -18,7 +18,7 @@ export default function CreateNewPalletItem({ palletId, reload }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(palletItemData),
-        }
+        },
       );
 
       if (!response.ok) {

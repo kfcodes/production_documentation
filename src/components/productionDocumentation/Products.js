@@ -12,7 +12,7 @@ function ProductList() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 

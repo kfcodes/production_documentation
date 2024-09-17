@@ -13,7 +13,7 @@ function BrandList() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 

@@ -33,7 +33,7 @@ function LatestPallets() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 

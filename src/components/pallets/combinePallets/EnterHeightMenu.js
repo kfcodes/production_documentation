@@ -20,14 +20,14 @@ const style = {
   p: 4,
 };
 
-const EnterPalletHeightMenu = forwardRef((props, _ref, get ) => {
+const EnterPalletHeightMenu = forwardRef((props, _ref, get) => {
   const [height, setHeight] = useState(0);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () =>{
+  const handleClose = () => {
     setOpen(false);
-  }
-// get();
+  };
+  // get();
 
   const onSubmit = () => {
     // console.log(height)
@@ -79,6 +79,6 @@ const EnterPalletHeightMenu = forwardRef((props, _ref, get ) => {
       </Modal>
     </>
   );
-})
+});
 
 export default React.memo(EnterPalletHeightMenu);

@@ -16,7 +16,7 @@ function PalletList() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 
@@ -29,7 +29,7 @@ function PalletList() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 

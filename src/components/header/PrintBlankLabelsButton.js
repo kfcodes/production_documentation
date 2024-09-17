@@ -19,7 +19,7 @@ export default function PrintTemporaryLabels() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   };
 
