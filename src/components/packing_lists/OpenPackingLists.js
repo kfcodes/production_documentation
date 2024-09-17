@@ -18,9 +18,9 @@ const theme = createTheme({
 const containerStyle = {
   backgroundColor: '#f5f5f5', // Slightly lighter background for the container
   borderRadius: '16px', // Rounded corners for the container
-  padding: '32px 16px',
-  marginTop: '20px', // Add some space at the top
-  marginBottom: '20px', // Add some space at the bottom
+  padding: '16px 16px',
+  marginTop: '5px', // Add some space at the top
+  marginBottom: '5px', // Add some space at the bottom
 };
 
 const cardStyle = {
@@ -104,16 +104,16 @@ const PackingListCards = () => {
                   </Typography>
                   <hr />
                   <Typography variant="body1">
-                    Big: {list.big}
+                    Gross Weight: <b>{list.weight}</b> Kg
                   </Typography>
                   <Typography variant="body1">
-                    Small: {list.small}
+                    Total Pallets: <b>{list.pallets}</b>
                   </Typography>
                   <Typography variant="body1">
-                    Pallets: {list.pallets}
+                    Big Pallets: {list.big}
                   </Typography>
                   <Typography variant="body1">
-                    Weight: {list.weight} kg
+                    Small Pallets: {list.small}
                   </Typography>
                 </CardContent>
               </Card>
