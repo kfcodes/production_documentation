@@ -41,7 +41,10 @@ export default function SinglePalletPage() {
         const updatedItems = await response.json();
         setPalletItems(updatedItems);
 
-        console.log("Pallet items successfully fetched and updated:", updatedItems);
+        console.log(
+          "Pallet items successfully fetched and updated:",
+          updatedItems,
+        );
       } catch (error) {
         console.error("Error fetching pallet items:", error);
       }
@@ -107,9 +110,11 @@ export default function SinglePalletPage() {
   );
 
   // Condition to show PrintLabelButton (valid values for height, weight, and empty weight)
-  const canShowPrintLabelButton = palletState.height && palletState.weight && palletState.emptyweight;
+  const canShowPrintLabelButton =
+    palletState.height && palletState.weight && palletState.emptyweight;
 
-  if (detailsLoading || itemsLoading || submitLoading) return <div>Loading...</div>;
+  if (detailsLoading || itemsLoading || submitLoading)
+    return <div>Loading...</div>;
   if (detailsError) return <div>Error loading pallet details</div>;
   if (itemsError) return <div>Error loading pallet items</div>;
   if (submitError) return <div>Error saving pallet data</div>;
