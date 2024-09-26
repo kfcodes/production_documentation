@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import {
   Card,
   CardContent,
@@ -17,7 +17,6 @@ import {
   TableBody,
   Paper,
 } from "@mui/material";
-import Inventory2Icon from "@mui/icons-material/Inventory2";
 import HeightIcon from "@mui/icons-material/Height";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
@@ -25,52 +24,15 @@ const PalletPackingListCard = ({
   pallet,
   packingLists,
   palletItems,
-  handlePackingListSelection,
+  selectedPackingList,
+  onSelectPackingList,
 }) => {
   const { pallet_id, pallet_type_letter, weight, height } = pallet;
-  const [selectedPackingList, setSelectedPackingList] = useState("");
 
-  const filteredItems = useMemo(() => {
-    return palletItems.filter(
-      (item) => item.pallet_item_pallet_id === pallet_id,
-    );
-  }, [palletItems, pallet_id]);
-
-  const handleSelectChange = async (event) => {
+  // Handle dropdown selection
+  const handleSelectChange = (event) => {
     const packingListId = event.target.value;
-    setSelectedPackingList(packingListId);
-
-    try {
-      // Send selected packingListId and palletId to the API
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL2}/set_pallet_packing_list/`,
-        {
-          method: "put",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            pallet_id: pallet_id,
-            packing_list_id: packingListId,
-          }),
-        },
-      );
-
-      if (response.ok) {
-        console.log(
-          `Pallet ID: ${pallet_id} successfully assigned to Packing List ID: ${packingListId}`,
-        );
-        // Optionally, trigger a callback or state update
-        handlePackingListSelection(pallet_id, packingListId);
-      } else {
-        console.error("Failed to assign pallet to packing list.");
-      }
-    } catch (error) {
-      console.error(
-        "Error occurred while assigning pallet to packing list:",
-        error,
-      );
-    }
+    onSelectPackingList(pallet_id, packingListId); // Call the parent function to update the pallet
   };
 
   return (
@@ -126,17 +88,23 @@ const PalletPackingListCard = ({
               },
             }}
           >
+            <MenuItem value="" disabled>
+              Select Packing List
+            </MenuItem>
+            {/* Map over packingLists to show names */}
             {packingLists.map((list) => (
               <MenuItem
-                key={list.packing_list_id}
-                value={list.packing_list_id}
+                key={list.id}
+                value={list.id}
                 sx={{ textAlign: "center" }}
               >
-                {list.packing_list_name}
+                {list.name}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
+
+        {/* Pallet information */}
         <Box
           sx={{
             display: "flex",
@@ -193,6 +161,8 @@ const PalletPackingListCard = ({
             </Grid>
           </Grid>
         </Box>
+
+        {/* Table of pallet items */}
         <TableContainer component={Paper} sx={{ mt: 2 }}>
           <Table size="small" aria-label="pallet items table">
             <TableHead>
@@ -212,7 +182,7 @@ const PalletPackingListCard = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredItems.map(
+              {palletItems.map(
                 ({ id, product_description, lot, bbe, quantity }) => (
                   <TableRow key={id}>
                     <TableCell component="th" scope="row">

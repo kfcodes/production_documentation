@@ -14,6 +14,7 @@ import {
   Box,
   CircularProgress,
   Grid,
+  Tooltip,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -32,7 +33,7 @@ const ExpandMore = styled((props) => {
 
 export default function PackingListCard({ id }) {
   const [packingList, setPackingList] = useState(null);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(false); // Initially set to false to keep collapsed
   const [anchorEl, setAnchorEl] = useState(null); // State for menu
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
@@ -129,9 +130,11 @@ export default function PackingListCard({ id }) {
         <CardHeader
           action={
             <>
-              <IconButton aria-label="settings" onClick={handleMenuClick}>
-                <MoreVertIcon />
-              </IconButton>
+              <Tooltip title="More options" arrow>
+                <IconButton aria-label="settings" onClick={handleMenuClick}>
+                  <MoreVertIcon />
+                </IconButton>
+              </Tooltip>
               <Menu
                 anchorEl={anchorEl}
                 open={open}
@@ -161,8 +164,6 @@ export default function PackingListCard({ id }) {
         />
         <CardContent>
           <Grid container spacing={2} justifyContent="center">
-            {" "}
-            {/* Increased spacing */}
             <Grid
               item
               xs={9}
@@ -207,9 +208,7 @@ export default function PackingListCard({ id }) {
             </Grid>
           </Grid>
 
-          <Grid container padding="30px" spacing={2} justifyContent="center">
-            {" "}
-            {/* Increased spacing */}
+          <Grid container padding="20px" spacing={2} justifyContent="center">
             <Grid
               item
               xs={6}
@@ -227,19 +226,20 @@ export default function PackingListCard({ id }) {
           </Grid>
         </CardContent>
         <CardActions disableSpacing>
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
+          <Tooltip title="Expand to view pallets" arrow>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </Tooltip>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent sx={{ backgroundColor: "#f9f9f9" }}>
-            {/* Conditionally render PackingListPalletList only when expanded */}
-            {expanded && <PackingListPalletList packingList={packingList} />}
+            <PackingListPalletList id={id} />
           </CardContent>
         </Collapse>
       </Card>
