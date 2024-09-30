@@ -21,15 +21,21 @@ import HeightIcon from "@mui/icons-material/Height";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
 const PalletPackingListCard = ({
-  pallet,
-  packingLists,
-  palletItems,
-  selectedPackingList,
-  onSelectPackingList,
+  pallet,           // The pallet object from the API
+  packingLists,     // Available packing lists for the dropdown
+  palletItems,      // Filtered items associated with the pallet
+  selectedPackingList,   // Selected packing list
+  onSelectPackingList,   // Callback to select a packing list
 }) => {
-  const { pallet_id, pallet_type_letter, weight, height } = pallet;
+  const {
+    pallet_id,
+    pallet_type_letter,
+    weight,
+    height,
+    pallet_name,
+  } = pallet; // Destructure relevant fields from the pallet object
 
-  // Handle dropdown selection
+  // Handle dropdown selection for packing lists
   const handleSelectChange = (event) => {
     const packingListId = event.target.value;
     onSelectPackingList(pallet_id, packingListId); // Call the parent function to update the pallet
@@ -69,7 +75,7 @@ const PalletPackingListCard = ({
           </InputLabel>
           <Select
             labelId={`select-packing-list-${pallet_id}`}
-            value={selectedPackingList}
+            value={selectedPackingList || ""}
             onChange={handleSelectChange}
             sx={{
               backgroundColor: "#ffffff",
@@ -128,7 +134,7 @@ const PalletPackingListCard = ({
               }}
             >
               <Typography variant="h6" component="div" sx={{ color: "#333" }}>
-                {pallet_type_letter} - {pallet_id}
+                {pallet_type_letter} - {pallet_name} ({pallet_id})
               </Typography>
             </Grid>
             <Grid
@@ -182,6 +188,7 @@ const PalletPackingListCard = ({
               </TableRow>
             </TableHead>
             <TableBody>
+              {/* Map over palletItems to display each item */}
               {palletItems.map(
                 ({ id, product_description, lot, bbe, quantity }) => (
                   <TableRow key={id}>
