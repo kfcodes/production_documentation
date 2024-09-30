@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import CreateNewPalletButton from "../components/pallets/buttons/CreateNewPalletButton";
+import ProductionReview from "../components/packing_lists/PackingListReviewTable";
 
 // Corrected import path for PalletCard
 const PalletCard = React.lazy(() =>
@@ -41,6 +42,7 @@ function PalletList() {
 
   return (
     <Box sx={{ p: 2, width: "100%", bgcolor: "#D0D0D0" }}>
+      <ProductionReview />
       {" "}
       {/* Light grey background */}
       <Container sx={{ mb: 1 }}>
