@@ -66,19 +66,30 @@ const ProductionReview = () => {
     );
   }
 
-  // Split the data into the first 20 rows and the rest
+  // Split the data into the first 10 rows and the rest
   const initialData = data.slice(0, 10);
-  const remainingData = data.slice(40);
+  const remainingData = data.slice(10);
 
   return (
     <div>
-      <Typography variant="h4" gutterBottom>
-        Production Review
+      <Typography align="center" variant="h4" gutterBottom>
+        <b>Production Review</b>
       </Typography>
-      <TableContainer component={Paper}>
+      <TableContainer
+        component={Paper}
+        sx={{
+          width: '85%',
+          margin: '0 auto', // Center the table on the page
+          boxShadow: 3,
+        }}
+      >
         <Table>
           <TableHead>
-            <TableRow>
+            <TableRow
+              sx={{
+                backgroundColor: '#BBDEFB'
+              }}
+            >
               <TableCell><strong>Product ID</strong></TableCell>
               <TableCell><strong>Description</strong></TableCell>
               <TableCell><strong>Lot</strong></TableCell>
@@ -87,11 +98,15 @@ const ProductionReview = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* Always render the first 20 rows */}
-            {initialData.map((item) => (
-              <TableRow key={item.product_id}>
+            {initialData.map((item, index) => (
+              <TableRow
+                key={item.product_id}
+                sx={{
+                  backgroundColor: index % 2 === 0 ? '#E3F2FD' : '#BBDEFB', // Light blue and darker blue stripes
+                }}
+              >
                 <TableCell>{item.product_id}</TableCell>
-                <TableCell>{item.product_description}</TableCell>
+                <TableCell><b>{item.product_description}</b></TableCell>
                 <TableCell>{item.lot}</TableCell>
                 <TableCell>{item.batch}</TableCell>
                 <TableCell>{item.total}</TableCell>
@@ -99,13 +114,16 @@ const ProductionReview = () => {
             ))}
           </TableBody>
         </Table>
-
-        {/* Render the remaining rows only when expanded */}
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <Table>
             <TableBody>
-              {remainingData.map((item) => (
-                <TableRow key={item.product_id}>
+              {remainingData.map((item, index) => (
+                <TableRow
+                  key={item.product_id}
+                  sx={{
+                    backgroundColor: (index % 2 === 0 ? '#E3F2FD' : '#BBDEFB'), // Continue the striped pattern
+                  }}
+                >
                   <TableCell>{item.product_id}</TableCell>
                   <TableCell>{item.product_description}</TableCell>
                   <TableCell>{item.lot}</TableCell>
@@ -117,9 +135,7 @@ const ProductionReview = () => {
           </Table>
         </Collapse>
       </TableContainer>
-
-      {/* Show expand/collapse button only if there are more than 20 rows */}
-      {data.length > 20 && (
+      {data.length > 10 && (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
           <IconButton onClick={handleExpandClick}>
             {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
