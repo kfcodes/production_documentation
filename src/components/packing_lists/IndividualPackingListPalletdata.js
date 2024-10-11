@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"; // To extract URL parameters
 import { Box, CircularProgress, Grid, Typography } from "@mui/material";
-import PalletPackingListCard from "./PalletInfoCardWithPackingList"; // Import the card component
+import PalletPackingListCard from "./PalletCardInfoPackingList"; // Import the card component
 
 // PackingListPalletList Component
 const PackingListPalletList = () => {
