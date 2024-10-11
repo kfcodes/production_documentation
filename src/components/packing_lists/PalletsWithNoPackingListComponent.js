@@ -6,7 +6,7 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
-import PalletPackingListCard from "./PalletPackingListCard";
+import PalletPackingListCard from "./PalletInfoCardWithPackingList";
 
 function PalletList() {
   const [pallets, setPallets] = useState([]);
