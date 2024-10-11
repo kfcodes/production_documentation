@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import {
   Card,
   CardContent,
@@ -9,31 +9,67 @@ import {
   Box,
   Grid,
   Typography,
-  TableContainer,
+  CircularProgress,
+  Alert,
   Table,
+  TableBody,
+  TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
   Paper,
 } from "@mui/material";
-import HeightIcon from "@mui/icons-material/Height";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
-const PalletPackingListCard = ({
-  pallet, // The pallet object from the API
-  packingLists, // Available packing lists for the dropdown
-  palletItems, // Filtered items associated with the pallet
-  selectedPackingList, // Selected packing list
-  onSelectPackingList, // Callback to select a packing list
-}) => {
-  const { pallet_id, pallet_type_letter, weight, height, pallet_name } = pallet; // Destructure relevant fields from the pallet object
+const PalletPackingListCard = ({ pallet, palletItems, packingLists, onPackingListUpdate }) => {
+  const { pallet_id, pallet_type_letter, weight, height, pallet_name, assigned_packing_list } = pallet;
 
-  // Handle dropdown selection for packing lists
-  const handleSelectChange = (event) => {
-    const packingListId = event.target.value;
-    onSelectPackingList(pallet_id, packingListId); // Call the parent function to update the pallet
-  };
+  // State for handling selected packing list and errors
+  const [selectedPackingList, setSelectedPackingList] = useState(assigned_packing_list || "");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Handle selection of a packing list for a pallet
+  const handlePackingListSelection = useCallback(
+    async (event) => {
+      const packingListId = event.target.value;
+      setSelectedPackingList(packingListId);
+      setLoading(true);
+      setError(null); // Clear previous errors
+
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_URL2}/set_pallet_packing_list/`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              pallet_id: pallet_id,
+              packing_list_id: packingListId,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to update pallet");
+        }
+
+        console.log(
+          `Pallet ID: ${pallet_id} successfully assigned to packing list: ${packingListId}`
+        );
+
+        // Call the parent callback to remove this pallet from the list
+        onPackingListUpdate(pallet_id);
+      } catch (err) {
+        setError("Error updating pallet. Please try again.");
+        console.error("Error updating pallet:", err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [pallet_id, onPackingListUpdate]
+  );
 
   return (
     <Card
@@ -55,6 +91,12 @@ const PalletPackingListCard = ({
       }}
     >
       <CardContent sx={{ padding: 2 }}>
+        {error && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {error}
+          </Alert>
+        )}
+
         {/* Dropdown menu for selecting packing list */}
         <FormControl fullWidth sx={{ mb: 4 }}>
           <InputLabel
@@ -70,7 +112,7 @@ const PalletPackingListCard = ({
           <Select
             labelId={`select-packing-list-${pallet_id}`}
             value={selectedPackingList || ""}
-            onChange={handleSelectChange}
+            onChange={handlePackingListSelection}
             sx={{
               backgroundColor: "#ffffff",
               color: "#333",
@@ -79,25 +121,13 @@ const PalletPackingListCard = ({
                 textAlign: "center",
               },
             }}
-            MenuProps={{
-              PaperProps: {
-                sx: {
-                  backgroundColor: "#ffffff",
-                  color: "#333",
-                },
-              },
-            }}
+            disabled={loading}
           >
             <MenuItem value="" disabled>
               Select Packing List
             </MenuItem>
-            {/* Map over packingLists to show names */}
             {packingLists.map((list) => (
-              <MenuItem
-                key={list.id}
-                value={list.id}
-                sx={{ textAlign: "center" }}
-              >
+              <MenuItem key={list.id} value={list.id}>
                 {list.name}
               </MenuItem>
             ))}
@@ -118,44 +148,18 @@ const PalletPackingListCard = ({
             alignItems="center"
             justifyContent="center"
           >
-            <Grid
-              item
-              xs={3}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography variant="h6" component="div" sx={{ color: "#333" }}>
+            <Grid item xs={3}>
+              <Typography variant="h6" sx={{ color: "#333" }}>
                 {pallet_type_letter} - {pallet_name} ({pallet_id})
               </Typography>
             </Grid>
-            <Grid
-              item
-              xs={3}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <HeightIcon sx={{ marginRight: 1, color: "#757575" }} />
-              <Typography variant="h6" component="div" sx={{ color: "#333" }}>
+            <Grid item xs={3}>
+              <Typography variant="h6" sx={{ color: "#333" }}>
                 Height: {height} cm
               </Typography>
             </Grid>
-            <Grid
-              item
-              xs={3}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <FitnessCenterIcon sx={{ marginRight: 1, color: "#757575" }} />
-              <Typography variant="h6" component="div" sx={{ color: "#333" }}>
+            <Grid item xs={3}>
+              <Typography variant="h6" sx={{ color: "#333" }}>
                 Weight: {weight} Kg
               </Typography>
             </Grid>
@@ -182,19 +186,14 @@ const PalletPackingListCard = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* Map over palletItems to display each item */}
-              {palletItems.map(
-                ({ id, product_description, lot, bbe, quantity }) => (
-                  <TableRow key={id}>
-                    <TableCell component="th" scope="row">
-                      {product_description}
-                    </TableCell>
-                    <TableCell align="right">{lot}</TableCell>
-                    <TableCell align="right">{bbe}</TableCell>
-                    <TableCell align="right">{quantity}</TableCell>
-                  </TableRow>
-                ),
-              )}
+              {palletItems.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.product_description}</TableCell>
+                  <TableCell align="right">{item.lot}</TableCell>
+                  <TableCell align="right">{item.bbe}</TableCell>
+                  <TableCell align="right">{item.quantity}</TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>

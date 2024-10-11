@@ -1,37 +1,25 @@
 import React, { useEffect, useState, useCallback } from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  CircularProgress,
-  Alert,
-} from "@mui/material";
-import PalletPackingListCard from "./PalletInfoCardWithPackingList";
+import { Box, Container, Typography, CircularProgress, Alert } from "@mui/material";
+import PalletPackingListCard from "./PalletInfoCardWithPackingList"; // Child component
 
 function PalletList() {
   const [pallets, setPallets] = useState([]);
   const [palletItems, setPalletItems] = useState([]);
-  const [packingLists, setPackingLists] = useState([]);
+  const [packingLists, setPackingLists] = useState([]); // Packing list names
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedPackingLists, setSelectedPackingLists] = useState({}); // Store selected packing lists for each pallet
 
-  // Fetch data for pallets, pallet items, and packing lists
+  // Fetch data for pallets, pallet items, and packing list names
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const [palletsResponse, palletItemsResponse, packingListsResponse] =
-        await Promise.all([
-          fetch(`${process.env.REACT_APP_API_URL2}/new_pallets/`),
-          fetch(`${process.env.REACT_APP_API_URL2}/new_pallet_items/`),
-          fetch(`${process.env.REACT_APP_API_URL3}/open_packing_list_names/`),
-        ]);
+      const [palletsResponse, palletItemsResponse, packingListsResponse] = await Promise.all([
+        fetch(`${process.env.REACT_APP_API_URL2}/new_pallets/`),
+        fetch(`${process.env.REACT_APP_API_URL2}/new_pallet_items/`),
+        fetch(`${process.env.REACT_APP_API_URL3}/open_packing_list_names/`), // Packing list names
+      ]);
 
-      if (
-        !palletsResponse.ok ||
-        !palletItemsResponse.ok ||
-        !packingListsResponse.ok
-      ) {
+      if (!palletsResponse.ok || !palletItemsResponse.ok || !packingListsResponse.ok) {
         throw new Error("Failed to fetch data");
       }
 
@@ -41,7 +29,7 @@ function PalletList() {
 
       setPallets(palletsData);
       setPalletItems(palletItemsData);
-      setPackingLists(packingListsData); // Store the full packing list data
+      setPackingLists(packingListsData); // Store the packing list names
     } catch (err) {
       setError("Error fetching data. Please try again later.");
       console.error("Error fetching data:", err);
@@ -54,54 +42,14 @@ function PalletList() {
     fetchData();
   }, [fetchData]);
 
-  // Function to handle selection of packing list for a pallet
-  const handlePackingListSelection = useCallback(
-    async (palletId, packingListId) => {
-      console.log(`Packing List ID selected: ${packingListId}`);
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL2}/set_pallet_packing_list/`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              pallet_id: palletId,
-              packing_list_id: packingListId,
-            }),
-          },
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to update pallet");
-        }
-
-        setSelectedPackingLists((prev) => ({
-          ...prev,
-          [palletId]: packingListId,
-        }));
-
-        // Update the pallet list after successful selection
-        setPallets((prevPallets) =>
-          prevPallets.filter((pallet) => pallet.pallet_id !== palletId),
-        );
-        console.log(
-          `Pallet ID: ${palletId} assigned to packing list: ${packingListId}`,
-        );
-      } catch (err) {
-        setError("Error updating pallet. Please try again.");
-        console.error("Error updating pallet:", err);
-      }
-    },
-    [],
-  );
-
   // Filter items belonging to the current pallet
   const getFilteredItemsForPallet = (palletId) => {
-    return palletItems.filter(
-      (item) => item.pallet_item_pallet_id === palletId,
-    );
+    return palletItems.filter((item) => item.pallet_item_pallet_id === palletId);
+  };
+
+  // Callback to remove pallet from the list after successful packing list update
+  const handlePackingListUpdate = (palletId) => {
+    setPallets((prevPallets) => prevPallets.filter((pallet) => pallet.pallet_id !== palletId));
   };
 
   // Loading state: show spinner if data is loading
@@ -168,11 +116,10 @@ function PalletList() {
         {pallets.map((pallet) => (
           <PalletPackingListCard
             key={pallet.pallet_id}
-            pallet={pallet}
+            pallet={pallet} // Pass pallet data (including assigned packing list)
             palletItems={getFilteredItemsForPallet(pallet.pallet_id)} // Pass filtered items
-            packingLists={packingLists} // Pass full packing list data
-            selectedPackingList={selectedPackingLists[pallet.pallet_id] || ""} // Pass selected packing list
-            onSelectPackingList={handlePackingListSelection} // Pass the selection handler
+            packingLists={packingLists} // Pass available packing list names
+            onPackingListUpdate={handlePackingListUpdate} // Callback to remove pallet on successful update
           />
         ))}
       </Box>
