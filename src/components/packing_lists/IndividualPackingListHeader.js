@@ -1,100 +1,81 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import {
+  Box,
   Card,
   CardHeader,
   CardContent,
-  Typography,
-  Box,
-  CircularProgress,
   Grid,
+  Typography,
+  CircularProgress,
+  Alert,
 } from "@mui/material";
 
-export default function PackingListCard({ id }) {
-  const [packingList, setPackingList] = useState(null);
-  const [pallets, setPallets] = useState([]); // State for pallets
-  const [loading, setLoading] = useState(true); // Loading state for both packing list and pallets
-  const [error, setError] = useState(null); // Error state for both packing list and pallets
-  const [loadingPallets, setLoadingPallets] = useState(true); // Separate loading for pallets
-  const [palletError, setPalletError] = useState(null); // Separate error for pallets
-  const navigate = useNavigate();
+const PackingListHeader = ({ id }) => {
+  const [packingList, setPackingList] = useState(null); // State to store the packing list data
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
 
-  // Fetch the packing list data and pallets data from the API
+  // Fetch the packing list summary from the API
   useEffect(() => {
-    const fetchPackingListById = async () => {
+    const fetchPackingListSummary = async () => {
+      setLoading(true);
+      setError(null); // Reset error state
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL3}/packing_list_summary/${id}`,
+          `${process.env.REACT_APP_API_URL3}/packing_list_summary/${id}` // API call
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch packing list");
+          throw new Error("Failed to fetch packing list summary");
         }
         const data = await response.json();
-        setPackingList(data);
+        setPackingList(data); // Set the packing list data
       } catch (error) {
-        setError(error.message);
+        setError(error.message); // Set error message
       } finally {
-        setLoading(false);
+        setLoading(false); // Turn off loading state
       }
     };
 
-    const fetchPalletsById = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL3}/packing_list_pallets/${id}`, // Assuming this endpoint exists for pallets
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch pallets");
-        }
-        const palletData = await response.json();
-        setPallets(palletData);
-      } catch (error) {
-        setPalletError(error.message);
-      } finally {
-        setLoadingPallets(false);
-      }
-    };
+    fetchPackingListSummary(); // Call the async function
+  }, [id]); // Re-run effect if the `id` changes
 
-    fetchPackingListById();
-    fetchPalletsById();
-  }, [id]);
-
-  const packingDetails = useMemo(
-    () => ({
-      pallets: packingList?.pallets || 0,
-      small: packingList?.small || 0,
-      big: packingList?.big || 0,
-      weight: packingList?.weight || 0,
-    }),
-    [packingList],
-  );
-
+  // Show loading spinner if data is being fetched
   if (loading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center">
         <CircularProgress />
         <Typography variant="body1" style={{ marginLeft: "10px" }}>
-          Loading packing list...
+          Loading packing list summary...
         </Typography>
       </Box>
     );
   }
 
+  // Show error message if there is an error
   if (error) {
     return (
-      <Typography variant="h6" color="error" align="center">
-        Error loading packing list: {error}
+      <Alert severity="error" sx={{ marginTop: "20px" }}>
+        Error: {error}
+      </Alert>
+    );
+  }
+
+  // Fallback in case no packing list is found
+  if (!packingList) {
+    return (
+      <Typography variant="h6" align="center" sx={{ marginTop: "20px" }}>
+        No packing list data available.
       </Typography>
     );
   }
 
-  if (!packingList) {
-    return (
-      <Typography variant="h6" align="center">
-        No packing list found.
-      </Typography>
-    );
-  }
+  // The packing details
+  const packingDetails = {
+    pallets: packingList.pallets || 0,
+    small: packingList.small || 0,
+    big: packingList.big || 0,
+    weight: packingList.weight || 0,
+  };
 
   return (
     <Box
@@ -132,43 +113,43 @@ export default function PackingListCard({ id }) {
           <Grid container spacing={2} justifyContent="center">
             <Grid
               item
-              xs={9}
-              md={4}
+              xs={3}
               sx={{
                 backgroundColor: "#d5e6ed", // Slight grey background
                 padding: "10px",
                 borderRadius: "8px",
+                textAlign: "center",
               }}
             >
-              <Typography variant="h3" color="text.secondary">
+              <Typography variant="h4" color="text.secondary">
                 TOTAL PALLETS: <b>{packingDetails.pallets}</b>
               </Typography>
             </Grid>
             <Grid
               item
-              xs={8}
-              md={3}
+              xs={3}
               sx={{
                 backgroundColor: "#d5e6ed", // Slight grey background
                 padding: "10px",
                 borderRadius: "8px",
+                textAlign: "center",
               }}
             >
-              <Typography variant="h3" color="text.secondary">
+              <Typography variant="h4" color="text.secondary">
                 SMALL: <b>{packingDetails.small}</b>
               </Typography>
             </Grid>
             <Grid
               item
-              xs={8}
-              md={3}
+              xs={3}
               sx={{
                 backgroundColor: "#d5e6ed", // Slight grey background
                 padding: "10px",
                 borderRadius: "8px",
+                textAlign: "center",
               }}
             >
-              <Typography variant="h3" color="text.secondary">
+              <Typography variant="h4" color="text.secondary">
                 BIG: <b>{packingDetails.big}</b>
               </Typography>
             </Grid>
@@ -177,11 +158,12 @@ export default function PackingListCard({ id }) {
           <Grid container padding="20px" spacing={2} justifyContent="center">
             <Grid
               item
-              xs={6}
+              xs={8}
               sx={{
                 backgroundColor: "#d5e6ed", // Slight grey background
                 padding: "10px",
                 borderRadius: "8px",
+                textAlign: "center",
               }}
             >
               <Typography variant="h4" color="text.secondary">
@@ -191,52 +173,9 @@ export default function PackingListCard({ id }) {
             </Grid>
           </Grid>
         </CardContent>
-
-        {/* Render Pallets */}
-        <CardContent sx={{ backgroundColor: "#f9f9f9" }}>
-          {loadingPallets ? (
-            <Box display="flex" justifyContent="center" alignItems="center">
-              <CircularProgress />
-              <Typography variant="body1" style={{ marginLeft: "10px" }}>
-                Loading pallets...
-              </Typography>
-            </Box>
-          ) : palletError ? (
-            <Typography variant="h6" color="error" align="center">
-              Error loading pallets: {palletError}
-            </Typography>
-          ) : pallets.length > 0 ? (
-            <Box>
-              <Typography variant="h5" gutterBottom>
-                Pallets
-              </Typography>
-              {pallets.map((pallet) => (
-                <Box
-                  key={pallet.pallet_id}
-                  sx={{
-                    border: "1px solid grey",
-                    borderRadius: "8px",
-                    padding: "10px",
-                    marginBottom: "10px",
-                    backgroundColor: "#e0f7fa",
-                  }}
-                >
-                  <Typography variant="h6">
-                    Pallet ID: {pallet.pallet_id}
-                  </Typography>
-                  <Typography>Weight: {pallet.weight} Kg</Typography>
-                  <Typography>Height: {pallet.height} cm</Typography>
-                  <Typography>Type: {pallet.pallet_type_letter}</Typography>
-                </Box>
-              ))}
-            </Box>
-          ) : (
-            <Typography variant="h6" align="center">
-              No pallets found.
-            </Typography>
-          )}
-        </CardContent>
       </Card>
     </Box>
   );
-}
+};
+
+export default PackingListHeader;

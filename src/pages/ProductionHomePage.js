@@ -3,10 +3,10 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import CreateNewPalletButton from "../components/pallets/buttons/CreateNewPalletButton";
-import ProductionReview from "../components/packing_lists/PackingListReviewTable";
 import IconButton from "@mui/material/IconButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Collapse from "@mui/material/Collapse";
+import ProductionReview from "../components/production/ProductionReviewTable";
 
 const PalletCard = React.lazy(() =>
   import("../components/pallets/palletLists/PalletCard"),

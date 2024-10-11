@@ -16,7 +16,6 @@ import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
-import Header from "../../header/Header.js";
 import CreateNewPalletButton from "../buttons/CreateNewPalletButton";
 import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
@@ -162,8 +161,6 @@ function LatestPallets() {
 
   return (
     <>
-      <Header />
-      <br />
       <Container>
         <Grid container padding={2} spacing={3} justifyContent="center">
           <Grid item alignItems="center">
