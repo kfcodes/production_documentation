@@ -29,7 +29,7 @@ export default function SearchPallets() {
   const navigate = useNavigate();
 
   const onSubmit = () => {
-    navigate(`/pallet/${pallet}/pallet_item/`);
+    navigate(`/pallet/${pallet}/`);
   };
 
   return (
