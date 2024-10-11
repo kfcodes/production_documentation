@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "../components/header/Header"
-import PalletList from "../pages/PalletListPage"
-import SinglePalletPage from "../pages/SinglePalletPage";
-import PackingListsPage from "../pages/PackingListsPage";
-import PackingListHeader from "../pages/individualPackingListData";
+import PalletList from "../pages/ProductionHomePage"
+import SinglePalletPage from "../pages/IndividualPallet";
+import PackingListsPage from "../pages/PackingListHomePage";
+import PackingListHeader from "../pages/IndividualPackingList";
 
 const RoutesComponent = () => {
   return (
