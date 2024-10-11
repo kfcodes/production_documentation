@@ -16,7 +16,7 @@ function SingleProduct() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 

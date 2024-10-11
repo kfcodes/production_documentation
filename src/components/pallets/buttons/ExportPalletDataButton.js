@@ -15,7 +15,7 @@ export default function ExportPalletData() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 

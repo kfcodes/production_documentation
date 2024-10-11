@@ -5,7 +5,7 @@ export default function CreateNewPalletButton() {
   const navigate = useNavigate();
 
   function navigateFunction(palletid) {
-    navigate(`/pallet/${palletid}/pallet_item/`);
+    navigate(`/pallet/${palletid}/`);
   }
 
   function createPallet() {

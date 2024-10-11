@@ -144,3 +144,5 @@ sketch
 
 # dotenvfile
 .env
+update.sh
+docker-compose.yml

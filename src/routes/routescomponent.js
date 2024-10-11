@@ -1,10 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import PalletList from "../components/pallets/palletLists/RecentPalletsList";
-// import FullPalletList from "../components/pallets/palletLists/AllPalletsList";
-import CreatePalletItem from "../components/pallets/singlePalletDetails/SinglePalletItemsList";
-// import SinglePallet from "../components/pallets/singlePalletDetails/SinglePalletDetails";
-import SinglePalletPage from "../pages/SinglePalletPage";
 import Header from "../components/header/Header"
+import PalletList from "../pages/PalletListPage"
+import SinglePalletPage from "../pages/SinglePalletPage";
+import PackingListsPage from "../pages/PackingListsPage";
+import PackingListHeader from "../pages/individualPackingListData";
 
 const RoutesComponent = () => {
   return (
@@ -17,6 +16,8 @@ const RoutesComponent = () => {
       <Routes>
         <Route path="/" element={<PalletList />} />
         <Route path="pallet/:palletid" element={<SinglePalletPage />} />
+        <Route path="/packing_lists" element={<PackingListsPage />} />
+        <Route path="/packing_list/:id" element={<PackingListHeader />} />
       </Routes >
     </>
   );

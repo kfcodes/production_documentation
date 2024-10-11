@@ -22,26 +22,30 @@ export default function CombinePallets() {
   const [height, setHeight] = useState();
 
   const addPallet = (id) => {
-    console.log(palletDataArray)
+    console.log(palletDataArray);
     palletDataArray.map((p) => {
-      console.log(`values for p id : ${p.pallet_id}`)
-      console.log(`values for p id : ${p.weight}`)
-      console.log(`values for p id : ${p.height}`)
-    })
+      console.log(`values for p id : ${p.pallet_id}`);
+      console.log(`values for p id : ${p.weight}`);
+      console.log(`values for p id : ${p.height}`);
+    });
     if (selectedPallets.includes(id)) setPalletId("");
     else
       fetch(`${process.env.REACT_APP_API_URL3}/pallet/${id}`)
         .then((res) => res.json())
         .then((data) => JSON.parse(JSON.stringify(data)))
         .then((palletData) => {
-          setSelectePallets([...selectedPallets, id])
-          setPalletDataArray([...palletDataArray, palletData])
+          setSelectePallets([...selectedPallets, id]);
+          setPalletDataArray([...palletDataArray, palletData]);
           setPalletId("");
         });
   };
 
   const saveAndPrintLabel = () => {
-    const data = { id: selectedPallets, pallet_list: selectedPallets, height: height, };
+    const data = {
+      id: selectedPallets,
+      pallet_list: selectedPallets,
+      height: height,
+    };
     fetch(`${process.env.REACT_APP_API_URL3}/combine_pallets`, {
       method: "put",
       headers: {

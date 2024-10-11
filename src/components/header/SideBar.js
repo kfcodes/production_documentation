@@ -16,7 +16,7 @@ import FinishedProduct from "../finishedProducts/FinishedProduct";
 import ThisWayUpLabels from "./printThisWayUpLabels";
 
 const data = [
-  { name: "Packing Lists", link: "/" },
+  { name: "Packing Lists", link: "/packing_lists" },
   { name: "Latest Pallets", link: "/latest_pallets" },
 ];
 
@@ -66,7 +66,6 @@ export default function SideBar() {
             <ThisWayUpLabels />
             <FinishedProduct />
             <COMBINE />
-            <h3>PACKING LISTS</h3>
             {getList()}
           </Stack>
         </Container>

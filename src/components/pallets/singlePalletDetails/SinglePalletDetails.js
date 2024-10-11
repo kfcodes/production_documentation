@@ -40,7 +40,7 @@ export default function SinglePalletDetails({
         setSubmitError("Error saving data");
       }
     }, 2000), // Adjust debounce time as needed
-    [onSavePalletData]
+    [onSavePalletData],
   );
 
   useEffect(() => {

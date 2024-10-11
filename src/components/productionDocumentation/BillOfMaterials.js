@@ -15,7 +15,7 @@ function Singlebom() {
         },
         (error) => {
           console.log(error);
-        }
+        },
       );
   }, []);
 

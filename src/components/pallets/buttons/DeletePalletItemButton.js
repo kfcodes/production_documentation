@@ -8,4 +8,4 @@ export default function DeletePalletItem(item_id) {
   }).then((result) => {
     console.log(result);
   });
-};
+}
