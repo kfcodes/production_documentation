@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,15 +12,15 @@ import {
   Alert,
   IconButton,
   Collapse,
-} from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 const ProductionReview = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [expanded, setExpanded] = useState(false);  // State to control table expansion
+  const [expanded, setExpanded] = useState(false); // State to control table expansion
 
   // Fetch data from API
   useEffect(() => {
@@ -30,7 +30,7 @@ const ProductionReview = () => {
           `${process.env.REACT_APP_API_URL3}/production_review/`,
         );
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         const result = await response.json();
         setData(result);
@@ -52,18 +52,16 @@ const ProductionReview = () => {
   // Render loading, error, or table content
   if (loading) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}
+      >
         <CircularProgress />
       </div>
     );
   }
 
   if (error) {
-    return (
-      <Alert severity="error">
-        Error: {error}
-      </Alert>
-    );
+    return <Alert severity="error">Error: {error}</Alert>;
   }
 
   // Split the data into the first 10 rows and the rest
@@ -78,8 +76,8 @@ const ProductionReview = () => {
       <TableContainer
         component={Paper}
         sx={{
-          width: '90%',
-          margin: '0 auto', // Center the table on the page
+          width: "90%",
+          margin: "0 auto", // Center the table on the page
           boxShadow: 3,
         }}
       >
@@ -87,15 +85,24 @@ const ProductionReview = () => {
           <TableHead>
             <TableRow
               sx={{
-                backgroundColor: '#BBDEFB',
-                align: "center"
+                backgroundColor: "#BBDEFB",
               }}
             >
-              <TableCell><strong>Description</strong></TableCell>
-              <TableCell><strong>Product ID</strong></TableCell>
-              <TableCell><strong>Lot</strong></TableCell>
-              <TableCell><strong>Batch</strong></TableCell>
-              <TableCell><strong>Total</strong></TableCell>
+              <TableCell>
+                <strong>Description</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Product ID</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Lot</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Batch</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Total</strong>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -103,11 +110,13 @@ const ProductionReview = () => {
               <TableRow
                 key={item.product_id}
                 sx={{
-                  backgroundColor: index % 2 === 0 ? '#E3F2FD' : '#BBDEFB', // Light blue and darker blue stripes
+                  backgroundColor: index % 2 === 0 ? "#E3F2FD" : "#BBDEFB", // Light blue and darker blue stripes
                 }}
               >
                 <TableCell>{item.product_description}</TableCell>
-                <TableCell><strong>{item.product_id}</strong></TableCell>
+                <TableCell>
+                  <strong>{item.product_id}</strong>
+                </TableCell>
                 <TableCell>{item.lot}</TableCell>
                 <TableCell>{item.batch}</TableCell>
                 <TableCell>{item.total}</TableCell>
@@ -122,11 +131,13 @@ const ProductionReview = () => {
                 <TableRow
                   key={item.product_id}
                   sx={{
-                    backgroundColor: (index % 2 === 0 ? '#E3F2FD' : '#BBDEFB'), // Continue the striped pattern
+                    backgroundColor: index % 2 === 0 ? "#E3F2FD" : "#BBDEFB", // Light blue and darker blue stripes
                   }}
                 >
                   <TableCell>{item.product_description}</TableCell>
-                  <TableCell><strong>{item.product_id}</strong></TableCell>
+                  <TableCell>
+                    <strong>{item.product_id}</strong>
+                  </TableCell>
                   <TableCell>{item.lot}</TableCell>
                   <TableCell>{item.batch}</TableCell>
                   <TableCell>{item.total}</TableCell>
@@ -137,7 +148,14 @@ const ProductionReview = () => {
         </Collapse>
       </TableContainer>
       {data.length > 20 && (
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px', marginTop: '10px' }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "10px",
+            marginTop: "10px",
+          }}
+        >
           <IconButton onClick={handleExpandClick}>
             {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
@@ -148,4 +166,3 @@ const ProductionReview = () => {
 };
 
 export default ProductionReview;
-

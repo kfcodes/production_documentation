@@ -24,7 +24,7 @@ export default function PackingListCard({ id }) {
     const fetchPackingListById = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL3}/packing_list_summary/${id}`
+          `${process.env.REACT_APP_API_URL3}/packing_list_summary/${id}`,
         );
         if (!response.ok) {
           throw new Error("Failed to fetch packing list");
@@ -41,7 +41,7 @@ export default function PackingListCard({ id }) {
     const fetchPalletsById = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL3}/packing_list_pallets/${id}` // Assuming this endpoint exists for pallets
+          `${process.env.REACT_APP_API_URL3}/packing_list_pallets/${id}`, // Assuming this endpoint exists for pallets
         );
         if (!response.ok) {
           throw new Error("Failed to fetch pallets");
@@ -66,7 +66,7 @@ export default function PackingListCard({ id }) {
       big: packingList?.big || 0,
       weight: packingList?.weight || 0,
     }),
-    [packingList]
+    [packingList],
   );
 
   if (loading) {
@@ -224,15 +224,9 @@ export default function PackingListCard({ id }) {
                   <Typography variant="h6">
                     Pallet ID: {pallet.pallet_id}
                   </Typography>
-                  <Typography>
-                    Weight: {pallet.weight} Kg
-                  </Typography>
-                  <Typography>
-                    Height: {pallet.height} cm
-                  </Typography>
-                  <Typography>
-                    Type: {pallet.pallet_type_letter}
-                  </Typography>
+                  <Typography>Weight: {pallet.weight} Kg</Typography>
+                  <Typography>Height: {pallet.height} cm</Typography>
+                  <Typography>Type: {pallet.pallet_type_letter}</Typography>
                 </Box>
               ))}
             </Box>

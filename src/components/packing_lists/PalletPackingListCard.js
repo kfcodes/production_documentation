@@ -21,19 +21,13 @@ import HeightIcon from "@mui/icons-material/Height";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
 const PalletPackingListCard = ({
-  pallet,           // The pallet object from the API
-  packingLists,     // Available packing lists for the dropdown
-  palletItems,      // Filtered items associated with the pallet
-  selectedPackingList,   // Selected packing list
-  onSelectPackingList,   // Callback to select a packing list
+  pallet, // The pallet object from the API
+  packingLists, // Available packing lists for the dropdown
+  palletItems, // Filtered items associated with the pallet
+  selectedPackingList, // Selected packing list
+  onSelectPackingList, // Callback to select a packing list
 }) => {
-  const {
-    pallet_id,
-    pallet_type_letter,
-    weight,
-    height,
-    pallet_name,
-  } = pallet; // Destructure relevant fields from the pallet object
+  const { pallet_id, pallet_type_letter, weight, height, pallet_name } = pallet; // Destructure relevant fields from the pallet object
 
   // Handle dropdown selection for packing lists
   const handleSelectChange = (event) => {

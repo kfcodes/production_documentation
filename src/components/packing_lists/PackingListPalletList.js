@@ -5,11 +5,11 @@ import PalletPackingListCard from "./PalletPackingListCard"; // Import the card 
 
 // PackingListPalletList Component
 const PackingListPalletList = () => {
-  const { packingListId } = useParams();  // Extract packing list ID from URL
-  const [pallets, setPallets] = useState([]);  // State for pallets
-  const [packingLists, setPackingLists] = useState([]);  // Available packing lists
-  const [loading, setLoading] = useState(true);  // Loading state
-  const [error, setError] = useState(null);  // Error state
+  const { packingListId } = useParams(); // Extract packing list ID from URL
+  const [pallets, setPallets] = useState([]); // State for pallets
+  const [packingLists, setPackingLists] = useState([]); // Available packing lists
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
 
   // Fetch data once on component mount
   useEffect(() => {
@@ -39,21 +39,23 @@ const PackingListPalletList = () => {
         const packingListsData = await packingListsResponse.json();
 
         // Set the data in state
-        setPallets(palletsData);  // Assuming palletsData is an array of pallet objects
-        setPackingLists(Object.values(packingListsData));  // Assuming packingListsData is an object
-        setLoading(false);  // Disable loading state after data is fetched
+        setPallets(palletsData); // Assuming palletsData is an array of pallet objects
+        setPackingLists(Object.values(packingListsData)); // Assuming packingListsData is an object
+        setLoading(false); // Disable loading state after data is fetched
       } catch (error) {
         console.error("Error fetching data:", error);
-        setError(error.message);  // Set error message
-        setLoading(false);  // Stop loading in case of error
+        setError(error.message); // Set error message
+        setLoading(false); // Stop loading in case of error
       }
     };
 
-    fetchData();  // Trigger the data fetch on mount
-  }, [packingListId]);  // Re-run fetch if packingListId changes
+    fetchData(); // Trigger the data fetch on mount
+  }, [packingListId]); // Re-run fetch if packingListId changes
 
   const handlePackingListSelection = (palletId, packingListId) => {
-    console.log(`Pallet ID: ${palletId} assigned to packing list: ${packingListId}`);
+    console.log(
+      `Pallet ID: ${palletId} assigned to packing list: ${packingListId}`,
+    );
     // Logic for handling the selection can be placed here (e.g., API request to update assignment)
   };
 
@@ -98,11 +100,11 @@ const PackingListPalletList = () => {
           <Grid item xs={12} md={6} key={pallet.pallet_id}>
             {/* Render PalletPackingListCard for each pallet */}
             <PalletPackingListCard
-              pallet={pallet}  // Pass the pallet data
-              palletItems={pallet.items || []}  // Pass the items for the pallet
-              packingLists={packingLists}  // Pass the available packing lists
-              selectedPackingList={pallet.packing_list_id}  // Pass the currently selected packing list ID
-              onSelectPackingList={handlePackingListSelection}  // Pass callback for selecting packing list
+              pallet={pallet} // Pass the pallet data
+              palletItems={pallet.items || []} // Pass the items for the pallet
+              packingLists={packingLists} // Pass the available packing lists
+              selectedPackingList={pallet.packing_list_id} // Pass the currently selected packing list ID
+              onSelectPackingList={handlePackingListSelection} // Pass callback for selecting packing list
             />
           </Grid>
         ))}
