@@ -1,6 +1,6 @@
 import React from "react";
-import OpenPackingLists from "../components/packing_lists/OpenPackingLists";
-import PalletsNotOnList from "../components/packing_lists/PalletsNotOnList";
+import OpenPackingLists from "../components/packing_lists/OpenPackingListsComponent";
+import PalletsNotOnList from "../components/packing_lists/PalletsWithNoPackingListComponent";
 import { Container, Typography, Box } from "@mui/material";
 
 // Parent component that includes the OpenPackingLists and PalletsNotOnList components
