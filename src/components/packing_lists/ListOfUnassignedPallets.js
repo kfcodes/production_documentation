@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Box, Container, Typography, CircularProgress, Alert } from "@mui/material";
-import PalletPackingListCard from "./PalletCardInfoPackingList"; // Child component
+import PalletPackingListCard from "./PackingListPalletCard"; // Child component
 
 function PalletList() {
   const [pallets, setPallets] = useState([]);
